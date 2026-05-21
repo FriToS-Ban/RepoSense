@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+python-jose[cryptography]
+httpx
+pygithub
+google-generativeai
+python-dotenv
+alembic
