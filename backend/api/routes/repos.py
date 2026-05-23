@@ -69,6 +69,8 @@ def enable_repo(req: EnableRepoRequest, current_user: User = Depends(get_current
         repo.is_active = True
         db.commit()
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to create webhook: {str(e)}")
         
     return {"message": "Repo enabled successfully"}

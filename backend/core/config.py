@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     
     FRONTEND_URL: str = "http://localhost:5173"
     BACKEND_URL: str = "http://localhost:8000"
+    WEBHOOK_URL: str = ""
 
     class Config:
         env_file = ".env"

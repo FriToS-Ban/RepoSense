@@ -26,11 +26,10 @@ def create_webhook(access_token: str, repo_full_name: str) -> str:
     g = get_github_client(access_token)
     repo = g.get_repo(repo_full_name)
     
-    config = {
-        "url": f"{settings.BACKEND_URL}/api/webhook/github",
-        "content_type": "json",
-        "secret": settings.GITHUB_WEBHOOK_SECRET
-    }
+    config = {"url": f"{settings.BACKEND_URL}/api/webhook/github",
+              "content_type": "json",
+              "secret": settings.GITHUB_WEBHOOK_SECRET
+              }
     
     try:
         hook = repo.create_hook(
