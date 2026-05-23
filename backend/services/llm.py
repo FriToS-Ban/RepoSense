@@ -1,6 +1,8 @@
 from asyncio.log import logger
 import json
-import google.generativeai as genai
+from urllib import response
+from xmlrpc import client
+from google import genai
 from backend.core.config import settings
 import logging
 logger = logging.getLogger(__name__)
@@ -50,9 +52,8 @@ Diff:
         pr_diff += "\n\n[Diff truncated due to size — only first 48000 chars reviewed]"
 
     if settings.GEMINI_API_KEY:
-        genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel(settings.GEMINI_MODEL, system_instruction=system_prompt)
-        response = model.generate_content(user_message)
+        client = genai.Client(api_key=settings.GEMINI_API_KEY)
+        response = client.models.generate_content(model=settings.GEMINI_MODEL,contents=user_message,config={"system_instruction": system_prompt})
         content = response.text
     else:
         raise Exception("No LLM API key configured")
