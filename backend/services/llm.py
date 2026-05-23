@@ -1,6 +1,9 @@
+from asyncio.log import logger
 import json
 import google.generativeai as genai
 from backend.core.config import settings
+import logging
+logger = logging.getLogger(__name__)
 
 def get_review_from_llm(pr_title: str, pr_author: str, repo_full_name: str, pr_diff: str):
     system_prompt = """
@@ -41,10 +44,14 @@ Repository: {repo_full_name}
 Diff:
 {pr_diff}
 """
+    MAX_DIFF_CHARS = 48000
+    if len(pr_diff) > MAX_DIFF_CHARS:
+        pr_diff = pr_diff[:MAX_DIFF_CHARS]
+        pr_diff += "\n\n[Diff truncated due to size — only first 48000 chars reviewed]"
 
     if settings.GEMINI_API_KEY:
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=system_prompt)
+        model = genai.GenerativeModel(settings.GEMINI_MODEL, system_instruction=system_prompt)
         response = model.generate_content(user_message)
         content = response.text
     else:
@@ -62,5 +69,6 @@ Diff:
 
     try:
         return json.loads(content)
-    except json.JSONDecodeError:
-        return []
+    except json.JSONDecodeError as e:
+        logger.error(f"Failed to parse LLM response as JSON: {e}\nRaw response: {content}")
+        raise Exception(f"LLM returned invalid JSON: {e}")

@@ -1,5 +1,5 @@
 import enum
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, Enum as SAEnum, Text
 from sqlalchemy.orm import relationship
 import uuid
@@ -16,7 +16,7 @@ class User(Base):
     github_id = Column(String, unique=True, index=True)
     github_username = Column(String)
     access_token = Column(String)  # Note: should be encrypted in a real prod app
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     
     repositories = relationship("Repository", back_populates="owner")
 
@@ -30,7 +30,7 @@ class Repository(Base):
     repo_full_name = Column(String)
     webhook_id = Column(String, nullable=True)
     is_active = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     
     owner = relationship("User", back_populates="repositories")
     pull_requests = relationship("PullRequest", back_populates="repository")
@@ -51,7 +51,7 @@ class PullRequest(Base):
     status = Column(SAEnum(PRStatus), default=PRStatus.pending)
     quality_score = Column(Integer, nullable=True)
     reviewed_at = Column(DateTime, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     
     repository = relationship("Repository", back_populates="pull_requests")
     comments = relationship("ReviewComment", back_populates="pull_request")
@@ -79,6 +79,6 @@ class ReviewComment(Base):
     category = Column(SAEnum(IssueCategory))
     comment_body = Column(Text)
     github_comment_id = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     
     pull_request = relationship("PullRequest", back_populates="comments")

@@ -6,9 +6,6 @@ import backend.models.models  # to ensure models are imported before create_all
 
 from backend.api.routes import auth, repos, webhooks, prs, analytics
 
-# Create tables
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="RepoSense API")
 
 app.add_middleware(
@@ -24,6 +21,10 @@ app.include_router(repos.router, prefix="/api/repos", tags=["Repos"])
 app.include_router(prs.router, prefix="/api/prs", tags=["PRs"])
 app.include_router(webhooks.router, prefix="/api/webhook", tags=["Webhooks"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
+
+@app.on_event("startup")
+async def startup():
+    Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():

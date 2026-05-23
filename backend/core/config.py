@@ -6,9 +6,11 @@ class Settings(BaseSettings):
     GITHUB_CLIENT_SECRET: str = ""
     GITHUB_WEBHOOK_SECRET: str = ""
     GEMINI_API_KEY: str = ""
-    DATABASE_URL: str = "sqlite:///./reposense.db"
+    DATABASE_URL: str = "postgresql://user:password@localhost/reposense"
+    ENVIRONMENT: str = "development"
+    GEMINI_MODEL: str = "gemini-1.5-flash"
     
-    SECRET_KEY: str = "supersecretkey" # Replace in prod
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 7 days
     

@@ -80,7 +80,7 @@ async def auth_callback(code: str, response: Response, db: Session = Depends(get
         httponly=True,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         samesite="lax",
-        secure=False  # Set to True in production with HTTPS
+        secure=settings.ENVIRONMENT == "production"
     )
     return redirect
 
