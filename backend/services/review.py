@@ -4,6 +4,7 @@ from backend.models.models import PullRequest, Repository, User, ReviewComment, 
 from backend.services.github import get_pr_diff, post_review_comments
 from backend.services.llm import get_review_from_llm
 import logging
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -59,19 +60,11 @@ def process_pr_review(repo_full_name: str, pr_number: int, pr_title: str, pr_aut
         # Fetch PR Diff
         try:
             diff = get_pr_diff(user.access_token, repo_full_name, pr_number)
-            
-            # Token limits handling (basic char length approximation)
-            if len(diff) > 30000:
-                diff = diff[:30000] + "\n\n... Diff truncated due to size limit."
-                
+
             # Get review from LLM
             comments = get_review_from_llm(pr_title, pr_author, repo_full_name, diff)
-            
-            # Post comments to GitHub
-            if comments:
-                post_review_comments(user.access_token, repo_full_name, pr_number, comments)
-                
-            # Save comments to DB
+
+            # Save comments to DB first
             for c in comments:
                 db_comment = ReviewComment(
                     pr_id=pr.id,
@@ -82,13 +75,20 @@ def process_pr_review(repo_full_name: str, pr_number: int, pr_title: str, pr_aut
                     comment_body=c.get("comment"),
                 )
                 db.add(db_comment)
-            
-            # Update PR
+
+            # Update PR status
             pr.quality_score = calculate_quality_score(comments)
             pr.status = PRStatus.reviewed
-            pr.reviewed_at = datetime.utcnow()
+            pr.reviewed_at = datetime.now(timezone.utc)
             db.commit()
-            
+
+            # Post to GitHub after DB is safe
+            if comments:
+                try:
+                    post_review_comments(user.access_token, repo_full_name, pr_number, comments)
+                except Exception as e:
+                    logger.error(f"Failed to post comments to GitHub: {str(e)}")
+
         except Exception as e:
             logger.error(f"Error processing PR {pr_number}: {str(e)}")
             pr.status = PRStatus.failed

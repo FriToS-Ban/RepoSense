@@ -1,7 +1,5 @@
 from asyncio.log import logger
 import json
-from urllib import response
-from xmlrpc import client
 from google import genai
 from backend.core.config import settings
 import logging
@@ -36,20 +34,22 @@ Each item in the array must have exactly these fields:
 If there are no issues, return an empty array: []
 """
 
-    user_message = f"""
-Here is the Pull Request diff to review:
-
-PR Title: {pr_title}
-Author: {pr_author}
-Repository: {repo_full_name}
-
-Diff:
-{pr_diff}
-"""
+    
     MAX_DIFF_CHARS = 48000
     if len(pr_diff) > MAX_DIFF_CHARS:
         pr_diff = pr_diff[:MAX_DIFF_CHARS]
         pr_diff += "\n\n[Diff truncated due to size — only first 48000 chars reviewed]"
+    
+    user_message = f"""
+    Here is the Pull Request diff to review:
+
+    PR Title: {pr_title}
+    Author: {pr_author}
+    Repository: {repo_full_name}
+
+    Diff:
+    {pr_diff}
+    """
 
     if settings.GEMINI_API_KEY:
         client = genai.Client(api_key=settings.GEMINI_API_KEY)
