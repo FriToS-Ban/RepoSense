@@ -8,3 +8,4 @@ google-generativeai
 python-dotenv
 alembic
 pydantic-settings
+psycopg2-binary
