@@ -7,3 +7,4 @@ pygithub
 google-generativeai
 python-dotenv
 alembic
+pydantic-settings
