@@ -39,13 +39,26 @@ def get_analytics_overview(days: int = 30, current_user: User = Depends(get_curr
             
     trends = [{"date": d, "score": int(trends_dict[d]["sum"] / trends_dict[d]["count"])} for d in sorted(trends_dict.keys())]
     
+    total_critical = db.query(func.count(ReviewComment.id)).join(PullRequest).join(Repository).filter(
+        Repository.user_id == current_user.id,
+        ReviewComment.created_at >= cutoff,
+        ReviewComment.severity == "critical"
+    ).scalar()
+
+    total_warnings = db.query(func.count(ReviewComment.id)).join(PullRequest).join(Repository).filter(
+        Repository.user_id == current_user.id,
+        ReviewComment.created_at >= cutoff,
+        ReviewComment.severity == "warning"
+    ).scalar()
+
     return {
         "total_prs": total_prs,
         "average_score": int(avg_score),
         "total_issues": total_issues or 0,
+        "total_critical": total_critical or 0,
+        "total_warnings": total_warnings or 0,
         "trends": trends
     }
-
 @router.get("/categories")
 def get_analytics_categories(days: int = 30, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     cutoff = datetime.utcnow() - timedelta(days=days)
