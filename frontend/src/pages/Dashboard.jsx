@@ -53,7 +53,7 @@ export default function Dashboard() {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ repo_full_name, github_repo_id })
+        body: JSON.stringify({ repo_full_name, github_repo_id, crawl_permission })
       });
       if (!res.ok) throw new Error();
       setRepos(prev =>
@@ -121,7 +121,7 @@ export default function Dashboard() {
             {prs.map(pr => (
               <div key={pr.id} className="p-3 hover:bg-black/20 rounded border border-border flex justify-between items-center">
                 <div>
-                  <Link to={`/pr/${pr.id}`} className="font-bold text-white hover:text-primary transition">{pr.pr_title}</Link>
+                  <Link to={`/pr/${pr.id}`} className="font-bold text-white hover:text-primary transition">{pr.pr_title || pr.title}</Link>
                   <div className="text-sm text-textMuted">{pr.repo_full_name} • {new Date(pr.created_at).toLocaleDateString()}</div>
                 </div>
                 <div className="flex items-center gap-3">

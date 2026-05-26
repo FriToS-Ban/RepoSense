@@ -34,9 +34,9 @@ def get_pr_details(pr_id: str, current_user: User = Depends(get_current_user), d
     return {
         "id": pr.id,
         "repo_full_name": pr.repository.repo_full_name,
-        "pr_number": pr.github_pr_number,
-        "title": pr.pr_title,
-        "author": pr.pr_author,
+        "github_pr_number": pr.github_pr_number,
+        "pr_title": pr.pr_title,
+        "pr_author": pr.pr_author,
         "status": pr.status,
         "quality_score": pr.quality_score,
         "created_at": pr.created_at
