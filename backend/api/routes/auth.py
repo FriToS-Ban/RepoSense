@@ -79,8 +79,8 @@ async def auth_callback(code: str, response: Response, db: Session = Depends(get
         value=jwt_token,
         httponly=True,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-        samesite="lax",
-        secure=settings.ENVIRONMENT == "production"
+        samesite="none",
+        secure=True
     )
     return redirect
 
