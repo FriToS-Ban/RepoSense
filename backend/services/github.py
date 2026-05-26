@@ -3,6 +3,7 @@ from github import Github, Auth
 from github.GithubException import GithubException
 from backend.core.config import settings
 import base64
+import requests
 
 def get_github_client(access_token: str) -> Github:
     auth = Auth.Token(access_token)
@@ -96,7 +97,7 @@ def post_review_comments(access_token: str, repo_full_name: str, pr_number: int,
             # PyGithub's create_review_comment takes: body, commit_id, path, line (only for PR reviews in API v3 with line param)
             pr.create_review_comment(
                 body=c["comment"],
-                commit_id=commit_id,
+                commit=commit_id,
                 path=c["file_path"],
                 line=c["line_number"],
                 side="RIGHT"
