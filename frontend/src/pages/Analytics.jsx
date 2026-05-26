@@ -75,7 +75,7 @@ export default function Analytics() {
         {/* Quality Score Chart */}
         <div className="bg-surface p-6 rounded-xl border border-border">
           <h3 className="text-xl font-bold mb-4">Quality Score (Last 30 Days)</h3>
-          <div className="h-64">
+          <div style={{ width: '100%', height: 256 }}>
             {overview?.trends?.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={overview.trends}>
@@ -94,7 +94,7 @@ export default function Analytics() {
         {/* Issues by Category */}
         <div className="bg-surface p-6 rounded-xl border border-border">
           <h3 className="text-xl font-bold mb-4">Issues by Category</h3>
-          <div className="h-64">
+          <div style={{ width: '100%', height: 256 }}>
             {categories?.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={categories}>
