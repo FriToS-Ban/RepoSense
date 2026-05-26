@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     BACKEND_URL: str = "http://localhost:8000"
     WEBHOOK_URL: str = ""
 
+    PINECONE_API_KEY: str = ""
+    PINECONE_INDEX_NAME: str = "reposense"
+
     class Config:
         env_file = ".env"
 

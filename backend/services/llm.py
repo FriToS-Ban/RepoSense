@@ -5,7 +5,7 @@ from backend.core.config import settings
 import logging
 logger = logging.getLogger(__name__)
 
-def get_review_from_llm(pr_title: str, pr_author: str, repo_full_name: str, pr_diff: str):
+def get_review_from_llm(pr_title: str, pr_author: str, repo_full_name: str, pr_diff: str, rag_context: str = ""):
     system_prompt = """
 You are an expert senior software engineer performing a thorough code review.
 You will be given a GitHub Pull Request diff.
@@ -40,6 +40,14 @@ If there are no issues, return an empty array: []
         pr_diff = pr_diff[:MAX_DIFF_CHARS]
         pr_diff += "\n\n[Diff truncated due to size — only first 48000 chars reviewed]"
     
+    context_section = ""
+    if rag_context:
+        context_section = f"""
+    RELEVANT CODEBASE CONTEXT (files related to this PR):
+    {rag_context[:12000]}
+    ---
+    """
+
     user_message = f"""
     Here is the Pull Request diff to review:
 
@@ -47,6 +55,7 @@ If there are no issues, return an empty array: []
     Author: {pr_author}
     Repository: {repo_full_name}
 
+    {context_section}
     Diff:
     {pr_diff}
     """

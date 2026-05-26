@@ -40,6 +40,14 @@ export default function Dashboard() {
 
   const handleToggle = async (repo_full_name, github_repo_id, isActive) => {
     const endpoint = isActive ? '/api/repos/disable' : '/api/repos/enable';
+
+    let crawl_permission = false;
+    if (!isActive) {
+        crawl_permission = window.confirm(
+            `Allow RepoSense to crawl the full codebase of ${repo_full_name} for smarter AI reviews?\n\nThis indexes your code into a knowledge graph for better context. Your code is never shared.`
+        );
+    }
+
     try {
       const res = await fetch(`${API}${endpoint}`, {
         method: 'POST',

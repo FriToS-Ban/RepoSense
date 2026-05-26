@@ -61,8 +61,14 @@ def process_pr_review(repo_full_name: str, pr_number: int, pr_title: str, pr_aut
         try:
             diff = get_pr_diff(user.access_token, repo_full_name, pr_number)
 
+            # Get RAG context if repo is indexed
+            rag_context = ""
+            if repo.is_indexed and repo.crawl_permission:
+                from backend.services.rag import get_relevant_context
+                rag_context = get_relevant_context(repo.id, diff, db)
+
             # Get review from LLM
-            comments = get_review_from_llm(pr_title, pr_author, repo_full_name, diff)
+            comments = get_review_from_llm(pr_title, pr_author, repo_full_name, diff, rag_context)
 
             # Save comments to DB first
             for c in comments:

@@ -2,6 +2,7 @@ import httpx
 from github import Github, Auth
 from github.GithubException import GithubException
 from backend.core.config import settings
+import base64
 
 def get_github_client(access_token: str) -> Github:
     auth = Auth.Token(access_token)
@@ -104,3 +105,36 @@ def post_review_comments(access_token: str, repo_full_name: str, pr_number: int,
             # Fallback to general comment if line is invalid
             pr.create_issue_comment(f"**Issue in {c['file_path']} at line {c['line_number']}**\n\n{c['comment']}")
 
+def get_repo_contents(access_token: str, repo_full_name: str, path: str = "") -> list:
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    results = []
+    
+    def fetch_recursive(current_path):
+        url = f"https://api.github.com/repos/{repo_full_name}/contents/{current_path}"
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return
+        items = response.json()
+        if not isinstance(items, list):
+            return
+        for item in items:
+            if item["type"] == "dir":
+                if item["name"] not in [".git", "node_modules", "__pycache__", ".venv", "dist", "build"]:
+                    fetch_recursive(item["path"])
+            elif item["type"] == "file" and item.get("size", 0) < 100000:
+                file_res = requests.get(item["url"], headers=headers)
+                if file_res.status_code == 200:
+                    file_data = file_res.json()
+                    content = ""
+                    if file_data.get("encoding") == "base64":
+                        try:
+                            content = base64.b64decode(file_data["content"]).decode("utf-8", errors="ignore")
+                        except Exception:
+                            pass
+                    results.append({"path": item["path"], "content": content})
+    
+    fetch_recursive(path)
+    return results

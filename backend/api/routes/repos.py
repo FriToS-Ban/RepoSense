@@ -6,12 +6,14 @@ from backend.core.database import get_db
 from backend.models.models import User, Repository
 from backend.api.deps import get_current_user
 from backend.services.github import list_user_repositories, create_webhook, delete_webhook
+from backend.services.indexer import index_repository_background
 
 router = APIRouter()
 
 class EnableRepoRequest(BaseModel):
     repo_full_name: str
     github_repo_id: str
+    crawl_permission: bool = False
 
 @router.get("/")
 def get_repos(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -73,6 +75,12 @@ def enable_repo(req: EnableRepoRequest, current_user: User = Depends(get_current
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to create webhook: {str(e)}")
         
+    repo.crawl_permission = req.crawl_permission
+    db.commit()
+
+    if req.crawl_permission:
+        index_repository_background(repo.id, current_user.access_token)
+
     return {"message": "Repo enabled successfully"}
 
 @router.post("/disable")
