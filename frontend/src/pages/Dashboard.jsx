@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const API = 'http://localhost:8000';
+const API = import.meta.env.VITE_API_URL;
 
 export default function Dashboard() {
   const [repos, setRepos] = useState([]);

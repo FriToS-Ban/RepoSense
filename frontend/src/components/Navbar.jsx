@@ -4,7 +4,7 @@ import GithubIcon from './GithubIcon';
 
 export default function Navbar() {
   const handleLogout = async () => {
-    await fetch('http://localhost:8000/api/auth/logout', { method: 'POST', credentials: 'omit' });
+    await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, { method: 'POST', credentials: 'omit' });
     // In real app, we'd want to handle credentials properly and update context state
     window.location.href = '/';
   };

@@ -3,7 +3,7 @@ import GithubIcon from '../components/GithubIcon';
 
 export default function Landing() {
   const handleConnect = () => {
-    window.location.href = 'http://localhost:8000/api/auth/github';
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/github`;
   };
 
   return (
