@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     PINECONE_API_KEY: str = ""
     PINECONE_INDEX_NAME: str = "reposense"
 
+    NVIDIA_API_KEY: str = ""
+    NVIDIA_MODEL: str = "qwen/qwen3-coder-480b-a35b-instruct"
+
     class Config:
         env_file = ".env"
 

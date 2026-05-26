@@ -60,9 +60,25 @@ If there are no issues, return an empty array: []
     {pr_diff}
     """
 
-    if settings.GEMINI_API_KEY:
+    if settings.NVIDIA_API_KEY:
+        from openai import OpenAI
+        client = OpenAI(
+            base_url="https://integrate.api.nvidia.com/v1",
+            api_key=settings.NVIDIA_API_KEY
+        )
+        response = client.chat.completions.create(
+            model=settings.NVIDIA_MODEL,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ],
+            max_tokens=2000,
+            temperature=0.2
+        )
+        content = response.choices[0].message.content
+    elif settings.GEMINI_API_KEY:
         client = genai.Client(api_key=settings.GEMINI_API_KEY)
-        response = client.models.generate_content(model=settings.GEMINI_MODEL,contents=user_message,config={"system_instruction": system_prompt})
+        response = client.models.generate_content(model=settings.GEMINI_MODEL, contents=user_message, config={"system_instruction": system_prompt})
         content = response.text
     else:
         raise Exception("No LLM API key configured")
