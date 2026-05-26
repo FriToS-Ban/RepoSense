@@ -74,11 +74,20 @@ export default function PRDetail() {
             <p className="text-textMuted text-sm">by {pr.pr_author} · {pr.repo_full_name} · PR #{pr.github_pr_number}</p>
           </div>
           {pr.quality_score !== null && (
-            <div className="text-center">
+            <div className="text-center relative group">
               <div className={`text-4xl font-bold ${pr.quality_score >= 80 ? 'text-green-400' : pr.quality_score >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
                 {pr.quality_score}
               </div>
-              <div className="text-textMuted text-xs">Quality Score</div>
+              <div className="text-textMuted text-xs flex items-center gap-1 justify-center cursor-help">
+                Quality Score <span className="border border-textMuted rounded-full w-3 h-3 text-[10px] flex items-center justify-center">?</span>
+              </div>
+              <div className="absolute right-0 top-full mt-2 w-48 bg-gray-900 border border-border rounded-lg p-3 text-xs text-left hidden group-hover:block z-10 shadow-lg">
+                <p className="font-bold text-white mb-2">Scoring Formula</p>
+                <p className="text-textMuted mb-1">Starts at <span className="text-white">100</span></p>
+                <p className="text-red-400 mb-1">− 15 per critical issue</p>
+                <p className="text-yellow-400 mb-1">− 5 per warning</p>
+                <p className="text-blue-400">− 1 per suggestion</p>
+              </div>
             </div>
           )}
         </div>
