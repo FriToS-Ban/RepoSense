@@ -37,7 +37,7 @@ def create_webhook(access_token: str, repo_full_name: str) -> str:
         hook = repo.create_hook(
             name="web",
             config=config,
-            events=["pull_request"],
+            events=["pull_request", "push"],
             active=True
         )
         return str(hook.id)
@@ -139,3 +139,20 @@ def get_repo_contents(access_token: str, repo_full_name: str, path: str = "") ->
     
     fetch_recursive(path)
     return results
+
+def get_file_content(access_token: str, repo_full_name: str, file_path: str) -> str:
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    url = f"https://api.github.com/repos/{repo_full_name}/contents/{file_path}"
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return ""
+    data = response.json()
+    if data.get("encoding") == "base64":
+        try:
+            return base64.b64decode(data["content"]).decode("utf-8", errors="ignore")
+        except Exception:
+            return ""
+    return ""
