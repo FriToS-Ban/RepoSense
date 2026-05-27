@@ -16,19 +16,25 @@ def get_pinecone_index():
     if settings.PINECONE_INDEX_NAME not in existing:
         pc.create_index(
             name=settings.PINECONE_INDEX_NAME,
-            dimension=768,
+            dimension=1024,
             metric="cosine",
             spec={"serverless": {"cloud": "aws", "region": "us-east-1"}}
         )
     return pc.Index(settings.PINECONE_INDEX_NAME)
 
 def embed_text(text: str) -> List[float]:
-    client = genai.Client(api_key=settings.GEMINI_API_KEY)
-    result = client.models.embed_content(
-        model="text-embedding-004",
-        contents=text
+    from openai import OpenAI
+    client = OpenAI(
+        base_url="https://integrate.api.nvidia.com/v1",
+        api_key=settings.NVIDIA_API_KEY
     )
-    return result.embeddings[0].values
+    response = client.embeddings.create(
+        model="nvidia/nv-embedqa-e5-v5",
+        input=text[:8000],
+        encoding_format="float",
+        extra_body={"input_type": "query", "truncate": "END"}
+    )
+    return response.data[0].embedding
 
 def store_node_in_pinecone(node: CodeNode) -> Optional[str]:
     try:
