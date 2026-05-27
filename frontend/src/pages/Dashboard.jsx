@@ -100,6 +100,14 @@ export default function Dashboard() {
                 <div>
                   <div className="font-bold text-white">{repo.repo_name}</div>
                   <div className="text-sm text-textMuted">{repo.repo_full_name}</div>
+                  {repo.is_active && repo.crawl_permission && (
+                    <div className="text-xs mt-1">
+                      {repo.is_indexed
+                        ? <span className="text-green-400">✓ Knowledge graph ready</span>
+                        : <span className="text-yellow-400 animate-pulse">⟳ Indexing codebase...</span>
+                      }
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={() => handleToggle(repo.repo_full_name, repo.github_repo_id, repo.is_active)}

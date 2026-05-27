@@ -106,7 +106,7 @@ def deduplicate_nodes(nodes: List[CodeNode]) -> List[CodeNode]:
 
 # ─── Improved context retrieval ───────────────────────────────────────────────
 
-def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5) -> str:
+def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5, changed_file_paths: list = []) -> str:
     try:
         index = get_pinecone_index()
 
@@ -116,6 +116,16 @@ def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5) -
         if not diff_chunks:
             # Fallback to embedding full diff if no chunks found
             diff_chunks = [("", diff[:8000])]
+        
+        # Always include directly changed files first
+        direct_nodes = []
+        for file_path in changed_file_paths:
+            nodes = db.query(CodeNode).filter(
+                CodeNode.repo_id == repo_id,
+                CodeNode.file_path == file_path
+            ).all()
+            direct_nodes.extend(nodes)
+        all_matched_nodes.extend(direct_nodes)
 
         all_matched_nodes: List[CodeNode] = []
 

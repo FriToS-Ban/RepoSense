@@ -1,10 +1,14 @@
 from datetime import datetime
+
+from matplotlib.pylab import diff
 from backend.core.database import SessionLocal
 from backend.models.models import PullRequest, Repository, User, ReviewComment, PRStatus
 from backend.services.github import get_pr_diff, post_review_comments
 from backend.services.llm import get_review_from_llm
 import logging
 from datetime import datetime, timezone
+
+from backend.services.rag import get_relevant_context
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +69,9 @@ def process_pr_review(repo_full_name: str, pr_number: int, pr_title: str, pr_aut
             rag_context = ""
             if repo.is_indexed and repo.crawl_permission:
                 from backend.services.rag import get_relevant_context
-                rag_context = get_relevant_context(repo.id, diff, db)
+                # Extract changed file paths from diff
+                changed_files = [line.split(' b/')[-1] for line in diff.split('\n') if line.startswith('diff --git')]
+                rag_context = get_relevant_context(repo.id, diff, db, changed_file_paths=changed_files)
 
             # Get review from LLM
             comments = get_review_from_llm(pr_title, pr_author, repo_full_name, diff, rag_context)

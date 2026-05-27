@@ -33,13 +33,16 @@ def get_repos(current_user: User = Depends(get_current_user), db: Session = Depe
         if r["id"] in db_repos:
             is_active = db_repos[r["id"]].is_active
             
+        db_repo = db_repos.get(r["id"])
         result.append({
             "github_repo_id": r["id"],
             "repo_name": r["name"],
             "repo_full_name": r["full_name"],
-            "is_active": is_active
+            "is_active": is_active,
+            "crawl_permission": db_repo.crawl_permission if db_repo else False,
+            "is_indexed": db_repo.is_indexed if db_repo else False
         })
-        
+
     return result
 
 @router.post("/enable")
