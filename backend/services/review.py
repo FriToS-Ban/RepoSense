@@ -1,6 +1,4 @@
 from datetime import datetime
-
-from matplotlib.pylab import diff
 from backend.core.database import SessionLocal
 from backend.models.models import PullRequest, Repository, User, ReviewComment, PRStatus
 from backend.services.github import get_pr_diff, post_review_comments
