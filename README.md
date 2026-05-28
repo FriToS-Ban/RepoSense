@@ -1,114 +1,152 @@
-# RepoSense — AI GitHub PR Review Agent
+# RepoSense
 
-> RepoSense automatically reviews your GitHub Pull Requests using Claude AI, posting inline comments directly on your PRs — just like a senior engineer on your team. Connect a repo, open a PR, and get a structured code review in seconds.
-
-
----
-
-## Tech Stack
-
-**Frontend:** React, Tailwind CSS, Recharts, React Router
-**Backend:** FastAPI (Python), SQLAlchemy, PyGithub
-**Database:** PostgreSQL (Supabase)
-**AI:** Claude `claude-sonnet-4-20250514` via Anthropic API
-**Deployment:** Vercel (frontend), Render (backend), Supabase (database)
+It is an AI-powered code review platform that automatically reviews your GitHub Pull Requests using RAG (Retrieval Augmented Generation) and LLM analysis. When a PR is opened or updated, RepoSense fetches the diff, retrieves relevant codebase context from a knowledge graph, and posts inline review comments directly on the PR in GitHub.
 
 ---
 
 ## Features
 
-- **Automatic PR Reviews** — Triggered by GitHub webhooks whenever a PR is opened or updated
-- **Inline Comments** — AI review comments posted directly on the PR diff, file by file and line by line
-- **Quality Scoring** — Every PR gets a 0–100 quality score based on issue count and severity
-- **Analytics Dashboard** — Track code quality trends over time across all your repositories
-- **Severity Triage** — Issues categorized as Critical, Warning, or Suggestion across Security, Performance, Logic, Style, and Documentation
+- **Automatic PR Reviews** — triggers on every PR open or update via GitHub webhooks
+- **RAG-Enhanced Analysis** — indexes your entire codebase into a knowledge graph for context-aware reviews
+- **Inline GitHub Comments** — posts review comments directly on the exact line of code in GitHub
+- **Quality Scoring** — assigns a quality score (0–100) to each PR based on issues found
+- **Knowledge Graph** — extracts functions, classes, and relationships (imports, calls, inheritance) from Python and JS/TS files
+- **Per-chunk Diff Embedding** — each changed hunk is embedded separately for targeted context retrieval
+- **Dashboard** — view all repositories, PR history, and quality scores
+- **Analytics** — track code quality trends, issue categories, and averages over time
+- **PR Detail View** — see all review comments with severity, category, and file location
+- **Multi-user** — each user connects their own GitHub account independently
 
 ---
 
-## How the AI Review Works
+## Tech Stack
 
-When a PR is opened or updated:
+**Frontend**
+- React 18, Vite, Tailwind CSS
+- React Router, Recharts
+- Lucide React icons
 
-1. GitHub sends a webhook event to the RepoSense backend
-2. The backend fetches the full PR diff via the GitHub API
-3. The diff is sent to **Claude (`claude-sonnet-4-20250514`)** with a structured system prompt that instructs it to act as a senior engineer — flagging only real problems (bugs, security issues, logic errors, performance problems), explaining *why* each issue matters, and suggesting concrete fixes
-4. Claude responds with a JSON array of review comments, each containing the file path, line number, severity, category, and explanation
-5. The backend posts each comment as an inline review comment on the GitHub PR
-6. A quality score is calculated: starts at 100, subtracts 15 per critical issue, 5 per warning, and 1 per suggestion
+**Backend**
+- FastAPI (Python)
+- SQLAlchemy + PostgreSQL
+- PyGithub, HTTPX
 
-**The prompt explicitly instructs the model to skip minor style nitpicks and not to praise the code** — only actionable, meaningful feedback is posted.
+**AI / ML**
+- NVIDIA NIM API (LLM inference — Qwen3 Coder 480B)
+- NVIDIA NV-EmbedQA (embeddings)
+- Pinecone (vector database)
 
-If a PR diff is very large (>8000 tokens), it is truncated and a note is added to the review.
+**Auth**
+- GitHub OAuth 2.0
+- JWT cookies
 
 ---
 
-## Setup & Local Development
+## How It Works
+
+1. User connects GitHub account via OAuth
+2. User enables a repository — optionally grants crawl permission
+3. If crawl permission granted, RepoSense indexes the entire codebase:
+   - Extracts file, function, and class nodes
+   - Detects import, call, and inheritance edges
+   - Stores embeddings in Pinecone
+4. When a PR is opened/updated, GitHub sends a webhook to the backend
+5. Backend fetches the PR diff, retrieves relevant codebase context via RAG
+6. LLM reviews the diff with full context and returns structured comments
+7. Comments are posted inline on the PR in GitHub
+8. PR appears in dashboard with quality score and full review detail
+
+### Quality Score Formula
+
+Starts at **100** and deducts:
+- **−15** per critical issue
+- **−5** per warning  
+- **−1** per suggestion
+
+Minimum score is **0**.
+
+---
+
+## Local Setup
 
 ### Prerequisites
 
 - Python 3.11+
 - Node.js 18+
-- PostgreSQL database (or a [Supabase](https://supabase.com) project)
-- A [GitHub OAuth App](https://github.com/settings/developers)
-- An [Anthropic API key](https://console.anthropic.com)
+- PostgreSQL database
+- GitHub OAuth App
+- NVIDIA NIM API key — [build.nvidia.com](https://build.nvidia.com)
+- Pinecone account — [pinecone.io](https://pinecone.io)
 
-### 1. Clone the repo
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/reposense.git
-cd reposense
+git clone https://github.com/FriToS-Ban/RepoSense.git
+cd RepoSense
 ```
 
-### 2. Configure environment variables
+### 2. Create a GitHub OAuth App
 
-**Backend** — create `backend/.env`:
+Go to GitHub → Settings → Developer settings → OAuth Apps → New OAuth App
+
+| Field | Value |
+|---|---|
+| Homepage URL | `http://localhost:5173` |
+| Authorization callback URL | `http://localhost:8000/api/auth/callback` |
+
+Save the **Client ID** and **Client Secret**.
+
+### 3. Backend setup
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+Create a `.env` file in the `backend` folder:
 
 ```env
-# GitHub OAuth App
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
-GITHUB_WEBHOOK_SECRET=your_webhook_secret
-
-# LLM
-ANTHROPIC_API_KEY=your_anthropic_api_key
-
-# Database
-DATABASE_URL=postgresql://user:password@localhost:5432/reposense
-
-# App
-SECRET_KEY=your_random_secret_key
+GITHUB_WEBHOOK_SECRET=any_random_string
+NVIDIA_API_KEY=your_nvidia_api_key
+NVIDIA_MODEL=qwen/qwen3-coder-480b-a35b-instruct
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_INDEX_NAME=reposense
+DATABASE_URL=postgresql://user:password@localhost/reposense
+SECRET_KEY=any_random_secret_string
 FRONTEND_URL=http://localhost:5173
 BACKEND_URL=http://localhost:8000
+ENVIRONMENT=development
 ```
 
-**Frontend** — create `frontend/.env`:
+Start the backend:
+
+```bash
+cd ..
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### 4. Frontend setup
+
+```bash
+cd frontend
+npm install
+```
+
+Create a `.env` file in the `frontend` folder:
 
 ```env
 VITE_API_URL=http://localhost:8000
 ```
 
-### 3. Run the backend
+Start the frontend:
 
 ```bash
-cd backend
-python -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-alembic upgrade head            # Run database migrations
-uvicorn main:app --reload --port 8000
-```
-
-### 4. Run the frontend
-
-```bash
-cd frontend
-npm install
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`.
-
-### 5. Expose your local backend for webhooks (dev only)
+### 5. Expose backend for webhooks (local development)
 
 GitHub needs a public URL to send webhook events. Use [ngrok](https://ngrok.com):
 
@@ -116,85 +154,76 @@ GitHub needs a public URL to send webhook events. Use [ngrok](https://ngrok.com)
 ngrok http 8000
 ```
 
-Copy the `https://....ngrok.io` URL and set it as your webhook URL in GitHub (or in the RepoSense dashboard when enabling a repo). Update `BACKEND_URL` in your `.env` accordingly.
+Copy the ngrok URL (e.g. `https://abc123.ngrok.io`) and update:
+- `BACKEND_URL` in your backend `.env`
+- The callback URL in your GitHub OAuth App
 
----
+### 6. Open the app
 
-## Deployment
-
-| Layer    | Platform  | Notes                                              |
-|----------|-----------|----------------------------------------------------|
-| Frontend | Vercel    | Connect GitHub repo, auto-deploys on push          |
-| Backend  | Render    | Set all env vars in the dashboard                  |
-| Database | Supabase  | Free PostgreSQL, copy the connection string        |
-
-The GitHub webhook URL must be your public Render backend URL:
-```
-https://your-app.onrender.com/api/webhook/github
-```
-
-> **Note:** Render's free tier spins down after inactivity. For demos, enable Render's always-on feature or add an uptime ping service.
+Go to `http://localhost:5173`, connect your GitHub account, and enable a repository.
 
 ---
 
 ## Project Structure
 
 ```
-reposense/
+RepoSense/
 ├── backend/
-│   ├── main.py                 # FastAPI app entry point
-│   ├── routers/
-│   │   ├── auth.py             # GitHub OAuth endpoints
-│   │   ├── repos.py            # Repository management
-│   │   ├── prs.py              # PR review endpoints
-│   │   ├── webhook.py          # GitHub webhook handler
-│   │   └── analytics.py        # Analytics endpoints
+│   ├── api/
+│   │   ├── deps.py
+│   │   └── routes/
+│   │       ├── analytics.py
+│   │       ├── auth.py
+│   │       ├── prs.py
+│   │       ├── repos.py
+│   │       └── webhooks.py
+│   ├── core/
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   └── security.py
+│   ├── models/
+│   │   └── models.py
 │   ├── services/
-│   │   ├── github.py           # GitHub API client (PyGithub)
-│   │   ├── llm.py              # Claude API integration
-│   │   └── review.py           # Review processing logic
-│   ├── models.py               # SQLAlchemy models
+│   │   ├── github.py
+│   │   ├── indexer.py
+│   │   ├── llm.py
+│   │   ├── rag.py
+│   │   └── review.py
+│   ├── main.py
 │   └── requirements.txt
 └── frontend/
     ├── src/
+    │   ├── components/
+    │   │   ├── GithubIcon.jsx
+    │   │   └── Navbar.jsx
     │   ├── pages/
-    │   │   ├── Landing.jsx
+    │   │   ├── Analytics.jsx
     │   │   ├── Dashboard.jsx
-    │   │   ├── PRDetail.jsx
-    │   │   └── Analytics.jsx
-    │   └── components/
-    │       ├── Navbar.jsx
-    │       ├── QualityBadge.jsx
-    │       ├── SeverityBadge.jsx
-    │       ├── RepoToggle.jsx
-    │       └── PRTable.jsx
+    │   │   ├── Landing.jsx
+    │   │   └── PRDetail.jsx
+    │   ├── App.jsx
+    │   └── main.jsx
     └── package.json
 ```
 
 ---
 
-## API Overview
+## Environment Variables Reference
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/auth/github` | Redirect to GitHub OAuth |
-| GET | `/api/auth/callback` | Handle OAuth callback |
-| GET | `/api/repos` | List user's GitHub repos |
-| POST | `/api/repos/enable` | Enable RepoSense + register webhook |
-| POST | `/api/repos/disable` | Disable RepoSense + delete webhook |
-| GET | `/api/prs` | List all reviewed PRs |
-| GET | `/api/prs/:id` | Full review detail for one PR |
-| POST | `/api/webhook/github` | Receive GitHub webhook events |
-| GET | `/api/analytics/overview` | Quality score trends and totals |
-
----
-
-## Security Notes
-
-- Webhook signature verification (`X-Hub-Signature-256`) is enforced on every incoming webhook — unauthenticated requests are rejected
-- GitHub access tokens are stored encrypted in the database; the frontend never sees them
-- The frontend receives a short-lived JWT stored in an `httpOnly` cookie
-- Webhook processing is fully asynchronous — the endpoint returns `200` immediately and processes the LLM review in the background, keeping GitHub happy
+| Variable | Description |
+|---|---|
+| `GITHUB_CLIENT_ID` | GitHub OAuth App client ID |
+| `GITHUB_CLIENT_SECRET` | GitHub OAuth App client secret |
+| `GITHUB_WEBHOOK_SECRET` | Secret for verifying webhook payloads |
+| `NVIDIA_API_KEY` | NVIDIA NIM API key for LLM and embeddings |
+| `NVIDIA_MODEL` | NVIDIA model string for reviews |
+| `PINECONE_API_KEY` | Pinecone vector database API key |
+| `PINECONE_INDEX_NAME` | Pinecone index name (default: `reposense`) |
+| `DATABASE_URL` | PostgreSQL connection string |
+| `SECRET_KEY` | Secret for signing JWT tokens |
+| `FRONTEND_URL` | Frontend base URL (for CORS and redirects) |
+| `BACKEND_URL` | Backend base URL (for OAuth callback and webhooks) |
+| `ENVIRONMENT` | `development` or `production` |
 
 ---
 
