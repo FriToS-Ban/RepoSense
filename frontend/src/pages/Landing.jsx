@@ -7,7 +7,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="bg-[#0a0a0a] text-white overflow-x-hidden">
+    <div className="bg-background text-textMain overflow-x-hidden">
 
       {/* ── HERO ── */}
       <section className="relative flex flex-col items-center justify-center text-center px-4 pt-32 pb-24 min-h-screen">
@@ -22,18 +22,18 @@ export default function Landing() {
         />
 
         {/* availability pill */}
-        <div className="relative z-10 inline-flex items-center gap-2 bg-[#1a1a1a] border border-[#2a2a2a] rounded-full px-4 py-1.5 text-sm text-gray-400 mb-8">
+        <div className="relative z-10 inline-flex items-center gap-2 bg-surface border border-border rounded-full px-4 py-1.5 text-sm text-gray-400 mb-8">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           Now reviewing PRs automatically — connect in seconds
         </div>
 
         {/* headline */}
         <h1 className="relative z-10 text-5xl md:text-7xl font-extrabold leading-tight tracking-tight max-w-4xl mx-auto mb-6">
-          <span className="text-[#ff6b2b]">AI Code Review</span>
+          <span className="text-primary">AI Code Review</span>
           <br />
           Beyond <span className="inline-flex items-center gap-3">✦ Limits.</span>
           <br />
-          Automated <span className="text-[#ff6b2b]">With Precision.</span>
+          Automated <span className="text-primary">With Precision.</span>
         </h1>
 
         <p className="relative z-10 text-lg text-gray-400 max-w-xl mx-auto mb-10">
@@ -42,7 +42,7 @@ export default function Landing() {
 
         <button
           onClick={handleConnect}
-          className="relative z-10 inline-flex items-center gap-3 bg-[#ff6b2b] hover:bg-[#e85d20] text-white font-bold py-3 px-8 rounded-full transition-transform hover:scale-105"
+          className="relative z-10 inline-flex items-center gap-3 bg-primary bg-gradient-to-r from-primary to-primaryHover hover:from-primaryHover hover:to-primary text-white font-bold py-3 px-8 rounded-full transition-transform hover:scale-105"
         >
           <GithubIcon className="w-5 h-5" />
           Connect GitHub
@@ -91,10 +91,10 @@ export default function Landing() {
           ].map((card) => (
             <div
               key={card.title}
-              className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-8 flex flex-col gap-4 hover:border-[#ff6b2b]/40 transition-colors"
+              className="bg-surface border border-border rounded-2xl p-8 flex flex-col gap-4 hover:border-primary/40 transition-colors"
             >
               {/* glowing orb */}
-              <div className="w-14 h-14 rounded-full bg-[#ff6b2b] flex items-center justify-center shadow-[0_0_30px_rgba(255,107,43,0.5)]">
+              <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-[0_0_30px_rgba(255,107,43,0.5)]">
                 {card.icon}
               </div>
               <h3 className="text-xl font-bold">{card.title}</h3>
@@ -106,7 +106,7 @@ export default function Landing() {
         <div className="flex justify-center mt-12">
           <button
             onClick={handleConnect}
-            className="inline-flex items-center gap-2 bg-[#ff6b2b] hover:bg-[#e85d20] text-white font-bold py-3 px-8 rounded-full transition-transform hover:scale-105"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primaryHover text-white font-bold py-3 px-8 rounded-full transition-transform hover:scale-105"
           >
             Start Reviewing →
           </button>
@@ -116,17 +116,17 @@ export default function Landing() {
       {/* ── MISSION STATEMENT ── */}
       <section className="px-4 py-24 max-w-6xl mx-auto">
         <p className="text-center text-xs text-gray-500 uppercase tracking-widest mb-8">Our Mission</p>
-        <div className="border border-[#ff6b2b]/40 rounded-2xl p-10 md:p-16 text-center">
+        <div className="border border-primary/40 rounded-2xl p-10 md:p-16 text-center">
           <h2 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
-            We Drive <span className="text-[#ff6b2b]">Engineering Teams</span> To The Forefront Of Quality Through Intelligent{' '}
-            <span className="text-[#ff6b2b]">PR Automation.</span>
+            We Drive <span className="text-primary">Engineering Teams</span> To The Forefront Of Quality Through Intelligent{' '}
+            <span className="text-primary">PR Automation.</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto mb-8">
             Manual code review is slow and inconsistent. RepoSense gives every PR the same rigorous analysis — every time, in seconds.
           </p>
           <button
             onClick={handleConnect}
-            className="inline-flex items-center gap-2 text-[#ff6b2b] border border-[#ff6b2b]/40 hover:bg-[#ff6b2b]/10 font-semibold py-2 px-6 rounded-full transition-colors"
+            className="inline-flex items-center gap-2 text-primary border border-primary/40 hover:bg-primary/10 font-semibold py-2 px-6 rounded-full transition-colors"
           >
             Book a Call →
           </button>
@@ -143,29 +143,29 @@ export default function Landing() {
           How It Works, Notable Impact
         </h2>
 
-        <div className="border border-[#1e1e1e] rounded-2xl overflow-hidden">
+        <div className="border border-border rounded-2xl overflow-hidden">
           {[
             {
               label: 'PR Opened / Updated',
               stat: 'GitHub webhook fires instantly',
-              icon: <GitPullRequest className="w-5 h-5 text-[#ff6b2b]" />,
+              icon: <GitPullRequest className="w-5 h-5 text-primary" />,
             },
             {
               label: 'AI Reviews the Diff',
               stat: 'Claude analyzes bugs, security & performance',
-              icon: <Zap className="w-5 h-5 text-[#ff6b2b]" />,
+              icon: <Zap className="w-5 h-5 text-primary" />,
             },
             {
               label: 'Inline Comments Posted',
               stat: 'Exact file + line feedback on GitHub',
-              icon: <MessageSquare className="w-5 h-5 text-[#ff6b2b]" />,
+              icon: <MessageSquare className="w-5 h-5 text-primary" />,
             },
           ].map((row, i) => (
             <div
               key={row.label}
               className={`flex items-center justify-between px-8 py-5 ${
-                i !== 2 ? 'border-b border-[#1e1e1e]' : ''
-              } hover:bg-[#111] transition-colors`}
+                i !== 2 ? 'border-b border-border' : ''
+              } hover:bg-surface transition-colors`}
             >
               <div className="flex items-center gap-3">
                 {row.icon}
@@ -206,10 +206,10 @@ export default function Landing() {
           {[
             {
               title: 'Connect & Organize',
-              icon: <GitPullRequest className="w-5 h-5 text-[#ff6b2b]" />,
+              icon: <GitPullRequest className="w-5 h-5 text-primary" />,
               desc: 'Link any GitHub repo, flip the toggle, and RepoSense registers the webhook. Done in under a minute.',
               visual: (
-                <div className="bg-[#0d0d0d] rounded-lg p-4 text-xs font-mono text-gray-500 space-y-1">
+                <div className="bg-surface rounded-lg p-4 text-xs font-mono text-gray-500 space-y-1">
                   <div className="text-green-400">✓ Webhook registered</div>
                   <div className="text-gray-600">repo: FriToS-Ban/RepoSense</div>
                   <div className="text-gray-600">event: pull_request</div>
@@ -218,10 +218,10 @@ export default function Landing() {
             },
             {
               title: 'AI Code Review',
-              icon: <Code2 className="w-5 h-5 text-[#ff6b2b]" />,
+              icon: <Code2 className="w-5 h-5 text-primary" />,
               desc: 'Sends your PR diff to Claude with a strict review prompt — returns structured JSON with file, line, severity, and fix.',
               visual: (
-                <div className="bg-[#0d0d0d] rounded-lg p-4 text-xs font-mono text-gray-500 space-y-1">
+                <div className="bg-surface rounded-lg p-4 text-xs font-mono text-gray-500 space-y-1">
                   <div className="text-red-400">● critical — auth.py:42</div>
                   <div className="text-yellow-400">⚠ warning — api.js:88</div>
                   <div className="text-blue-400">◎ suggestion — utils.py:15</div>
@@ -230,10 +230,10 @@ export default function Landing() {
             },
             {
               title: 'Smart Analytics',
-              icon: <BarChart2 className="w-5 h-5 text-[#ff6b2b]" />,
+              icon: <BarChart2 className="w-5 h-5 text-primary" />,
               desc: 'Track quality score trends, issue categories, and your most-flagged files over time across all repos.',
               visual: (
-                <div className="bg-[#0d0d0d] rounded-lg p-4 text-xs font-mono text-gray-500 space-y-1">
+                <div className="bg-surface rounded-lg p-4 text-xs font-mono text-gray-500 space-y-1">
                   <div className="flex justify-between"><span>Trigger</span><span className="text-[#ff6b2b]">↑ 12%</span></div>
                   <div className="flex justify-between"><span>Template</span><span className="text-green-400">↑ 8%</span></div>
                   <div className="flex justify-between"><span>PR Score</span><span className="text-white">84/100</span></div>
@@ -243,7 +243,7 @@ export default function Landing() {
           ].map((card) => (
             <div
               key={card.title}
-              className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-6 flex flex-col gap-4 hover:border-[#ff6b2b]/40 transition-colors"
+              className="bg-surface border border-border rounded-2xl p-6 flex flex-col gap-4 hover:border-primary/40 transition-colors"
             >
               <div className="flex items-center gap-2 font-bold text-lg">
                 {card.icon}
@@ -260,7 +260,7 @@ export default function Landing() {
           {['AI-Driven Reviews', 'Security Scanning', 'GitHub Integration', 'Data Insights', 'Analytics', 'API Security', 'Real-time', 'Ad Targeting'].map((tag) => (
             <span
               key={tag}
-              className="text-xs border border-[#2a2a2a] rounded-full px-4 py-1.5 text-gray-400 hover:border-[#ff6b2b]/50 hover:text-white transition-colors cursor-default"
+              className="text-xs border border-border rounded-full px-4 py-1.5 text-gray-400 hover:border-primary/50 hover:text-white transition-colors cursor-default"
             >
               {tag}
             </span>
@@ -280,7 +280,7 @@ export default function Landing() {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {/* Standard */}
-          <div className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-8">
+          <div className="bg-surface border border-border rounded-2xl p-8">
             <p className="text-sm font-semibold text-gray-400 mb-1">Standard</p>
             <p className="text-xs text-gray-600 mb-4">Ideal for most teams</p>
             <p className="text-4xl font-extrabold mb-1">
@@ -289,23 +289,23 @@ export default function Landing() {
             <p className="text-xs text-gray-600 mb-6">Open source & self-hosted</p>
             <button
               onClick={handleConnect}
-              className="w-full bg-[#1e1e1e] hover:bg-[#2a2a2a] text-white font-bold py-3 rounded-full transition-colors mb-6"
+              className="w-full bg-surface hover:bg-background text-white font-bold py-3 rounded-full transition-colors mb-6"
             >
               Get Started →
             </button>
             <ul className="space-y-2 text-sm text-gray-400">
               {['Up to 10 repos', 'Basic support', 'PR review comments', 'Quality score tracking'].map((f) => (
                 <li key={f} className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-[#ff6b2b]" /> {f}
+                  <CheckCircle className="w-4 h-4 text-primary" /> {f}
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Pro */}
-          <div className="bg-[#111111] border border-[#ff6b2b]/50 rounded-2xl p-8 relative">
-            <span className="absolute top-4 right-4 text-xs bg-[#ff6b2b] text-white px-3 py-1 rounded-full font-bold">Popular</span>
-            <p className="text-sm font-semibold text-[#ff6b2b] mb-1">Pro</p>
+          <div className="bg-surface border border-primary/50 rounded-2xl p-8 relative">
+            <span className="absolute top-4 right-4 text-xs bg-primary text-white px-3 py-1 rounded-full font-bold">Popular</span>
+            <p className="text-sm font-semibold text-primary mb-1">Pro</p>
             <p className="text-xs text-gray-600 mb-4">Designed for expanding teams</p>
             <p className="text-4xl font-extrabold mb-1">
               $29 <span className="text-sm font-normal text-gray-500">/ month</span>
@@ -313,14 +313,14 @@ export default function Landing() {
             <p className="text-xs text-gray-600 mb-6">Per workspace, billed monthly</p>
             <button
               onClick={handleConnect}
-              className="w-full bg-[#ff6b2b] hover:bg-[#e85d20] text-white font-bold py-3 rounded-full transition-colors mb-6"
+              className="w-full bg-primary hover:bg-primaryHover text-white font-bold py-3 rounded-full transition-colors mb-6"
             >
               Get Started →
             </button>
             <ul className="space-y-2 text-sm text-gray-400">
               {['Unlimited repos', 'Priority support', 'Advanced analytics', 'Custom review prompts', 'AI-powered workflows'].map((f) => (
                 <li key={f} className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-[#ff6b2b]" /> {f}
+                  <CheckCircle className="w-4 h-4 text-primary" /> {f}
                 </li>
               ))}
             </ul>
@@ -329,12 +329,12 @@ export default function Landing() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-[#1e1e1e] px-6 py-10 text-center text-gray-600 text-sm">
+      <footer className="border-t border-border px-6 py-10 text-center text-gray-600 text-sm">
         <p className="text-white font-bold text-lg mb-2">RepoSense</p>
         <p className="mb-4">AI-powered GitHub PR reviews — automated, precise, always on.</p>
         <button
           onClick={handleConnect}
-          className="inline-flex items-center gap-2 text-[#ff6b2b] hover:underline font-semibold"
+          className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
         >
           <GithubIcon className="w-4 h-4" /> Connect GitHub →
         </button>

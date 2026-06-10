@@ -13,9 +13,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-[#1e1e1e] px-6 py-4 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border px-6 py-4 flex justify-between items-center">>
       <Link to="/" className="text-lg font-extrabold text-white flex items-center gap-2 tracking-tight">
-        <GithubIcon className="w-5 h-5 text-[#ff6b2b]" />
+        <GithubIcon className="w-5 h-5 text-primary" />
         Repo<span className="text-[#ff6b2b]">Sense</span>
       </Link>
 
@@ -30,8 +30,8 @@ export default function Navbar() {
       <div className="flex items-center gap-3">
         <button
           onClick={handleConnect}
-          className="inline-flex items-center gap-2 bg-[#ff6b2b] hover:bg-[#e85d20] text-white text-sm font-bold py-2 px-5 rounded-full transition-colors"
-        >
+          className="inline-flex items-center gap-2 bg-primary bg-gradient-to-r from-primary to-primaryHover hover:from-primaryHover hover:to-primary text-white text-sm font-bold py-2 px-5 rounded-full transition-colors"
+          >
           <GithubIcon className="w-4 h-4" />
           Let's Talk
         </button>

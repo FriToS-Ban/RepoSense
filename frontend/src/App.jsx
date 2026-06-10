@@ -7,7 +7,7 @@ import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       <main className="flex-grow pt-20">
         <Routes>

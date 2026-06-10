@@ -85,7 +85,7 @@ export default function Dashboard() {
   if (error) return <div className="text-red-400 text-center py-20">{error}</div>;
 
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4">
+    <div className="max-w-6xl mx-auto py-8 px-4 bg-background">
       <h2 className="text-3xl font-bold text-white mb-8">Dashboard</h2>
 
       <div className="grid md:grid-cols-2 gap-8">

@@ -48,7 +48,7 @@ export default function Analytics() {
   if (error) return <div className="text-red-400 text-center py-20">{error}</div>;
 
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4 text-white">
+    <div className="max-w-6xl mx-auto py-8 px-4 text-white bg-background">
       <h2 className="text-3xl font-bold mb-8">Code Quality Trends</h2>
 
       {/* Summary Cards */}
