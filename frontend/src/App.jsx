@@ -7,9 +7,9 @@ import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#0a0a0a]">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
