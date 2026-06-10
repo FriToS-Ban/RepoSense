@@ -13,10 +13,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border px-6 py-4 flex justify-between items-center">>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border px-6 py-4 flex justify-between items-center">
       <Link to="/" className="text-lg font-extrabold text-white flex items-center gap-2 tracking-tight">
         <GithubIcon className="w-5 h-5 text-primary" />
-        Repo<span className="text-[#ff6b2b]">Sense</span>
+        Repo<span className="text-primary">Sense</span>
       </Link>
 
       <div className="hidden md:flex gap-8 items-center text-sm text-gray-400">
