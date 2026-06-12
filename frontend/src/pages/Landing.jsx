@@ -1,7 +1,11 @@
 import { CheckCircle, TrendingUp, MessageSquare, GitPullRequest, Shield, Zap, BarChart2, Code2, Lock } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import GithubIcon from '../components/GithubIcon';
 
 export default function Landing() {
+  const [searchParams] = useSearchParams();
+  const errorParam = searchParams.get('error');
+
   const handleConnect = () => {
     window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/github`;
   };
@@ -20,6 +24,17 @@ export default function Landing() {
             backgroundSize: '32px 32px',
           }}
         />
+
+        {errorParam && (
+          <div className="relative z-10 max-w-md mb-6 bg-danger/10 border border-danger/30 text-danger px-6 py-2.5 rounded-full text-sm flex items-center justify-center gap-2 animate-pulse">
+            <span className="w-1.5 h-1.5 rounded-full bg-danger" />
+            <span>
+              {errorParam === 'unauthenticated' 
+                ? 'Login failed: You must be authenticated to view this page.' 
+                : 'GitHub authentication failed. Please try again.'}
+            </span>
+          </div>
+        )}
 
         {/* availability pill */}
         <div className="relative z-10 inline-flex items-center gap-2 bg-surface border border-border rounded-full px-4 py-1.5 text-sm text-gray-400 mb-8">

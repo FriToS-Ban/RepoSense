@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const API = import.meta.env.VITE_API_URL;
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const [repos, setRepos] = useState([]);
   const [prs, setPrs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -86,7 +88,12 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-6xl mx-auto py-8 px-4 bg-background">
-      <h2 className="text-3xl font-bold text-white mb-8">Dashboard</h2>
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+        <p className="text-textMuted text-sm mt-2">
+          Hey, <span className="text-primary font-bold">{user?.github_username}</span>! Welcome back.
+        </p>
+      </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         <div>
