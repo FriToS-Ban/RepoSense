@@ -24,6 +24,7 @@ It is an AI-powered code review platform that automatically reviews your GitHub 
 **Frontend**
 - React 18, Vite, Tailwind CSS
 - React Router, Recharts
+- React Context API (Global Authentication Context)
 - Lucide React icons
 
 **Backend**
@@ -55,6 +56,7 @@ It is an AI-powered code review platform that automatically reviews your GitHub 
 6. LLM reviews the diff with full context and returns structured comments
 7. Comments are posted inline on the PR in GitHub
 8. PR appears in dashboard with quality score and full review detail
+9. Frontend manages global session status (`AuthContext`) and guards routes (`/dashboard`, `/analytics`, `/pr/:id`) to prevent unauthorized access while redirecting authenticated users to the dashboard.
 
 ### Quality Score Formula
 
@@ -196,6 +198,8 @@ RepoSense/
     │   ├── components/
     │   │   ├── GithubIcon.jsx
     │   │   └── Navbar.jsx
+    │   ├── context/
+    │   │   └── AuthContext.jsx
     │   ├── pages/
     │   │   ├── Analytics.jsx
     │   │   ├── Dashboard.jsx
