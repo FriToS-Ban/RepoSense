@@ -2,6 +2,20 @@
 
 It is an AI-powered code review platform that automatically reviews your GitHub Pull Requests using RAG (Retrieval Augmented Generation) and LLM analysis. When a PR is opened or updated, RepoSense fetches the diff, retrieves relevant codebase context from a knowledge graph, and posts inline review comments directly on the PR in GitHub.
 
+## Screenshots
+
+### Landing Page
+![Landing Page](docs/screenshots/landing.png)
+
+### Dashboard & Repositories
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Code Quality Trends & Analytics
+![Analytics](docs/screenshots/analytics.png)
+
+### Detailed Pull Request Reviews
+![PR Detail](docs/screenshots/pr_detail.png)
+
 ---
 
 ## Features
