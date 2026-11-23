@@ -123,6 +123,8 @@ def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5, c
             # Fallback to embedding full diff if no chunks found
             diff_chunks = [("", diff[:8000])]
         
+        all_matched_nodes: List[CodeNode] = []
+
         # Always include directly changed files first
         direct_nodes = []
         for file_path in changed_file_paths:
@@ -132,8 +134,6 @@ def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5, c
             ).all()
             direct_nodes.extend(nodes)
         all_matched_nodes.extend(direct_nodes)
-
-        all_matched_nodes: List[CodeNode] = []
 
         for file_path, chunk_text in diff_chunks[:8]:  # limit to 8 chunks max
             try:

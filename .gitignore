@@ -14,3 +14,6 @@ frontend/dist/
 
 # OS
 .DS_Store
+
+# Retrieval evaluation cache (indexes, TREC run files)
+eval/.cache/
