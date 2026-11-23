@@ -215,7 +215,7 @@ Edges always point at **definitions**: re-export chains are followed to the defi
 | R6 | Repo-wide bare-name match (v1 behavior) | n/a | **disabled**; ablation only |
 | H1 | Co-change association | assoc. confidence | n/a |
 
-**Calibration:** set each tier's confidence to the Wilson lower bound of its measured precision on a gold sample. The sample is stratified (≥50 call sites per tier), hand-labeled, and optionally cross-checked against `jedi`. A confidence then *means* something and can be multiplied along paths.
+**Calibration:** set each tier's confidence to its measured precision on a stratified, hand-labeled gold sample, optionally cross-checked against `jedi`. A confidence then *means* something and can be multiplied along paths. *As implemented in M1:* the Laplace posterior mean (k+1)/(n+2), with 40–50 items per tier and R5 split by candidate count. The Wilson lower bound would rank tiers by sample size rather than accuracy. Measured values: R1–R4 1.00 (40/40 each), R5 .56. See [results/M1.md](results/M1.md).
 
 ### 3.5 Entity resolution (= name binding) algorithm
 
@@ -658,7 +658,7 @@ Ordering follows **measured loss magnitudes** first, then dependencies. Each mil
 | M | Deliverable | Why now (evidence) | Exit criteria |
 |---|---|---|---|
 | **M0** ✅ | `eval/` package (port of the Phase 1 harness: metrics + stats with unit tests, T1 generator, S0–S4 adapters); v1 hotfix + regression test; test setup (stdlib `unittest`, pytest-compatible) | Nothing can be claimed without it; W1 went unnoticed | **Done:** [results/M0.md](results/M0.md). S0/S2/S3/S4 reproduced exactly; S1 made deterministic (.388); 25 tests green |
-| **M1** | KG v2 for Python: FileFacts, resolver tiers R1–R5, derive, store with diff-apply, snapshot, invariants; edge-quality eval vs gold sample (+ optional jedi); tier calibration | Graph precision 35–45% on bigger repos; zero function out-edges | Invariants green on all corpora; per-tier precision measured; R1–R3 precision ≥ .95 on gold |
+| **M1** ✅ | KG v2 for Python: FileFacts, resolver tiers R1–R5, derive, store with diff-apply, snapshot, invariants; edge-quality eval vs gold sample (+ optional jedi); tier calibration | Graph precision 35–45% on bigger repos; zero function out-edges | **Done:** [results/M1.md](results/M1.md). 0 violations; R1–R4 precision 1.00 (40/40 each), R5 .56; recall .96 |
 | **M2** | Query pipeline skeleton: diff parser, overlay, seeds, plan, BM25F (default weights), v2 packing, traces → **System A** | Packing is the dominant measured loss (oracle .40 → 1.00) | A beats S2 on T1 Recall@budget (spike estimate deps ≈ .64, impact ≈ .87), p < 0.01; latency targets met |
 | **M3** | Structural channel (typed 1-hop, plan-driven) + RRF → **System E** and **E+A** | Graph has the right files (S4 file recall .95) but not the symbols | E+A ≥ A on T1 (expected by construction); noise accounting reported |
 | **M4** | **T2 benchmark** (cloning approval) + co-change mining + channel | The first non-circular test of graph vs text | T2 v1.0 frozen (manifest, qrels, card); A/E/E+A/S2 results on T2 with CIs; co-change ablation |

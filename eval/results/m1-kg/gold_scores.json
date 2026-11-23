@@ -1,0 +1,135 @@
+{
+ "precision": {
+  "R1": {
+   "calibrated_confidence": 0.976,
+   "correct": 40,
+   "incorrect": 0,
+   "precision": 1.0,
+   "unlabelled": 0,
+   "unsure": 0,
+   "wilson95": [
+    0.912,
+    1.0
+   ]
+  },
+  "R2": {
+   "calibrated_confidence": 0.976,
+   "correct": 40,
+   "incorrect": 0,
+   "precision": 1.0,
+   "unlabelled": 0,
+   "unsure": 0,
+   "wilson95": [
+    0.912,
+    1.0
+   ]
+  },
+  "R3": {
+   "calibrated_confidence": 0.976,
+   "correct": 40,
+   "incorrect": 0,
+   "precision": 1.0,
+   "unlabelled": 0,
+   "unsure": 0,
+   "wilson95": [
+    0.912,
+    1.0
+   ]
+  },
+  "R4": {
+   "calibrated_confidence": 0.976,
+   "correct": 40,
+   "incorrect": 0,
+   "precision": 1.0,
+   "unlabelled": 0,
+   "unsure": 0,
+   "wilson95": [
+    0.912,
+    1.0
+   ]
+  },
+  "R5": {
+   "calibrated_confidence": 0.558,
+   "correct": 28,
+   "incorrect": 22,
+   "precision": 0.56,
+   "unlabelled": 0,
+   "unsure": 0,
+   "wilson95": [
+    0.423,
+    0.688
+   ]
+  },
+  "R5@1": {
+   "correct": 15,
+   "n": 18,
+   "precision": 0.833
+  },
+  "R5@2": {
+   "correct": 5,
+   "n": 15,
+   "precision": 0.333
+  },
+  "R5@3": {
+   "correct": 8,
+   "n": 17,
+   "precision": 0.471
+  }
+ },
+ "recall": {
+  "at_sampling(kg-py-1.1)": {
+   "call_sites": 81,
+   "ext_but_predicted": 1,
+   "ext_correctly_unresolved": 53,
+   "found": 25,
+   "found_R1": 10,
+   "found_R2": 5,
+   "found_R3": 8,
+   "found_R4": 1,
+   "found_R5": 1,
+   "in_repo": 26,
+   "misses": [
+    {
+     "call": "github.Repository.Repository",
+     "id": "rc-061",
+     "note": "github.Repository.Repository(...) instantiation, missed",
+     "predicted": [],
+     "truth": "github/Repository.py::Repository"
+    }
+   ],
+   "recall_in_repo_calls": 0.962,
+   "self": 1,
+   "wilson95": [
+    0.811,
+    0.993
+   ]
+  },
+  "current(kg-py-1.2)": {
+   "call_sites": 81,
+   "ext_but_predicted": 1,
+   "ext_correctly_unresolved": 53,
+   "found": 25,
+   "found_R1": 10,
+   "found_R2": 5,
+   "found_R3": 8,
+   "found_R4": 1,
+   "found_R5": 1,
+   "in_repo": 26,
+   "misses": [
+    {
+     "call": "github.Repository.Repository",
+     "id": "rc-061",
+     "note": "github.Repository.Repository(...) instantiation, missed",
+     "predicted": [],
+     "truth": "github/Repository.py::Repository"
+    }
+   ],
+   "recall_in_repo_calls": 0.962,
+   "self": 1,
+   "wilson95": [
+    0.811,
+    0.993
+   ]
+  }
+ }
+}

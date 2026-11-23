@@ -1,6 +1,6 @@
 import enum
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, Enum as SAEnum, Text, Float
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, Enum as SAEnum, Text, Float, Index
 from sqlalchemy.orm import relationship
 import uuid
 
@@ -112,3 +112,76 @@ class CodeEdge(Base):
     edge_type = Column(SAEnum(EdgeType))
     source = relationship("CodeNode", foreign_keys=[source_id], back_populates="outgoing_edges")
     target = relationship("CodeNode", foreign_keys=[target_id], back_populates="incoming_edges")
+
+# ─── Knowledge graph v2 (backend/kg) ──────────────────────────────────────────
+# Design: docs/retrieval/02-design.md §3.7. Written only by backend.kg.store (diff-apply).
+
+class KGSnapshot(Base):
+    __tablename__ = "kg_snapshots"
+    repo_id = Column(String, primary_key=True)
+    commit_sha = Column(String, primary_key=True)
+    extractor_version = Column(String)
+    is_current = Column(Boolean, default=False)
+    stats_json = Column(Text)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class KGFile(Base):
+    """Per-file extraction cache (FileFacts), keyed by content hash and extractor version."""
+    __tablename__ = "kg_files"
+    repo_id = Column(String, primary_key=True)
+    path = Column(String, primary_key=True)
+    content_hash = Column(String)
+    extractor_version = Column(String)
+    facts_json = Column(Text)
+
+
+class KGSymbol(Base):
+    __tablename__ = "kg_symbols"
+    id = Column(String, primary_key=True)
+    repo_id = Column(String, nullable=False)
+    path = Column(String, nullable=False)
+    qualname = Column(String, nullable=False)
+    name = Column(String)
+    kind = Column(String)
+    parent_id = Column(String, nullable=True)
+    start_line = Column(Integer)
+    end_line = Column(Integer)
+    signature = Column(Text)
+    docstring = Column(Text)
+    body = Column(Text)
+    flags = Column(Integer, default=0)
+    content_hash = Column(String)
+    signature_hash = Column(String)
+    __table_args__ = (
+        Index("ix_kg_symbols_repo_path", "repo_id", "path"),
+        Index("ix_kg_symbols_repo_name", "repo_id", "name"),
+    )
+
+
+class KGEdge(Base):
+    __tablename__ = "kg_edges"
+    src_id = Column(String, primary_key=True)
+    dst_id = Column(String, primary_key=True)
+    type = Column(String, primary_key=True)
+    repo_id = Column(String, nullable=False)
+    confidence = Column(Float)
+    resolution = Column(String)
+    role = Column(String)
+    weight = Column(Integer)
+    evidence_json = Column(Text)
+    __table_args__ = (
+        Index("ix_kg_edges_dst_type", "dst_id", "type"),
+        Index("ix_kg_edges_repo", "repo_id"),
+    )
+
+
+class KGVectorOutbox(Base):
+    """Pending vector-store operations, written in the same transaction as symbol changes."""
+    __tablename__ = "kg_vector_outbox"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    repo_id = Column(String, nullable=False, index=True)
+    symbol_id = Column(String, nullable=False)
+    op = Column(String)  # upsert | delete
+    content_hash = Column(String, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
