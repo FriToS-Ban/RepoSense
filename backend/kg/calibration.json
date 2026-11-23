@@ -1,0 +1,14 @@
+{
+ "confidence": {
+  "R1": 0.976,
+  "R2": 0.976,
+  "R3": 0.976,
+  "R4": 0.976,
+  "R5": 0.558,
+  "R5@1": 0.8,
+  "R5@2": 0.353,
+  "R5@3": 0.474
+ },
+ "method": "Laplace posterior mean of per-tier precision on the gold sample; R5@n = by candidate count",
+ "source": "eval/data/kg_gold (python -m eval.kg_eval score)"
+}

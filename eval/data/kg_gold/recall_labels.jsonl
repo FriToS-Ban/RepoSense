@@ -1,0 +1,81 @@
+{"annotator": "claude", "id": "rc-000", "note": "", "truth": "backend/services/github.py::get_github_client"}
+{"annotator": "claude", "id": "rc-001", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-002", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-003", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-004", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-005", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-006", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-007", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-008", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-009", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-010", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-011", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-012", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-013", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-014", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-015", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-016", "note": "", "truth": "httpx/_exceptions.py::HTTPStatusError"}
+{"annotator": "claude", "id": "rc-017", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-018", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-019", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-020", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-021", "note": "", "truth": "httpx/_content.py::ByteStream"}
+{"annotator": "claude", "id": "rc-022", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-023", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-024", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-025", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-026", "note": "self.app is an injected ASGI callable", "truth": "ext"}
+{"annotator": "claude", "id": "rc-027", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-028", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-029", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-030", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-031", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-032", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-033", "note": "anyio AsyncFile (external); v2's R5 guess is wrong", "truth": "ext"}
+{"annotator": "claude", "id": "rc-034", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-035", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-036", "note": "", "truth": "fastapi/_compat/shared.py::is_pydantic_v1_model_class"}
+{"annotator": "claude", "id": "rc-037", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-038", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-039", "note": "", "truth": "fastapi/_compat/shared.py::is_pydantic_v1_model_class"}
+{"annotator": "claude", "id": "rc-040", "note": "", "truth": "fastapi/_compat/shared.py::field_annotation_is_sequence"}
+{"annotator": "claude", "id": "rc-041", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-042", "note": "recursive call (self-loops are excluded by design)", "truth": "self"}
+{"annotator": "claude", "id": "rc-043", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-044", "note": "", "truth": "fastapi/security/utils.py::get_authorization_scheme_param"}
+{"annotator": "claude", "id": "rc-045", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-046", "note": "", "truth": "fastapi/security/http.py::HTTPBase.make_not_authenticated_error"}
+{"annotator": "claude", "id": "rc-047", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-048", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-049", "note": "", "truth": "fastapi/security/http.py::HTTPBase.make_not_authenticated_error"}
+{"annotator": "claude", "id": "rc-050", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-051", "note": "", "truth": "fastapi/security/http.py::HTTPBase.make_not_authenticated_error"}
+{"annotator": "claude", "id": "rc-052", "note": "", "truth": "fastapi/security/http.py::HTTPBasicCredentials"}
+{"annotator": "claude", "id": "rc-053", "note": "", "truth": "github/GithubObject.py::GithubObject._makeIntAttribute"}
+{"annotator": "claude", "id": "rc-054", "note": "", "truth": "github/GithubObject.py::GithubObject._makeStringAttribute"}
+{"annotator": "claude", "id": "rc-055", "note": "", "truth": "github/GithubObject.py::GithubObject._makeStringAttribute"}
+{"annotator": "claude", "id": "rc-056", "note": "", "truth": "github/GithubObject.py::GithubObject._makeIntAttribute"}
+{"annotator": "claude", "id": "rc-057", "note": "", "truth": "github/GithubObject.py::is_defined"}
+{"annotator": "claude", "id": "rc-058", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-059", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-060", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-061", "note": "github.Repository.Repository(...) instantiation, missed", "truth": "github/Repository.py::Repository"}
+{"annotator": "claude", "id": "rc-062", "note": "", "truth": "github/Requester.py::Requester.withLazy"}
+{"annotator": "claude", "id": "rc-063", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-064", "note": "", "truth": "pydantic/plugin/_schema_validator.py::filter_handlers"}
+{"annotator": "claude", "id": "rc-065", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-066", "note": "", "truth": "pydantic/plugin/_schema_validator.py::filter_handlers"}
+{"annotator": "claude", "id": "rc-067", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-068", "note": "", "truth": "pydantic/plugin/_schema_validator.py::filter_handlers"}
+{"annotator": "claude", "id": "rc-069", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-070", "note": "", "truth": "pydantic/plugin/_schema_validator.py::filter_handlers"}
+{"annotator": "claude", "id": "rc-071", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-072", "note": "local handler callables", "truth": "ext"}
+{"annotator": "claude", "id": "rc-073", "note": "parameter callable", "truth": "ext"}
+{"annotator": "claude", "id": "rc-074", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-075", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-076", "note": "", "truth": "ext"}
+{"annotator": "claude", "id": "rc-077", "note": "", "truth": "pydantic/v1/typing.py::convert_generics"}
+{"annotator": "claude", "id": "rc-078", "note": "", "truth": "pydantic/v1/fields.py::FieldInfo"}
+{"annotator": "claude", "id": "rc-079", "note": "model_config is Type[BaseConfig]; found only by R5", "truth": "pydantic/v1/config.py::BaseConfig.prepare_field"}
+{"annotator": "claude", "id": "rc-080", "note": "", "truth": "pydantic/v1/fields.py::ModelField.prepare"}

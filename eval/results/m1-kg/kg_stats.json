@@ -1,0 +1,355 @@
+{
+ "fastapi": {
+  "agreement_with_reference": {
+   "recovered": 1.0,
+   "reference_pairs": 315,
+   "v2_only_pairs_by_tier": {
+    "R1": 2,
+    "R4": 21,
+    "R5": 4
+   }
+  },
+  "edges": {
+   "CALLS": 227,
+   "IMPORTS": 87,
+   "INHERITS": 58,
+   "OVERRIDES": 24,
+   "REFERENCES": 360
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 86,
+   "CALLS:R2": 104,
+   "CALLS:R3": 30,
+   "CALLS:R4": 3,
+   "CALLS:R5": 4,
+   "IMPORTS:R2": 87,
+   "INHERITS:R1": 54,
+   "INHERITS:R2": 4,
+   "OVERRIDES:D": 24,
+   "REFERENCES:R1": 107,
+   "REFERENCES:R2": 226,
+   "REFERENCES:R3": 9,
+   "REFERENCES:R4": 18
+  },
+  "files": 46,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.68,
+  "invariant_violations": 0,
+  "loc": 9688,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 306,
+  "same_file_call_edges": 120,
+  "seconds_extract": 0.274,
+  "seconds_first_index": 0.44,
+  "seconds_noop_reindex": 0.13,
+  "seconds_resolve": 0.039,
+  "symbols": {
+   "class": 98,
+   "function": 104,
+   "method": 96,
+   "module": 46
+  },
+  "test_symbols": 0
+ },
+ "httpx": {
+  "agreement_with_reference": {
+   "recovered": 1.0,
+   "reference_pairs": 655,
+   "v2_only_pairs_by_tier": {
+    "R1": 4,
+    "R2": 1,
+    "R3": 5,
+    "R4": 104,
+    "R5": 45
+   }
+  },
+  "edges": {
+   "CALLS": 467,
+   "IMPORTS": 87,
+   "INHERITS": 56,
+   "OVERRIDES": 55,
+   "REFERENCES": 536
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 100,
+   "CALLS:R2": 129,
+   "CALLS:R3": 125,
+   "CALLS:R4": 68,
+   "CALLS:R5": 45,
+   "IMPORTS:R2": 87,
+   "INHERITS:R1": 36,
+   "INHERITS:R2": 20,
+   "OVERRIDES:D": 55,
+   "REFERENCES:R1": 87,
+   "REFERENCES:R2": 369,
+   "REFERENCES:R3": 43,
+   "REFERENCES:R4": 37
+  },
+  "files": 23,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.65,
+  "invariant_violations": 0,
+  "loc": 8828,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 726,
+  "same_file_call_edges": 237,
+  "seconds_extract": 0.279,
+  "seconds_first_index": 0.46,
+  "seconds_noop_reindex": 0.12,
+  "seconds_resolve": 0.047,
+  "symbols": {
+   "class": 87,
+   "function": 68,
+   "method": 361,
+   "module": 23
+  },
+  "test_symbols": 0
+ },
+ "monorepo": {
+  "edges": {
+   "CALLS": 5249,
+   "IMPORTS": 1333,
+   "INHERITS": 553,
+   "OVERRIDES": 697,
+   "REFERENCES": 7254
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 758,
+   "CALLS:R2": 1315,
+   "CALLS:R3": 2468,
+   "CALLS:R4": 477,
+   "CALLS:R5": 231,
+   "IMPORTS:R2": 1333,
+   "INHERITS:R1": 309,
+   "INHERITS:R2": 244,
+   "OVERRIDES:D": 697,
+   "REFERENCES:R1": 904,
+   "REFERENCES:R2": 3880,
+   "REFERENCES:R3": 617,
+   "REFERENCES:R4": 1853
+  },
+  "files": 379,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.805,
+  "invariant_violations": 0,
+  "loc": 97114,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 4857,
+  "same_file_call_edges": 1636,
+  "seconds_extract": 3.427,
+  "seconds_first_index": 5.72,
+  "seconds_noop_reindex": 1.96,
+  "seconds_resolve": 0.842,
+  "symbols": {
+   "class": 894,
+   "function": 730,
+   "method": 4505,
+   "module": 379
+  },
+  "test_symbols": 0
+ },
+ "pydantic": {
+  "agreement_with_reference": {
+   "recovered": 0.9995,
+   "reference_pairs": 1914,
+   "v2_only_pairs_by_tier": {
+    "R1": 77,
+    "R2": 53,
+    "R3": 2,
+    "R4": 60,
+    "R5": 91
+   }
+  },
+  "edges": {
+   "CALLS": 1524,
+   "IMPORTS": 424,
+   "INHERITS": 186,
+   "OVERRIDES": 83,
+   "REFERENCES": 1533
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 461,
+   "CALLS:R2": 626,
+   "CALLS:R3": 297,
+   "CALLS:R4": 49,
+   "CALLS:R5": 91,
+   "IMPORTS:R2": 424,
+   "INHERITS:R1": 165,
+   "INHERITS:R2": 21,
+   "OVERRIDES:D": 83,
+   "REFERENCES:R1": 441,
+   "REFERENCES:R2": 1027,
+   "REFERENCES:R3": 54,
+   "REFERENCES:R4": 11
+  },
+  "files": 102,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.635,
+  "invariant_violations": 0,
+  "loc": 36596,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 2339,
+  "same_file_call_edges": 794,
+  "seconds_extract": 1.122,
+  "seconds_first_index": 1.97,
+  "seconds_noop_reindex": 0.64,
+  "seconds_resolve": 0.346,
+  "symbols": {
+   "class": 379,
+   "function": 519,
+   "method": 836,
+   "module": 102
+  },
+  "test_symbols": 0
+ },
+ "pygithub": {
+  "agreement_with_reference": {
+   "recovered": 1.0,
+   "reference_pairs": 3660,
+   "v2_only_pairs_by_tier": {
+    "R1": 1,
+    "R2": 2,
+    "R3": 14,
+    "R4": 2057,
+    "R5": 20
+   }
+  },
+  "edges": {
+   "CALLS": 2551,
+   "IMPORTS": 552,
+   "INHERITS": 203,
+   "OVERRIDES": 458,
+   "REFERENCES": 4130
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 35,
+   "CALLS:R2": 316,
+   "CALLS:R3": 1870,
+   "CALLS:R4": 310,
+   "CALLS:R5": 20,
+   "IMPORTS:R2": 552,
+   "INHERITS:R1": 29,
+   "INHERITS:R2": 174,
+   "OVERRIDES:D": 458,
+   "REFERENCES:R1": 178,
+   "REFERENCES:R2": 1759,
+   "REFERENCES:R3": 441,
+   "REFERENCES:R4": 1752
+  },
+  "files": 174,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.952,
+  "invariant_violations": 0,
+  "loc": 35418,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 640,
+  "same_file_call_edges": 261,
+  "seconds_extract": 1.268,
+  "seconds_first_index": 2.24,
+  "seconds_noop_reindex": 0.94,
+  "seconds_resolve": 0.34,
+  "symbols": {
+   "class": 226,
+   "function": 12,
+   "method": 2779,
+   "module": 174
+  },
+  "test_symbols": 0
+ },
+ "reposense": {
+  "agreement_with_reference": {
+   "recovered": 1.0,
+   "reference_pairs": 123,
+   "v2_only_pairs_by_tier": {}
+  },
+  "edges": {
+   "CALLS": 46,
+   "IMPORTS": 49,
+   "REFERENCES": 147
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 23,
+   "CALLS:R2": 23,
+   "IMPORTS:R2": 49,
+   "REFERENCES:R1": 15,
+   "REFERENCES:R2": 132
+  },
+  "files": 17,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.653,
+  "invariant_violations": 0,
+  "loc": 1602,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 109,
+  "same_file_call_edges": 23,
+  "seconds_extract": 0.072,
+  "seconds_first_index": 0.15,
+  "seconds_noop_reindex": 0.04,
+  "seconds_resolve": 0.02,
+  "symbols": {
+   "class": 14,
+   "function": 49,
+   "module": 17
+  },
+  "test_symbols": 0
+ },
+ "starlette": {
+  "agreement_with_reference": {
+   "recovered": 1.0,
+   "reference_pairs": 527,
+   "v2_only_pairs_by_tier": {
+    "R3": 7,
+    "R4": 50,
+    "R5": 66
+   }
+  },
+  "edges": {
+   "CALLS": 403,
+   "IMPORTS": 114,
+   "INHERITS": 32,
+   "OVERRIDES": 52,
+   "REFERENCES": 438
+  },
+  "edges_by_tier": {
+   "CALLS:R1": 76,
+   "CALLS:R2": 105,
+   "CALLS:R3": 125,
+   "CALLS:R4": 31,
+   "CALLS:R5": 66,
+   "IMPORTS:R2": 114,
+   "INHERITS:R1": 25,
+   "INHERITS:R2": 7,
+   "OVERRIDES:D": 52,
+   "REFERENCES:R1": 91,
+   "REFERENCES:R2": 258,
+   "REFERENCES:R3": 70,
+   "REFERENCES:R4": 19
+  },
+  "files": 34,
+  "files_reparsed_on_noop": 0,
+  "frac_functions_with_outgoing_dependency_edges": 0.552,
+  "invariant_violations": 0,
+  "loc": 6584,
+  "noop_reindex_changed_rows": false,
+  "parse_errors": 0,
+  "residual_chains": 783,
+  "same_file_call_edges": 224,
+  "seconds_extract": 0.31,
+  "seconds_first_index": 0.7,
+  "seconds_noop_reindex": 0.12,
+  "seconds_resolve": 0.051,
+  "symbols": {
+   "class": 104,
+   "function": 27,
+   "method": 433,
+   "module": 34
+  },
+  "test_symbols": 0
+ }
+}
