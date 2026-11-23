@@ -142,7 +142,13 @@ def pack(snap: GraphSnapshot, seeds, candidates: list[tuple[int, float, str]], b
             text = render_callsite(snap, i, lines, label)
             rendering = "callsite"
         else:
-            label = f"used by {seed_names[s]}" if rel == "callee" else f"{channel} match #{rank}"
+            structural = [c.split(":", 1)[1] for c in channel.split("+") if c.startswith("structural:")]
+            if rel == "callee":
+                label = f"used by {seed_names[s]}"
+            elif structural:
+                label = structural[0].replace("_", " ")
+            else:
+                label = f"{channel} match #{rank}"
             text = render_compact(snap, i, label)
             rendering = "compact"
         if used + len(text) > budget:

@@ -18,15 +18,21 @@ from backend.retrieval.diff import parse_unified_diff
 from backend.retrieval.lexical import BM25F, query_from_lines
 from backend.retrieval.packing import Item, pack
 from backend.retrieval.seeds import PLAN, link
+from backend.retrieval.structural import expand, rrf
 
 
 @dataclass
 class RetrievalConfig:
     budget: int = 12000
     seed_cap_frac: float = 0.4
+    channels: tuple = ("lexical",)  # any of: lexical, structural
     lexical_k: int = 50  # candidates per seed from BM25F
-    max_candidates: int = 40  # after merging seeds
-    min_rel_score: float = 0.15  # drop candidates scoring below this fraction of the best
+    structural_limit: int = 80
+    use_plan: bool = True  # structural: weight relations by the seed's change-type plan
+    rrf_k: int = 60
+    channel_weights: dict | None = None  # RRF weights per channel
+    max_candidates: int = 40  # after merging seeds / fusing channels
+    min_rel_score: float = 0.15  # lexical: drop candidates scoring below this fraction of the best
     bm25f_weights: dict | None = None
     pr_text_weight: float = 1.0
 
@@ -71,7 +77,20 @@ class RepoRetriever:
         if merged:
             top = max(s for _, s, _ in merged)
             merged = [c for c in merged if c[1] >= cfg.min_rel_score * top]
-        return merged[: cfg.max_candidates]
+        return merged
+
+    def _candidates(self, change, exclude: set[int], pr_text: str) -> tuple[list, dict]:
+        cfg = self.config
+        per_channel = {}
+        if "lexical" in cfg.channels:
+            per_channel["lexical"] = self._lexical_candidates(change.seeds, exclude, pr_text)
+        if "structural" in cfg.channels:
+            per_channel["structural"] = expand(self.snap, change.seeds, cfg.structural_limit, use_plan=cfg.use_plan)
+        if len(per_channel) == 1:
+            fused = next(iter(per_channel.values()))
+        else:
+            fused = rrf(per_channel, cfg.rrf_k, cfg.channel_weights)
+        return fused[: cfg.max_candidates], {k: len(v) for k, v in per_channel.items()}
 
     def build_context(self, diff_text: str, head_content: Callable[[str], str | None], pr_text: str = "") -> ContextResult:
         timings = {}
@@ -82,7 +101,7 @@ class RepoRetriever:
         exclude = {i for p in change.changed_paths for i in self.snap.symbols_in(p)}
         exclude |= {sd.index for sd in change.seeds if sd.index is not None}
         t1 = time.perf_counter()
-        candidates = self._lexical_candidates(change.seeds, exclude, pr_text)
+        candidates, channel_sizes = self._candidates(change, exclude, pr_text)
         timings["candidates_ms"] = (time.perf_counter() - t1) * 1000
         t2 = time.perf_counter()
         packed = pack(self.snap, change.seeds, candidates, self.config.budget, self.config.seed_cap_frac)
@@ -93,6 +112,7 @@ class RepoRetriever:
             "seeds": [{"key": s.key, "change": s.change, "lines": sorted(s.lines)[:50], "in_base": s.index is not None,
                        "plan": PLAN.get(s.change, [])} for s in change.seeds],
             "structural_change": change.structural_change,
+            "channel_sizes": channel_sizes,
             "skipped_files": change.skipped_files,
             "candidates": [{"key": f"{self.snap.symbols[i].path}::{self.snap.symbols[i].qualname}", "score": round(sc, 4),
                             "channel": ch} for i, sc, ch in candidates],

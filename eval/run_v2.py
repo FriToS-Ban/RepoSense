@@ -37,7 +37,9 @@ def systems():
     from backend.retrieval.pipeline import RetrievalConfig
 
     return {
-        "A": lambda: RetrievalConfig(),  # BM25F lexical channel + v2 packing
+        "A": lambda: RetrievalConfig(),  # BM25F lexical channel + v2 packing (M2)
+        "E": lambda: RetrievalConfig(channels=("structural",)),  # typed 1-hop graph expansion (M3)
+        "EA": lambda: RetrievalConfig(channels=("structural", "lexical")),  # RRF fusion of E and A (M3)
     }
 
 
@@ -103,6 +105,17 @@ def evaluate(names: list[str], out_dir: Path) -> dict:
                     rows[q.qid]["m"].setdefault(name, {})[view] = [round(m[x], 4) for x in PER_QUERY_METRICS]
                 tr = res.trace
                 renders = Counter(p["rendering"] for p in tr["packed"])
+                # noise accounting: how many packed items each channel contributed, and how many are judged relevant
+                judged = set(q.grades("sym_all")) | (set(q.grades("2hop_only")) if q.category == "deps" else set())
+                noise = Counter()
+                for it in res.items:
+                    if it.rendering == "seed" or it.index is None:
+                        continue
+                    s = snap.symbols[it.index]
+                    rel = f"{s.path}::{_bare(s.qualname)}" in judged
+                    for ch in {c.split(":")[0] for c in it.channel.split("+")}:
+                        noise[f"packed_{ch}"] += 1
+                        noise[f"packed_relevant_{ch}"] += int(rel)
                 seed_chars = sum(p["chars"] for p in tr["packed"] if p["rendering"] == "seed")
                 diag[(q.category, name)].append({
                     "ctx_chars": tr["chars"], "ctx_items": len(tr["packed"]),
@@ -111,6 +124,8 @@ def evaluate(names: list[str], out_dir: Path) -> dict:
                     **{f"items_{r}": renders.get(r, 0) for r in ("seed", "full", "compact", "callsite")},
                     "link_ms": tr["timings_ms"]["link_ms"], "candidates_ms": tr["timings_ms"]["candidates_ms"],
                     "pack_ms": tr["timings_ms"]["pack_ms"],
+                    **{k: noise.get(k, 0) for k in ("packed_lexical", "packed_relevant_lexical",
+                                                    "packed_structural", "packed_relevant_structural")},
                 })
                 cand_keys = {c["key"].split("::")[0] + "::" + _bare(c["key"].split("::")[1]) for c in tr["candidates"]}
                 main = {d for d in q.main_gt() if not d.startswith(q.path + "::")}

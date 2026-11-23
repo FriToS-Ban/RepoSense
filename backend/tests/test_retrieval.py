@@ -129,6 +129,43 @@ class PackingTest(unittest.TestCase):
         self.assertEqual(res.items[0].rendering, "full")
 
 
+class StructuralTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.g = build_from_files("r", [{"path": p, "content": c} for p, c in REPO.items()], confidence={})
+        cls.snap = GraphSnapshot(cls.g)
+
+    def test_plan_driven_relations(self):
+        from backend.retrieval.structural import expand
+
+        sig = git_diff("app/orders.py", "@@ -3,1 +3,1 @@", ["-def place_order(payload, store: Store):",
+                                                            "+def place_order(payload, store: Store, retry=False):"])
+        seeds = link(self.snap, parse_unified_diff(sig), REPO.get).seeds
+        out = {self.snap.symbols[i].qualname: ch for i, _s, ch in expand(self.snap, seeds)}
+        self.assertEqual(out["handle"], "structural:caller")  # signature change -> callers
+        self.assertEqual(out["Store"], "structural:callee_on_changed_line")  # annotation on the changed def line
+        self.assertEqual(out["checksum"], "structural:callee")
+        ranked = [self.snap.symbols[i].qualname for i, _s, _c in expand(self.snap, seeds)]
+        self.assertLess(ranked.index("handle"), ranked.index("checksum"))  # unplanned callees come after callers
+
+    def test_rrf(self):
+        from backend.retrieval.structural import rrf
+
+        fused = rrf({"a": [(1, 9.0, "a"), (2, 5.0, "a")], "b": [(2, 1.0, "b"), (3, 0.5, "b")]}, k=60)
+        self.assertEqual([i for i, _s, _l in fused], [2, 1, 3])
+        self.assertEqual(fused[0][2], "a+b")
+
+    def test_structural_pipeline_includes_same_file_and_cross_file_callees(self):
+        files = dict(REPO)
+        files["app/orders.py"] += "\ndef audit(order):\n    return cancel_order(order)\n"
+        g = build_from_files("r", [{"path": p, "content": c} for p, c in files.items()], confidence={})
+        retr = RepoRetriever(g, RetrievalConfig(channels=("structural", "lexical")))
+        d = git_diff("app/orders.py", "@@ -11,1 +11,1 @@", ["-    return cancel_order(order)", "+    return cancel_order(order) or None"])
+        keys = [it.key for it in retr.build_context(d, files.get).items]
+        self.assertEqual(keys[0], "app/orders.py::audit")
+        self.assertIn("app/orders.py::cancel_order", keys)  # same-file callee: eligible for the structural channel
+
+
 class PipelineTest(unittest.TestCase):
     def test_end_to_end_excludes_changed_file_and_traces(self):
         g = build_from_files("r", [{"path": p, "content": c} for p, c in REPO.items()], confidence={})
