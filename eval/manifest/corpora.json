@@ -1,0 +1,47 @@
+{
+ "comment": "T1 corpora in sampling order. Fingerprint = sha256 over (path, sha256(content)) in walk order; see eval/corpora.py.",
+ "corpora": [
+  {
+   "name": "reposense",
+   "kind": "git",
+   "target": "backend",
+   "pin": "887d2fdb305275727d73c7bd84d4f63b67aa7e65",
+   "fingerprint": "f5b6132694104be30957123ef4ab1417868f4ff6217451d3fd11bffe56d1c216"
+  },
+  {
+   "name": "httpx",
+   "kind": "package",
+   "target": "httpx",
+   "pin": "httpx==0.28.1",
+   "fingerprint": "152373bf5e4360fcaa35ad184214c9ac36d802e1f5f8648dcec43121457a2247"
+  },
+  {
+   "name": "starlette",
+   "kind": "package",
+   "target": "starlette",
+   "pin": "starlette==1.0.0",
+   "fingerprint": "27e8dcd0b1e3925adda286ead2bc8b7bdd77bc494d8acf939b19eb800f7bbdfe"
+  },
+  {
+   "name": "fastapi",
+   "kind": "package",
+   "target": "fastapi",
+   "pin": "fastapi==0.136.1",
+   "fingerprint": "675604308560a6021965569c1780f4d367fba0ad5bfd3eed1a71b3ade18f24d5"
+  },
+  {
+   "name": "pygithub",
+   "kind": "package",
+   "target": "github",
+   "pin": "PyGithub==2.9.1",
+   "fingerprint": "0c498e71de6bd8af40f68b9a0767a8bb5e52e7ff6d6b782ab910d989928442dd"
+  },
+  {
+   "name": "pydantic",
+   "kind": "package",
+   "target": "pydantic",
+   "pin": "pydantic==2.13.4",
+   "fingerprint": "b2d410dcb717c61e5e849844ccababea4790041bb42778caef41731f8f742586"
+  }
+ ]
+}
