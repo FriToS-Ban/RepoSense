@@ -1,0 +1,11 @@
+# Pinned environment for the tests and the evaluation regression gate (CI).
+# The corpus packages (httpx, starlette, fastapi, PyGithub, pydantic) must match
+# eval/manifest/corpora.json exactly: their source code IS the benchmark corpus.
+sqlalchemy==2.0.49
+pydantic==2.13.4
+pydantic-settings==2.14.1
+requests==2.34.2
+httpx==0.28.1
+starlette==1.0.0
+fastapi==0.136.1
+PyGithub==2.9.1

@@ -46,7 +46,7 @@ def wilson(k: int, n: int, z: float = 1.96):
 
 
 # ------------------------------------------------------------------ stats
-def cmd_stats():
+def cmd_stats(out_path: str | None = None):
     cache = EVAL_DIR / ".cache"
     cache.mkdir(exist_ok=True)
     db_path = cache / "m1-kg.sqlite"
@@ -107,9 +107,10 @@ def cmd_stats():
         out[name] = row
         print(f"[kg] {name:10s} index {row['seconds_first_index']:5.2f}s  noop {row['seconds_noop_reindex']:4.2f}s  "
               f"violations {row['invariant_violations']}  fn-with-deps {row['frac_functions_with_outgoing_dependency_edges']}", flush=True)
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "kg_stats.json").write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
-    print(f"wrote {OUT / 'kg_stats.json'}")
+    target = Path(out_path) if out_path else OUT / "kg_stats.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    print(f"wrote {target}")
 
 
 # ------------------------------------------------------------------ sampling
@@ -325,4 +326,7 @@ def cmd_score():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "stats"
-    {"stats": cmd_stats, "sample": cmd_sample, "score": cmd_score}[cmd]()
+    if cmd == "stats":
+        cmd_stats(sys.argv[3] if len(sys.argv) > 3 and sys.argv[2] == "--out" else None)
+    else:
+        {"sample": cmd_sample, "score": cmd_score}[cmd]()
