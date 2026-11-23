@@ -10,7 +10,9 @@ From the repository root, with the backend virtualenv (Python 3.12):
 
 ```
 python -m eval.run                       # T1 benchmark, v1 baselines S0–S4, scaling experiment (~90 s)
-python -m eval.compare eval/results/t1-v1-baselines:S3_bm25_raw eval/results/t1-v1-baselines:S2_fixed_pipeline+bm25_stage1
+python -m eval.run_v2                    # T1 benchmark, v2 systems (A = BM25F + v2 packing, ...)
+python -m eval.compare eval/results/t1-v2:A eval/results/t1-v1-baselines:S2_fixed_pipeline+bm25_stage1
+python -m eval.gate t1 FRESH/metrics.json COMMITTED/metrics.json   # regression gate (used by CI)
 python -m eval.kg_eval stats             # knowledge graph v2: cost, invariants, structure, agreement (M1)
 python -m eval.kg_eval score             # gold labels -> per-tier precision/recall, writes backend/kg/calibration.json
 python -m unittest discover -s eval/tests -t .

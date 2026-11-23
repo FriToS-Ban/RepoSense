@@ -52,6 +52,10 @@ jobs:
         run: |
           python -m eval.run --out eval/.cache/ci-t1
           python -m eval.gate t1 eval/.cache/ci-t1/metrics.json eval/results/t1-v1-baselines/metrics.json
+      - name: T1 benchmark (v2 retrieval systems) vs committed results
+        run: |
+          python -m eval.run_v2 --out eval/.cache/ci-t1-v2
+          python -m eval.gate t1 eval/.cache/ci-t1-v2/metrics.json eval/results/t1-v2/metrics.json
       - name: Knowledge graph structure and invariants vs committed results
         run: |
           python -m eval.kg_eval stats --out eval/.cache/ci-kg-stats.json

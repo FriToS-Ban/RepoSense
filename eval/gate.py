@@ -15,7 +15,8 @@ import sys
 
 FLOAT_TOL = 1e-3
 TIMING_KEYS = {"lat_ms", "latency_ms", "seconds_local_cpu", "seconds_first_index", "seconds_extract",
-               "seconds_resolve", "seconds_noop_reindex", "python"}
+               "seconds_resolve", "seconds_noop_reindex", "python", "graph_seconds", "index_seconds",
+               "link_ms", "candidates_ms", "pack_ms"}
 
 
 def _diff(a, b, path="", out=None):

@@ -1,0 +1,172 @@
+"""Run v2 retrieval systems on T1.
+
+    python -m eval.run_v2                       # all v2 systems
+    python -m eval.run_v2 --systems A --out eval/results/t1-v2
+
+Output format matches eval.run (metrics.json + per_query.jsonl), so systems are compared
+with ``python -m eval.compare eval/results/t1-v2:A eval/results/t1-v1-baselines:S2_...``.
+
+Coverage semantics for packed contexts (design §6.3):
+  * an item's key is ``path::name`` (bare name, the granularity of T1 judgments);
+  * a class rendered in full also covers its methods;
+  * ``R@all`` counts any rendering; ``R@all_appropriate`` counts a judged *caller* (impact
+    queries) only if its call site is shown (callsite/full rendering), because a caller's
+    signature alone does not show how it uses the changed function.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import statistics
+import sys
+import time
+from collections import Counter, defaultdict
+from pathlib import Path
+
+from eval import corpora
+from eval.benchmarks import t1
+from eval.metrics import ir_metrics, mean_metrics
+from eval.run import PER_QUERY_METRICS, _write_json
+from eval.stats import bootstrap_ci
+
+EVAL_DIR = Path(__file__).resolve().parent
+
+
+def systems():
+    """name -> RetrievalConfig factory.  Add M3+ systems here."""
+    from backend.retrieval.pipeline import RetrievalConfig
+
+    return {
+        "A": lambda: RetrievalConfig(),  # BM25F lexical channel + v2 packing
+    }
+
+
+def _bare(qualname: str) -> str:
+    return qualname.split(".")[-1] if qualname else ""
+
+
+def evaluate(names: list[str], out_dir: Path) -> dict:
+    from backend.kg.build import build_from_files
+    from backend.kg.model import Kind
+    from backend.retrieval.pipeline import RepoRetriever
+
+    specs = corpora.manifest()
+    files = {s.name: corpora.load_verified(s) for s in specs}
+    queries, _ = t1.load()
+    factories = systems()
+    per_sys = defaultdict(list)
+    diag = defaultdict(list)
+    failure = defaultdict(Counter)
+    rows = {q.qid: {"qid": q.qid, "corpus": q.corpus, "category": q.category, "m": {}} for q in queries}
+    index_stats = {}
+    for corpus in [s.name for s in specs]:
+        content = {f["path"]: f["content"] for f in files[corpus]}
+        t0 = time.perf_counter()
+        graph = build_from_files(corpus, files[corpus])
+        t_graph = time.perf_counter() - t0
+        for name in names:
+            retr = RepoRetriever(graph, factories[name]())
+            index_stats[f"{corpus}|{name}"] = {"graph_seconds": round(t_graph, 2), "index_seconds": round(retr.build_seconds, 2)}
+            snap = retr.snap
+            all_keys = {f"{s.path}::{_bare(s.qualname)}" for s in snap.symbols if s.kind != Kind.MODULE}
+            for q in (q for q in queries if q.corpus == corpus):
+                lines = content[q.path].split("\n")
+                diff = t1.make_diff(q.path, lines, q.ws, q.we, q.category)
+                res = retr.build_context(diff, content.get)
+                ranked, appropriate = [], set()
+                for it in res.items:
+                    if it.index is None:
+                        continue
+                    s = snap.symbols[it.index]
+                    key = f"{s.path}::{_bare(s.qualname)}" if s.qualname else s.path
+                    ranked.append(key)
+                    if it.rendering in ("callsite", "full", "seed"):
+                        appropriate.add(key)
+                    if it.rendering == "full" and s.kind == Kind.CLASS:
+                        for c in snap.children(it.index):
+                            ck = f"{snap.symbols[c].path}::{_bare(snap.symbols[c].qualname)}"
+                            ranked.append(ck)
+                            appropriate.add(ck)
+                lat = res.trace["timings_ms"]["total_ms"]
+                for view in t1.VIEWS[q.category]:
+                    rl = [k.split("::")[0] for k in ranked] if view == "file_xfile" else ranked
+                    g = q.grades(view)
+                    m = ir_metrics(rl, g)
+                    if m is None:
+                        continue
+                    if view != "file_xfile":
+                        hits_appr = sum(1 for k in g if k in appropriate) if q.category == "impact" else sum(1 for k in g if k in set(ranked))
+                        m["R@all_appropriate"] = hits_appr / len(g)
+                    m["lat_ms"] = lat
+                    per_sys[(q.category, name, view)].append(m)
+                    per_sys[(f"{q.corpus}:{q.category}", name, view)].append(m)
+                    rows[q.qid]["m"].setdefault(name, {})[view] = [round(m[x], 4) for x in PER_QUERY_METRICS]
+                tr = res.trace
+                renders = Counter(p["rendering"] for p in tr["packed"])
+                seed_chars = sum(p["chars"] for p in tr["packed"] if p["rendering"] == "seed")
+                diag[(q.category, name)].append({
+                    "ctx_chars": tr["chars"], "ctx_items": len(tr["packed"]),
+                    "share_of_context_from_seeds": seed_chars / max(tr["chars"], 1),
+                    "candidates": len(tr["candidates"]), "structural_change": 1.0 if tr["structural_change"] else 0.0,
+                    **{f"items_{r}": renders.get(r, 0) for r in ("seed", "full", "compact", "callsite")},
+                    "link_ms": tr["timings_ms"]["link_ms"], "candidates_ms": tr["timings_ms"]["candidates_ms"],
+                    "pack_ms": tr["timings_ms"]["pack_ms"],
+                })
+                cand_keys = {c["key"].split("::")[0] + "::" + _bare(c["key"].split("::")[1]) for c in tr["candidates"]}
+                main = {d for d in q.main_gt() if not d.startswith(q.path + "::")}
+                for d in main:
+                    if d not in all_keys:
+                        failure[(q.category, name)]["not_indexed_as_symbol"] += 1
+                    elif d in ranked and (q.category != "impact" or d in appropriate):
+                        failure[(q.category, name)]["in_context"] += 1
+                    elif d in ranked:
+                        failure[(q.category, name)]["in_context_wrong_rendering"] += 1
+                    elif d in cand_keys:
+                        failure[(q.category, name)]["generated_then_packed_out"] += 1
+                    else:
+                        failure[(q.category, name)]["not_generated"] += 1
+        print(f"[v2] {corpus}: graph {t_graph:.2f}s", flush=True)
+    result = {
+        "meta": {"benchmark": "t1", "t1_version": t1.T1_VERSION, "systems": names, "python": sys.version.split()[0]},
+        "index": index_stats,
+        "metrics": {f"{c}|{s}|{v}": {**mean_metrics(r), "queries": len(r)} for (c, s, v), r in per_sys.items()},
+        "diagnostics": {f"{c}|{s}": mean_metrics(r) for (c, s), r in diag.items()},
+        "failure_breakdown_xfile_gt": {f"{c}|{s}": dict(sorted(v.items())) for (c, s), v in failure.items()},
+        "ci95_R@all_sym_xfile": {}, "latency_ms": {},
+    }
+    for (c, s, v), r in per_sys.items():
+        if ":" in c:
+            continue
+        if v == "sym_xfile":
+            mean, lo, hi = bootstrap_ci([x["R@all"] for x in r])
+            result["ci95_R@all_sym_xfile"][f"{c}|{s}"] = [round(mean, 3), round(lo, 3), round(hi, 3)]
+        if v == "sym_all":
+            ls = sorted(x["lat_ms"] for x in r)
+            result["latency_ms"][f"{c}|{s}"] = {"p50": round(ls[len(ls) // 2], 2), "p95": round(ls[int(len(ls) * 0.95) - 1], 2)}
+    out_dir.mkdir(parents=True, exist_ok=True)
+    _write_json(out_dir / "metrics.json", result)
+    with open(out_dir / "per_query.jsonl", "w", encoding="utf-8", newline="\n") as fh:
+        for row in rows.values():
+            fh.write(json.dumps(row, sort_keys=True) + "\n")
+    return result
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--systems", default="all")
+    ap.add_argument("--out", default=str(EVAL_DIR / "results" / "t1-v2"))
+    args = ap.parse_args(argv)
+    names = list(systems()) if args.systems == "all" else args.systems.split(",")
+    res = evaluate(names, Path(args.out))
+    cols = ("R@10", "R@20", "MRR", "nDCG@10", "R@all", "R@all_appropriate", "n")
+    for cat in ("deps", "impact"):
+        print(f"\n{cat} / sym_xfile")
+        for key, m in sorted(res["metrics"].items()):
+            c, s, v = key.split("|")
+            if c == cat and v == "sym_xfile":
+                print(f"  {s:10s}" + "".join(f" {x}={m.get(x, float('nan')):.3f}" for x in cols) + f"  q={m['queries']}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

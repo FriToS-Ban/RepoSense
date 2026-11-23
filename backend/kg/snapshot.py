@@ -45,9 +45,14 @@ class GraphSnapshot:
         self.mro = {self.index[c]: [self.index[x] for x in m if x in self.index] for c, m in graph.mro.items() if c in self.index}
         n = len(syms)
         per_type: dict[str, list] = defaultdict(list)
+        self.evidence: dict[tuple[int, int, str], list[int]] = {}  # (src, dst, type) -> source lines in src's file
+        self.resolution: dict[tuple[int, int, str], str] = {}
         for e in graph.edges.values():
             if e.src in self.index and e.dst in self.index:
-                per_type[e.type].append((self.index[e.src], self.index[e.dst], e.confidence, e.weight))
+                s, d = self.index[e.src], self.index[e.dst]
+                per_type[e.type].append((s, d, e.confidence, e.weight))
+                self.evidence[(s, d, e.type)] = list(e.lines)
+                self.resolution[(s, d, e.type)] = e.resolution
         self.out = {t: CSR(n, list(p)) for t, p in per_type.items()}
         self.inc = {t: CSR(n, [(d, s, c, w) for s, d, c, w in p]) for t, p in per_type.items()}
         self._by_path: dict[str, tuple[list[int], list[int]]] = {}
@@ -66,7 +71,23 @@ class GraphSnapshot:
         return csr.row(i) if csr else []
 
     def children(self, i: int) -> list[int]:
-        return [j for j, p in enumerate(self.parent) if p == i]
+        if not hasattr(self, "_children"):
+            ch = defaultdict(list)
+            for j, p in enumerate(self.parent):
+                if p >= 0:
+                    ch[p].append(j)
+            self._children = ch
+        return self._children.get(i, [])
+
+    def symbols_in(self, path: str) -> list[int]:
+        entry = self._by_path.get(path)
+        return list(entry[1]) if entry else []
+
+    def by_qualname(self, path: str, qualname: str) -> int | None:
+        for i in self.symbols_in(path):
+            if self.symbols[i].qualname == qualname:
+                return i
+        return None
 
     def module_of(self, path: str) -> int | None:
         entry = self._by_path.get(path)
