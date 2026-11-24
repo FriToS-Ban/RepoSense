@@ -9,6 +9,48 @@ import json
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
+
+def kg_push_target(payload: dict):
+    """(repo_full_name, before, after) if a push should update the v2 knowledge graph, else None.
+
+    The graph represents the default branch: pushes to other branches, branch deletions
+    (after = 0000…) and pushes without a 'before' are ignored."""
+    repo = payload.get("repository", {}) or {}
+    before, after = payload.get("before") or "", payload.get("after") or ""
+    branch = repo.get("default_branch")
+    if not repo.get("full_name") or not branch or payload.get("ref") != f"refs/heads/{branch}":
+        return None
+    if not after or set(after) == {"0"} or not before:
+        return None
+    return repo["full_name"], before, after
+
+
+def kg_update_from_push(payload: dict) -> bool:
+    target = kg_push_target(payload)
+    if target is None:
+        return False
+    repo_full_name, before, after = target
+    from backend.core.database import SessionLocal
+    from backend.models.models import Repository, User
+
+    db = SessionLocal()
+    try:
+        db_repo = db.query(Repository).filter(
+            Repository.repo_full_name == repo_full_name,
+            Repository.is_active == True,  # noqa: E712
+            Repository.crawl_permission == True,  # noqa: E712
+        ).first()
+        user = db.query(User).filter(User.id == db_repo.user_id).first() if db_repo else None
+        if not user:
+            return False
+        from backend.services.kg_indexer import update_on_push_background
+
+        update_on_push_background(db_repo.id, user.access_token, repo_full_name, before, after)
+        logger.info(f"Triggered knowledge-graph update {before[:10]}..{after[:10]} for {repo_full_name}")
+        return True
+    finally:
+        db.close()
+
 @router.post("/github")
 async def github_webhook(
     request: Request,
@@ -50,6 +92,10 @@ async def github_webhook(
         repo = payload.get("repository", {})
         repo_full_name = repo.get("full_name")
         commits = payload.get("commits", [])
+
+        if getattr(settings, "RETRIEVAL_ENGINE", "v1") == "v2":
+            kg_update_from_push(payload)
+            return {"status": "ok"}
 
         # Collect all unique changed/added files across commits
         changed_paths = set()

@@ -156,3 +156,59 @@ def get_file_content(access_token: str, repo_full_name: str, file_path: str) -> 
         except Exception:
             return ""
     return ""
+
+
+# ─── Knowledge graph v2 acquisition (M7): one tarball per commit, compare-driven updates ──────
+
+def _api_headers(access_token: str) -> dict:
+    return {"Authorization": f"Bearer {access_token}", "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28"}
+
+
+def get_tarball(access_token: str, repo_full_name: str, ref: str) -> bytes:
+    """The repository at ``ref`` as a gzipped tarball (one API call; follows the codeload redirect)."""
+    url = f"https://api.github.com/repos/{repo_full_name}/tarball/{ref}"
+    response = requests.get(url, headers=_api_headers(access_token), timeout=120)
+    response.raise_for_status()
+    return response.content
+
+
+def compare_commits(access_token: str, repo_full_name: str, base: str, head: str):
+    """[{"filename", "status", "previous_filename"?}] changed between two commits, or None on error.
+    GitHub lists at most 300 files; callers treat a list that long as truncated."""
+    url = f"https://api.github.com/repos/{repo_full_name}/compare/{base}...{head}"
+    response = requests.get(url, headers=_api_headers(access_token), timeout=60)
+    if response.status_code != 200:
+        return None
+    return [{k: f.get(k) for k in ("filename", "status", "previous_filename")} for f in response.json().get("files", [])]
+
+
+def get_file_content_at(access_token: str, repo_full_name: str, file_path: str, ref: str):
+    """Text of ``file_path`` at ``ref`` (raw media type, no size cap of the JSON contents API), or None."""
+    url = f"https://api.github.com/repos/{repo_full_name}/contents/{file_path}"
+    headers = {**_api_headers(access_token), "Accept": "application/vnd.github.raw+json"}
+    response = requests.get(url, headers=headers, params={"ref": ref}, timeout=60)
+    if response.status_code != 200:
+        return None
+    return response.content.decode("utf-8", errors="replace")
+
+
+def get_default_branch_head(access_token: str, repo_full_name: str) -> str:
+    """SHA of the default branch's head commit."""
+    base = f"https://api.github.com/repos/{repo_full_name}"
+    response = requests.get(base, headers=_api_headers(access_token), timeout=60)
+    response.raise_for_status()
+    branch = response.json()["default_branch"]
+    response = requests.get(f"{base}/commits/{branch}", headers=_api_headers(access_token), timeout=60)
+    response.raise_for_status()
+    return response.json()["sha"]
+
+
+def get_pull_request_meta(access_token: str, repo_full_name: str, pr_number: int) -> dict:
+    """Head/base SHAs and description of a PR (v2 retrieval needs the head version of changed files)."""
+    url = f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}"
+    response = requests.get(url, headers=_api_headers(access_token), timeout=60)
+    response.raise_for_status()
+    pr = response.json()
+    return {"head_sha": pr["head"]["sha"], "base_sha": pr["base"]["sha"], "body": pr.get("body") or "",
+            "title": pr.get("title") or ""}

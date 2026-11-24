@@ -14,7 +14,7 @@ import json
 import time
 from dataclasses import dataclass, field
 
-from sqlalchemy import delete, insert, select, update
+from sqlalchemy import bindparam, delete, insert, select, update
 from sqlalchemy.orm import Session
 
 from backend.kg.build import build_graph, validate
@@ -85,22 +85,28 @@ def apply_graph(db: Session, graph: Graph, commit_sha: str, stats_json: dict | N
     outbox += [{"repo_id": repo, "symbol_id": r["id"], "op": "upsert", "content_hash": r["content_hash"]}
                for r in sym_ins + [r for r in sym_upd if r["content_hash"] != cur_syms[r["id"]].content_hash]]
 
-    for keys in _chunks(edge_del):
-        for src, dst, typ in keys:
-            db.execute(delete(KGEdge).where(KGEdge.src_id == src, KGEdge.dst_id == dst, KGEdge.type == typ))
+    # Core-level executemany statements: ORM-enabled UPDATE/DELETE would re-evaluate their criteria
+    # against every object loaded above (O(changes x rows); 94 s for one click commit before M7).
+    te, ts = KGEdge.__table__, KGSymbol.__table__
+    edge_key = (te.c.src_id == bindparam("k_src")) & (te.c.dst_id == bindparam("k_dst")) & (te.c.type == bindparam("k_type"))
+    if edge_del:
+        db.execute(te.delete().where(edge_key), [{"k_src": s, "k_dst": d, "k_type": t} for s, d, t in edge_del])
     for ids in _chunks(sym_del):
-        db.execute(delete(KGSymbol).where(KGSymbol.id.in_(ids)))
+        db.execute(ts.delete().where(ts.c.id.in_(ids)))
     if sym_ins:
-        db.execute(insert(KGSymbol), sym_ins)
+        db.execute(ts.insert(), sym_ins)
     if sym_upd:
-        db.execute(update(KGSymbol), sym_upd)
+        db.execute(ts.update().where(ts.c.id == bindparam("k_id")).values({c: bindparam(c) for c in SYMBOL_COLS}),
+                   [{**{c: r[c] for c in SYMBOL_COLS}, "k_id": r["id"]} for r in sym_upd])
     if edge_ins:
-        db.execute(insert(KGEdge), edge_ins)
-    for r in edge_upd:
-        db.execute(update(KGEdge).where(KGEdge.src_id == r["src_id"], KGEdge.dst_id == r["dst_id"], KGEdge.type == r["type"])
-                   .values({c: r[c] for c in EDGE_COLS}))
+        db.execute(te.insert(), edge_ins)
+    if edge_upd:
+        db.execute(te.update().where(edge_key).values({c: bindparam(c) for c in EDGE_COLS}),
+                   [{**{c: r[c] for c in EDGE_COLS}, "k_src": r["src_id"], "k_dst": r["dst_id"], "k_type": r["type"]}
+                    for r in edge_upd])
     if outbox:
         db.execute(insert(KGVectorOutbox), outbox)
+    db.expire_all()  # the Core statements bypassed the identity map: reload anything read later in this session
 
     db.execute(update(KGSnapshot).where(KGSnapshot.repo_id == repo).values(is_current=False))
     snap = db.get(KGSnapshot, (repo, commit_sha))
@@ -153,6 +159,56 @@ def index_files(db: Session, repo_id: str, files: list[dict], commit_sha: str) -
     for paths in _chunks(gone):
         db.execute(delete(KGFile).where(KGFile.repo_id == repo_id, KGFile.path.in_(paths)))
     graph.stats.update({"extract_seconds": round(t1 - t0, 3), "files_reparsed": len(fresh), "files_cached": len(facts) - len(fresh)})
+    st = apply_graph(db, graph, commit_sha)
+    st.extra = {**graph.stats, "seconds_total": round(time.perf_counter() - t0, 3)}
+    return st
+
+
+def update_files(db: Session, repo_id: str, changes: dict[str, str | None], commit_sha: str) -> ApplyStats:
+    """Incremental update (design §4.6): ``changes`` maps every added / modified path to its new
+    content and every deleted path to None (a rename is a delete plus an add), e.g. from the
+    GitHub compare API between the indexed commit and ``commit_sha``.
+
+    Only the changed files are re-extracted; all other FileFacts come from the extraction cache.
+    Resolution then runs globally, so the result equals a full index of ``commit_sha`` (checked
+    on real history by eval/kg_update_equivalence.py).  Raises KGInvariantError, writing
+    nothing, if the result violates an invariant."""
+    t0 = time.perf_counter()
+    cached = {r.path: r for r in db.execute(select(KGFile).where(KGFile.repo_id == repo_id)).scalars()}
+    facts = {p: None for p in cached}  # path -> FileFacts, loaded lazily below
+    fresh: list[FileFacts] = []
+    for path, content in sorted(changes.items()):
+        if not path.endswith(".py"):
+            continue
+        if content is None:
+            facts.pop(path, None)
+            continue
+        row = cached.get(path)
+        if row is not None and row.content_hash == content_hash(content) and row.extractor_version == EXTRACTOR_VERSION:
+            continue  # unchanged after all (e.g. a revert inside the range)
+        ff = extract(path, content)
+        facts[path] = ff
+        fresh.append(ff)
+    stale = [p for p, ff in facts.items() if ff is None and cached[p].extractor_version != EXTRACTOR_VERSION]
+    if stale:
+        raise KGInvariantError(f"extraction cache of {len(stale)} files is from another extractor version; run index_files")
+    all_facts = [ff if ff is not None else FileFacts.from_json(cached[p].facts_json) for p, ff in sorted(facts.items())]
+    t1 = time.perf_counter()
+    graph = build_graph(repo_id, all_facts)
+    violations = validate(graph)
+    if violations:
+        raise KGInvariantError(f"{len(violations)} invariant violations, e.g. {violations[:3]}")
+    for ff in fresh:
+        row = {"content_hash": ff.content_hash, "extractor_version": EXTRACTOR_VERSION, "facts_json": ff.to_json()}
+        if ff.path in cached:
+            db.execute(update(KGFile).where(KGFile.repo_id == repo_id, KGFile.path == ff.path).values(row))
+        else:
+            db.execute(insert(KGFile).values(repo_id=repo_id, path=ff.path, **row))
+    gone = [p for p in cached if p not in facts]
+    for paths in _chunks(gone):
+        db.execute(delete(KGFile).where(KGFile.repo_id == repo_id, KGFile.path.in_(paths)))
+    graph.stats.update({"extract_seconds": round(t1 - t0, 3), "files_reparsed": len(fresh),
+                        "files_cached": len(all_facts) - len(fresh), "files_deleted": len(gone)})
     st = apply_graph(db, graph, commit_sha)
     st.extra = {**graph.stats, "seconds_total": round(time.perf_counter() - t0, 3)}
     return st

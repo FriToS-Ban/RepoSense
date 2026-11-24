@@ -112,7 +112,19 @@ def deduplicate_nodes(nodes: List[CodeNode]) -> List[CodeNode]:
 
 # ─── Improved context retrieval ───────────────────────────────────────────────
 
-def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5, changed_file_paths: list = []) -> str:
+def get_relevant_context(repo_id: str, diff: str, db: Session, top_k: int = 5, changed_file_paths: list = [],
+                         head_content=None, pr_text: str = "") -> str:
+    """Review context for a diff.  With RETRIEVAL_ENGINE=v2 and a ``head_content`` provider
+    (path -> file text at the PR head), retrieval v2 answers; on any v2 error, v1 does."""
+    if getattr(settings, "RETRIEVAL_ENGINE", "v1") == "v2" and head_content is not None:
+        try:
+            from backend.services.context_v2 import get_context_v2
+
+            ctx = get_context_v2(db, repo_id, diff, head_content, pr_text)
+            if ctx is not None:
+                return ctx
+        except Exception as e:  # noqa: BLE001 - never fail a review because of the new engine
+            logger.error(f"Retrieval v2 failed for repo {repo_id}, falling back to v1: {e}")
     try:
         index = get_pinecone_index()
 

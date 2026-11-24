@@ -13,7 +13,7 @@ from backend.kg.derive import c3_mro  # noqa: E402
 from backend.kg.extract_python import extract  # noqa: E402
 from backend.kg.model import EdgeType, Flag, Kind, Tier, symbol_id  # noqa: E402
 from backend.kg.snapshot import GraphSnapshot  # noqa: E402
-from backend.kg.store import KGInvariantError, index_files, load_graph  # noqa: E402
+from backend.kg.store import KGInvariantError, index_files, load_graph, update_files  # noqa: E402
 from backend.models.models import KGVectorOutbox  # noqa: E402
 
 REPO = "fixture"
@@ -316,6 +316,24 @@ class StoreTest(unittest.TestCase):
         self.assertIn((symbol_id(repo, "app/util.py", "fmt"), "delete"), ops)
         self.assertIn((symbol_id(repo, "app/api.py", "get"), "delete"), ops)
         self.assertIn((symbol_id(repo, "app/util.py", "helper"), "upsert"), ops)
+
+    def test_incremental_update_equals_full_index(self):
+        repo = "store-u"
+        self._index(repo, [dict(f) for f in files()], "c1")
+        changes = {"app/util.py": "def helper(x, y=0):\n    return x\n", "app/api.py": None,
+                   "app/extra.py": "from app.util import helper\n\ndef extra():\n    return helper(1)\n",
+                   "README.md": "ignored"}
+        st = update_files(self.db, repo, changes, "c2")
+        self.assertEqual(st.extra["files_reparsed"], 2)
+        self.assertEqual(st.extra["files_deleted"], 1)
+        expected = files({"app/util.py": changes["app/util.py"], "app/extra.py": changes["app/extra.py"]}, drop=("app/api.py",))
+        self._same(load_graph(self.db, repo), build_from_files(repo, expected))
+        ops = {(r.symbol_id, r.op) for r in self.db.query(KGVectorOutbox).filter(KGVectorOutbox.repo_id == repo)}
+        self.assertIn((symbol_id(repo, "app/api.py", "get"), "delete"), ops)
+        self.assertIn((symbol_id(repo, "app/extra.py", "extra"), "upsert"), ops)
+        noop = update_files(self.db, repo, {"app/util.py": changes["app/util.py"]}, "c3")  # same content again
+        self.assertFalse(noop.changed)
+        self.assertEqual(noop.extra["files_reparsed"], 0)
 
     def test_invariant_failure_writes_nothing(self):
         import backend.kg.store as store

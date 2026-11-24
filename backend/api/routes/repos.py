@@ -82,7 +82,12 @@ def enable_repo(req: EnableRepoRequest, current_user: User = Depends(get_current
     db.commit()
 
     if req.crawl_permission:
-        index_repository_background(repo.id, current_user.access_token)
+        from backend.core.config import settings
+        if getattr(settings, "RETRIEVAL_ENGINE", "v1") == "v2":
+            from backend.services.kg_indexer import index_default_branch_background
+            index_default_branch_background(repo.id, current_user.access_token, repo.repo_full_name)
+        else:
+            index_repository_background(repo.id, current_user.access_token)
 
     return {"message": "Repo enabled successfully"}
 

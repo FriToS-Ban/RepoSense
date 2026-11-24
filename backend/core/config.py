@@ -24,6 +24,10 @@ class Settings(BaseSettings):
     NVIDIA_API_KEY: str = ""
     NVIDIA_MODEL: str = "qwen/qwen3-coder-480b-a35b-instruct"
 
+    # Review-context retrieval: "v1" (Pinecone + code_nodes, hot-fixed) or "v2" (knowledge graph v2 +
+    # BM25F + relation-aware packing; docs/retrieval/02-design.md §8).  v1 stays the default until cutover.
+    RETRIEVAL_ENGINE: str = "v1"
+
     class Config:
         env_file = ".env"
 

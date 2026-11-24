@@ -1,0 +1,79 @@
+{
+ "pairs": 240,
+ "pairs_equivalent": 240,
+ "per_repo": {
+  "attrs": {
+   "commits_walked": 120,
+   "edges": 2190,
+   "equivalent": 40,
+   "median_files_changed": 2.0,
+   "median_full_build_seconds": 0.092,
+   "median_symbols_touched": 55.5,
+   "median_update_seconds": 0.431,
+   "pairs": 40,
+   "symbols": 1052,
+   "total_files_changed": 108
+  },
+  "click": {
+   "commits_walked": 54,
+   "edges": 3151,
+   "equivalent": 40,
+   "median_files_changed": 2.0,
+   "median_full_build_seconds": 0.108,
+   "median_symbols_touched": 25.0,
+   "median_update_seconds": 0.482,
+   "pairs": 40,
+   "symbols": 872,
+   "total_files_changed": 90
+  },
+  "flask": {
+   "commits_walked": 82,
+   "edges": 1966,
+   "equivalent": 40,
+   "median_files_changed": 1.5,
+   "median_full_build_seconds": 0.086,
+   "median_symbols_touched": 26.0,
+   "median_update_seconds": 0.334,
+   "pairs": 40,
+   "symbols": 860,
+   "total_files_changed": 100
+  },
+  "httpx": {
+   "commits_walked": 109,
+   "edges": 4640,
+   "equivalent": 40,
+   "median_files_changed": 2.0,
+   "median_full_build_seconds": 0.127,
+   "median_symbols_touched": 25.5,
+   "median_update_seconds": 0.49,
+   "pairs": 40,
+   "symbols": 1146,
+   "total_files_changed": 150
+  },
+  "requests": {
+   "commits_walked": 87,
+   "edges": 1808,
+   "equivalent": 40,
+   "median_files_changed": 1.0,
+   "median_full_build_seconds": 0.061,
+   "median_symbols_touched": 6.5,
+   "median_update_seconds": 0.24,
+   "pairs": 40,
+   "symbols": 667,
+   "total_files_changed": 60
+  },
+  "starlette": {
+   "commits_walked": 61,
+   "edges": 5740,
+   "equivalent": 40,
+   "median_files_changed": 2.0,
+   "median_full_build_seconds": 0.157,
+   "median_symbols_touched": 10.5,
+   "median_update_seconds": 0.617,
+   "pairs": 40,
+   "symbols": 1219,
+   "total_files_changed": 100
+  }
+ },
+ "problems": []
+}

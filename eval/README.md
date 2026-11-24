@@ -16,6 +16,7 @@ python -m eval.run_t2                    # T2 history benchmark, v2 systems (clo
 python -m eval.run_t2_v1                 # T2, v1 baseline S2 (indexes every parent snapshot with v1; ~30 min)
 python -m eval.t2_analysis               # T2 diagnostics: graph distance of judged symbols, per-channel ranks, RRF displacement
 python -m eval.compare eval/results/t2-v2:EA eval/results/t2-v2:A --view sym_all
+python -m eval.kg_update_equivalence     # M7: incremental update == full index on 240 real commit pairs
 python -m eval.gate t1 FRESH/metrics.json COMMITTED/metrics.json   # regression gate (used by CI)
 python -m eval.kg_eval stats             # knowledge graph v2: cost, invariants, structure, agreement (M1)
 python -m eval.kg_eval score             # gold labels -> per-tier precision/recall, writes backend/kg/calibration.json

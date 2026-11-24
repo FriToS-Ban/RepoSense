@@ -22,6 +22,37 @@ def calculate_quality_score(comments):
             score -= 1
     return max(0, score)
 
+def v2_inputs(access_token: str, repo_full_name: str, pr_number: int, pr_title: str, db=None, repo_id=None):
+    """(head_content provider, PR text) for retrieval v2, or (None, "") under v1 or on error.
+    Files are fetched at the PR head commit on first use and cached for the review.  A repository
+    without a knowledge-graph snapshot (indexed before v2 was enabled) gets its first v2 index
+    requested here; this review falls back to v1."""
+    from backend.core.config import settings
+
+    if getattr(settings, "RETRIEVAL_ENGINE", "v1") != "v2":
+        return None, ""
+    if db is not None and repo_id is not None:
+        from backend.services.kg_indexer import current_snapshot, index_default_branch_background
+
+        if current_snapshot(db, repo_id) is None:
+            index_default_branch_background(repo_id, access_token, repo_full_name)
+    try:
+        from backend.services.github import get_file_content_at, get_pull_request_meta
+
+        meta = get_pull_request_meta(access_token, repo_full_name, pr_number)
+    except Exception as e:  # noqa: BLE001
+        logger.error(f"Could not read PR {pr_number} metadata for retrieval v2: {e}")
+        return None, ""
+    cache: dict = {}
+
+    def head_content(path: str):
+        if path not in cache:
+            cache[path] = get_file_content_at(access_token, repo_full_name, path, meta["head_sha"])
+        return cache[path]
+
+    return head_content, f"{pr_title}\n\n{meta['body']}".strip()
+
+
 def process_pr_review(repo_full_name: str, pr_number: int, pr_title: str, pr_author: str):
     db = SessionLocal()
     try:
@@ -69,7 +100,9 @@ def process_pr_review(repo_full_name: str, pr_number: int, pr_title: str, pr_aut
                 from backend.services.rag import get_relevant_context
                 # Extract changed file paths from diff
                 changed_files = [line.split(' b/')[-1] for line in diff.split('\n') if line.startswith('diff --git')]
-                rag_context = get_relevant_context(repo.id, diff, db, changed_file_paths=changed_files)
+                head_content, pr_text = v2_inputs(user.access_token, repo_full_name, pr_number, pr_title, db, repo.id)
+                rag_context = get_relevant_context(repo.id, diff, db, changed_file_paths=changed_files,
+                                                   head_content=head_content, pr_text=pr_text)
 
             # Get review from LLM
             comments = get_review_from_llm(pr_title, pr_author, repo_full_name, diff, rag_context)
