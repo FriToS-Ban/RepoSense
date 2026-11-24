@@ -55,6 +55,8 @@ class RetrievalConfig:
     prf_weight: float = 0.3
     dense_k: int = 50  # dense: candidates per query (needs RepoRetriever.attach_dense)
     reranker: object | None = None  # a backend.retrieval.ltr.LinearRanker: replaces RRF over `channels` (M9)
+    rerank_pin: tuple = ()  # structural relations placed before the learned ranking, e.g. ("callee_on_changed_line",)
+    rerank_pin_limit: int = 10
 
 
 @dataclass
@@ -222,6 +224,11 @@ class RepoRetriever:
         support = (lambda a, b: idx.pair.get(a, {}).get(b, 0)) if idx is not None and hasattr(idx, "pair") else None
         rows = candidate_features(self, change, pr_text, cfg, overlay, cochange, support, generators=cfg.channels)
         scored = sorted(((i, cfg.reranker.score(f), lab) for i, f, lab in rows), key=lambda x: (-x[1], x[0]))
+        if cfg.rerank_pin:  # relations the reviewer needs but history cannot reward (M11): first, in model order
+            want = {f"structural:{r}" for r in cfg.rerank_pin}
+            pinned = [x for x in scored if want & set(x[2].split("+"))][: cfg.rerank_pin_limit]
+            ids = {x[0] for x in pinned}
+            scored = pinned + [x for x in scored if x[0] not in ids]
         return scored[: cfg.max_candidates], {"reranked_pool": len(rows)}
 
     def _candidates(self, change, exclude: set[int], pr_text: str, cfg, head_content, cochange) -> tuple[list, dict]:

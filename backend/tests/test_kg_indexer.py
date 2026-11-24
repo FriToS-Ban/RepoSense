@@ -168,6 +168,8 @@ class WiringTest(unittest.TestCase):
             from backend.services.context_v2 import get_context_v2
 
             self.assertIsNone(get_context_v2(db, f"repo-{uuid.uuid4()}", diff, head.get))  # no snapshot: caller uses v1
+            js = "diff --git a/web/app.ts b/web/app.ts\nindex 1..2 100644\n--- a/web/app.ts\n+++ b/web/app.ts\n@@ -1 +1 @@\n-a\n+b\n"
+            self.assertIsNone(get_context_v2(db, rid, js, head.get))  # no Python file in the diff: v1 serves it
         finally:
             settings.RETRIEVAL_ENGINE = old
             db.close()

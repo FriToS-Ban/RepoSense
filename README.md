@@ -242,6 +242,7 @@ RepoSense/
 | `FRONTEND_URL` | Frontend base URL (for CORS and redirects) |
 | `BACKEND_URL` | Backend base URL (for OAuth callback and webhooks) |
 | `ENVIRONMENT` | `development` or `production` |
+| `RETRIEVAL_ENGINE` | Review-context retrieval: `v2` (default; knowledge graph v2 + BM25F + PPR + learned fusion, see `docs/retrieval/results/M11.md`) or `v1` (the previous Pinecone-based pipeline, kept for one release as the rollback) |
 
 ---
 

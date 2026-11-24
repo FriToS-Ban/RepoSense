@@ -35,7 +35,7 @@ EVAL_DIR = Path(__file__).resolve().parent
 def systems():
     """name -> RetrievalConfig factory.  Add M3+ systems here."""
     from backend.retrieval.pipeline import RetrievalConfig
-    from backend.retrieval.presets import TUNED_LEXICAL
+    from backend.retrieval.presets import TUNED_LEXICAL, production_config
 
     return {
         "A": lambda: RetrievalConfig(),  # BM25F lexical channel + v2 packing (M2)
@@ -50,6 +50,7 @@ def systems():
         "EA_bfs": lambda: RetrievalConfig(channels=("structural", "lexical"), multihop="bfs"),
         "PA": lambda: RetrievalConfig(channels=("ppr", "lexical")),
         "A_tuned": lambda: RetrievalConfig(channels=("lexical",), **TUNED_LEXICAL),  # M6, selected on T2-train
+        "V2": production_config,  # M11: what production serves
     }
 
 
@@ -65,6 +66,9 @@ def ltr_systems():
         if p.exists():
             m = LinearRanker.load(p)
             out[name] = lambda m=m: RetrievalConfig(channels=tuple(m.meta["generators"]), reranker=m, **TUNED_LEXICAL)
+            if name == "F_nocc":
+                out["F_nocc_pin"] = lambda m=m: RetrievalConfig(channels=tuple(m.meta["generators"]), reranker=m,
+                                                                rerank_pin=("callee_on_changed_line",), **TUNED_LEXICAL)
     return out
 
 

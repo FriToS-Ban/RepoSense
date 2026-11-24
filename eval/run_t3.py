@@ -35,7 +35,7 @@ OUT = EVAL_DIR / "results" / "t3"
 def systems():
     from eval.run_t2 import systems as t2_systems
 
-    keep = ("A", "E", "EA", "P", "PA", "E_ppr", "E_bfs", "A_tuned")  # co-change needs history; T3 sits at the pin
+    keep = ("A", "E", "EA", "P", "PA", "E_ppr", "E_bfs", "A_tuned", "V2")  # co-change needs history; T3 sits at the pin
     out = {k: v for k, v in t2_systems().items() if k in keep}
     try:
         from eval.run_t2 import ltr_systems

@@ -17,6 +17,13 @@ python -m eval.run_t2_v1                 # T2, v1 baseline S2 (indexes every par
 python -m eval.t2_analysis               # T2 diagnostics: graph distance of judged symbols, per-channel ranks, RRF displacement
 python -m eval.compare eval/results/t2-v2:EA eval/results/t2-v2:A --view sym_all
 python -m eval.kg_update_equivalence     # M7: incremental update == full index on 240 real commit pairs
+python -m eval.run_v2 --systems sweep --out eval/results/t1-m5-sweep   # M5: PPR alpha sweep (select on --split dev)
+python -m eval.compare eval/results/t1-m5-sweep:P_a0.1 eval/results/t1-m5-sweep:P_a0.3 --view 2hop_only --split dev
+python -m eval.benchmarks.t2 --train      # T2-train: the 100 qualifying commits per repo before T2-test (tuning, LTR)
+python -m eval.tune_lexical               # M6: BM25F / query-weighting grid on T2-train
+python -m eval.run_t2_dense --hashing     # M8: dense-channel harness with the offline stand-in (real models: see docstring)
+python -m eval.train_ltr                  # M9: learned reranker on T2-train, leave-one-repo-out CV
+python -m eval.benchmarks.t3 && python -m eval.run_t3 && python -m eval.run_t3_v1   # M10: T3 bug injection
 python -m eval.gate t1 FRESH/metrics.json COMMITTED/metrics.json   # regression gate (used by CI)
 python -m eval.kg_eval stats             # knowledge graph v2: cost, invariants, structure, agreement (M1)
 python -m eval.kg_eval score             # gold labels -> per-tier precision/recall, writes backend/kg/calibration.json

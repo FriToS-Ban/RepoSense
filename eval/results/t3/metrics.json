@@ -9,22 +9,57 @@
   "E": {
    "delta": 0.0395,
    "p": 0.032,
-   "p_holm": 0.224
+   "p_holm": 0.48
   },
   "EA": {
    "delta": 0.0395,
    "p": 0.032,
-   "p_holm": 0.224
+   "p_holm": 0.48
   },
   "E_bfs": {
    "delta": 0.0395,
    "p": 0.032,
-   "p_holm": 0.224
+   "p_holm": 0.48
   },
   "E_ppr": {
    "delta": 0.0395,
    "p": 0.032,
-   "p_holm": 0.224
+   "p_holm": 0.48
+  },
+  "F": {
+   "delta": 0.0197,
+   "p": 0.454,
+   "p_holm": 1.0
+  },
+  "F_lexonly": {
+   "delta": 0.0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "F_lexpool": {
+   "delta": 0.0066,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "F_nocc": {
+   "delta": 0.0197,
+   "p": 0.454,
+   "p_holm": 1.0
+  },
+  "F_nocc_pin": {
+   "delta": 0.0395,
+   "p": 0.032,
+   "p_holm": 0.48
+  },
+  "F_nocc_pin_noov": {
+   "delta": 0.0395,
+   "p": 0.032,
+   "p_holm": 0.48
+  },
+  "F_nograph": {
+   "delta": 0.0,
+   "p": 1.0,
+   "p_holm": 1.0
   },
   "P": {
    "delta": 0.0066,
@@ -34,7 +69,12 @@
   "PA": {
    "delta": 0.0395,
    "p": 0.032,
-   "p_holm": 0.224
+   "p_holm": 0.48
+  },
+  "V2": {
+   "delta": 0.0395,
+   "p": 0.032,
+   "p_holm": 0.48
   }
  },
  "sufficiency": {
@@ -230,6 +270,230 @@
    "n": 60,
    "rate": 1.0
   },
+  "F_lexonly|add_param": {
+   "ci95": [
+    0.8596,
+    0.9825
+   ],
+   "n": 57,
+   "rate": 0.9298
+  },
+  "F_lexonly|all": {
+   "ci95": [
+    0.9276,
+    0.9868
+   ],
+   "n": 152,
+   "rate": 0.9605
+  },
+  "F_lexonly|arg_swap": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 35,
+   "rate": 1.0
+  },
+  "F_lexonly|drop_arg": {
+   "ci95": [
+    0.9167,
+    1.0
+   ],
+   "n": 60,
+   "rate": 0.9667
+  },
+  "F_lexpool|add_param": {
+   "ci95": [
+    0.9123,
+    1.0
+   ],
+   "n": 57,
+   "rate": 0.9649
+  },
+  "F_lexpool|all": {
+   "ci95": [
+    0.9342,
+    0.9934
+   ],
+   "n": 152,
+   "rate": 0.9671
+  },
+  "F_lexpool|arg_swap": {
+   "ci95": [
+    0.9143,
+    1.0
+   ],
+   "n": 35,
+   "rate": 0.9714
+  },
+  "F_lexpool|drop_arg": {
+   "ci95": [
+    0.9167,
+    1.0
+   ],
+   "n": 60,
+   "rate": 0.9667
+  },
+  "F_nocc_pin_noov|add_param": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 57,
+   "rate": 1.0
+  },
+  "F_nocc_pin_noov|all": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 152,
+   "rate": 1.0
+  },
+  "F_nocc_pin_noov|arg_swap": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 35,
+   "rate": 1.0
+  },
+  "F_nocc_pin_noov|drop_arg": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 60,
+   "rate": 1.0
+  },
+  "F_nocc_pin|add_param": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 57,
+   "rate": 1.0
+  },
+  "F_nocc_pin|all": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 152,
+   "rate": 1.0
+  },
+  "F_nocc_pin|arg_swap": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 35,
+   "rate": 1.0
+  },
+  "F_nocc_pin|drop_arg": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 60,
+   "rate": 1.0
+  },
+  "F_nocc|add_param": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 57,
+   "rate": 1.0
+  },
+  "F_nocc|all": {
+   "ci95": [
+    0.9539,
+    1.0
+   ],
+   "n": 152,
+   "rate": 0.9803
+  },
+  "F_nocc|arg_swap": {
+   "ci95": [
+    0.9143,
+    1.0
+   ],
+   "n": 35,
+   "rate": 0.9714
+  },
+  "F_nocc|drop_arg": {
+   "ci95": [
+    0.9167,
+    1.0
+   ],
+   "n": 60,
+   "rate": 0.9667
+  },
+  "F_nograph|add_param": {
+   "ci95": [
+    0.8596,
+    0.9825
+   ],
+   "n": 57,
+   "rate": 0.9298
+  },
+  "F_nograph|all": {
+   "ci95": [
+    0.9276,
+    0.9868
+   ],
+   "n": 152,
+   "rate": 0.9605
+  },
+  "F_nograph|arg_swap": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 35,
+   "rate": 1.0
+  },
+  "F_nograph|drop_arg": {
+   "ci95": [
+    0.9167,
+    1.0
+   ],
+   "n": 60,
+   "rate": 0.9667
+  },
+  "F|add_param": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 57,
+   "rate": 1.0
+  },
+  "F|all": {
+   "ci95": [
+    0.9539,
+    1.0
+   ],
+   "n": 152,
+   "rate": 0.9803
+  },
+  "F|arg_swap": {
+   "ci95": [
+    0.9143,
+    1.0
+   ],
+   "n": 35,
+   "rate": 0.9714
+  },
+  "F|drop_arg": {
+   "ci95": [
+    0.9167,
+    1.0
+   ],
+   "n": 60,
+   "rate": 0.9667
+  },
   "PA|add_param": {
    "ci95": [
     1.0,
@@ -293,6 +557,38 @@
    ],
    "n": 60,
    "rate": 0.9667
+  },
+  "V2|add_param": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 57,
+   "rate": 1.0
+  },
+  "V2|all": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 152,
+   "rate": 1.0
+  },
+  "V2|arg_swap": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 35,
+   "rate": 1.0
+  },
+  "V2|drop_arg": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "n": 60,
+   "rate": 1.0
   }
  },
  "systems": [
@@ -303,6 +599,14 @@
   "E_bfs",
   "P",
   "PA",
-  "A_tuned"
+  "A_tuned",
+  "V2",
+  "F",
+  "F_nograph",
+  "F_nocc",
+  "F_lexpool",
+  "F_lexonly",
+  "F_nocc_pin",
+  "F_nocc_pin_noov"
  ]
 }

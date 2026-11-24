@@ -20,7 +20,7 @@ import json
 import sys
 import time
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from eval.benchmarks import t2
@@ -34,7 +34,7 @@ MAX_FILE_BYTES = 1_000_000
 
 def systems():
     from backend.retrieval.pipeline import RetrievalConfig
-    from backend.retrieval.presets import TUNED_LEXICAL
+    from backend.retrieval.presets import TUNED_LEXICAL, production_config
 
     return {
         "A": RetrievalConfig(channels=("lexical",)),
@@ -56,6 +56,8 @@ def systems():
         "PA": RetrievalConfig(channels=("ppr", "lexical")),
         # M6: lexical settings selected on T2-train (backend/retrieval/presets.py)
         "A_tuned": RetrievalConfig(channels=("lexical",), **TUNED_LEXICAL),
+        # M11: what production serves (presets.production_config)
+        "V2": production_config(),
     }
 
 
@@ -71,6 +73,10 @@ def ltr_systems():
         if p.exists():
             m = LinearRanker.load(p)
             out[name] = RetrievalConfig(channels=tuple(m.meta["generators"]), reranker=m, **TUNED_LEXICAL)
+    if "F_nocc" in out:  # M11 candidates: pin callees on changed lines (T1/T3 need them, T2 cannot reward them)
+        base = out["F_nocc"]
+        out["F_nocc_pin"] = replace(base, rerank_pin=("callee_on_changed_line",))
+        out["F_nocc_pin_noov"] = replace(base, rerank_pin=("callee_on_changed_line",), overlay=False)
     return out
 
 

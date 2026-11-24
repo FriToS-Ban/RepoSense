@@ -377,3 +377,10 @@ Its quality on this task is unmeasured.
 **Expected benefit.** Claims that survive the obvious objections: circularity, leakage, noise, multiple comparisons.
 
 **Validation.** M0 reproduces the Phase 1 numbers exactly. T2 is frozen with a dataset card (selection criteria, filters, known biases) before any v2 system is tuned on it.
+
+**Outcome (M4–M11).** The three tiers disagreed often enough to justify the design.
+- **T1 vs T2.** T1 favoured the graph at every step. T2 showed E+A level with lexical retrieval (M4), reversed the PPR-vs-BFS verdict (M5) and penalised the T1-preferred lexical weights (M6).
+- **Learning on T2 alone** produced a reranker that demotes the callees T1 and T3 show reviewers need (M9).
+- **The final decision used all three** (M11): V2 is the system that is good on real co-changes, on structural need, and on bug-relevant context.
+- **Leakage controls held.** Temporal T2-train/T2-test, leave-one-repo-out CV, and a single use of T2-test per decision: the M6 gain transferred from train to test almost intact (+.029 → +.025), and M9's held-out-repository CV ordered the variants as T2-test did, except for one adjacent pair (F_nograph / F_lexpool).
+- **Still open.** The pooled manual judgments and the LLM-detection tier of T3 have not been run.

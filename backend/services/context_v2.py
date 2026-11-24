@@ -20,12 +20,10 @@ _cache_lock = threading.Lock()
 
 
 def production_config():
-    """The configuration v2 serves: System A_tuned (BM25F with the M6 settings + relation-aware
-    packing), the best measured system on T2 so far (docs/retrieval/results/M4.md-M6.md)."""
-    from backend.retrieval.pipeline import RetrievalConfig
-    from backend.retrieval.presets import TUNED_LEXICAL
+    """The configuration v2 serves (system V2 in the benchmarks; docs/retrieval/results/M11.md)."""
+    from backend.retrieval.presets import production_config as cfg
 
-    return RetrievalConfig(channels=("lexical",), **TUNED_LEXICAL)
+    return cfg()
 
 
 def _retriever(db: Session, repo_id: str, sha: str, need_facts: bool):
@@ -55,16 +53,19 @@ def _retriever(db: Session, repo_id: str, sha: str, need_facts: bool):
 
 def get_context_v2(db: Session, repo_id: str, diff: str, head_content: Callable[[str], str | None], pr_text: str = "",
                    config=None) -> str | None:
-    """The v2 context, or None when the repository has no knowledge-graph snapshot yet (the caller
-    then falls back to v1; review.v2_inputs has already requested the first index)."""
+    """The v2 context, or None when v1 should answer: the diff touches no Python file, or the
+    repository has no knowledge-graph snapshot yet (review.v2_inputs has requested the first index)."""
+    from backend.retrieval.diff import parse_unified_diff
     from backend.services.kg_indexer import current_snapshot
 
+    if not any((f.new_path or f.old_path or "").endswith(".py") for f in parse_unified_diff(diff)):
+        return None  # the v2 extractor is Python-only (JS/TS via tree-sitter is a follow-on): v1 serves this diff
     sha = current_snapshot(db, repo_id)
     if sha is None:
         logger.info("kg v2: repository %s has no snapshot yet; falling back to v1", repo_id)
         return None
     cfg = config or production_config()
-    retr = _retriever(db, repo_id, sha, need_facts=any(c in cfg.channels for c in ("structural", "ppr")))
+    retr = _retriever(db, repo_id, sha, need_facts=cfg.overlay and any(c in cfg.channels for c in ("structural", "ppr")))
     res = retr.build_context(diff, head_content, pr_text, config=cfg)
     t = res.trace
     logger.info("kg v2 context: repo=%s snapshot=%s seeds=%d items=%d chars=%d ms=%.1f", repo_id, sha[:10],

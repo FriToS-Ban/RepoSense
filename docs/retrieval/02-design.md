@@ -642,6 +642,7 @@ eval/
    - invariant and update-equivalence tests green
    - then: flip the default, keep v1 code for one release, then delete `code_nodes`/`code_edges` and the v1 paths
 6. **Rollback:** the flag returns to v1. v2 tables are inert.
+7. **Status (2026-11-24):** the default was flipped at M11 ([results/M11.md](results/M11.md)). The served system is V2, chosen on T1, T2 and T3 together, not on the "F" of this plan alone. v1 code and tables remain for one release.
 
 ---
 
@@ -668,7 +669,7 @@ Ordering follows **measured loss magnitudes** first, then dependencies. Each mil
 | **M8** ◐ | Dense channel (per your decision): backends, passage/query types, embedding-model comparison → **B**, **C** | Unmeasured; v1 misconfigured | **Built, not measured:** [results/M8.md](results/M8.md). Pluggable backends, cached embeddings, `dense` channel, T2 harness; no key or local model, so measurement deferred. A non-semantic hashing control clears the "≥5% unique" bar (6.4%), so that clause was amended (ADR-10) |
 | **M9** ✅ | LTR reranker (features §5.4) → **D**, **F**; cross-encoder only as an ablation if a code-capable model is available locally | Fusion quality matters once channels exist | **Done:** [results/M9.md](results/M9.md). Logistic reranker on T2-train (leave-one-repo-out CV). T2-test: F .687 vs A .617 (p_holm .001), vs A_tuned +.045 (p .011), vs EA +.057; graph features +.036 (p .009); learning without graph evidence adds nothing; caveat: absorbs T2's test/callee label biases |
 | **M10** ◐ | T3 end-to-end bug-injection (optional, LLM cost) | Proves review quality, not just retrieval | **Partly done:** [results/M10.md](results/M10.md). T3 v1.0: 152 injected cross-file bugs; context sufficiency S2 (v1) .145 vs A .961 vs graph systems 1.000. LLM detection harness ready, **not run** (paid) |
-| **M11** | Cutover (§8), v1 removal, JS/TS via tree-sitter as a follow-on | — | Cutover criteria met |
+| **M11** ✅ | Cutover (§8), v1 removal, JS/TS via tree-sitter as a follow-on | — | **Done:** [results/M11.md](results/M11.md). `RETRIEVAL_ENGINE` defaults to `v2`, serving V2 (learned fusion over lexical + 1-hop + PPR, callees on changed lines pinned). T2 .681 vs S2 .045 and A .617 (p .0008); T1 deps .962 / impact .995; T3 1.000. v1 kept one release for rollback; JS/TS remains a follow-on |
 
 Phase 4 (research and optimization) runs the ablation grid of §6.5 continuously from M3 on. Phase 5 consolidates `docs/retrieval/` into the project's technical presentation.
 

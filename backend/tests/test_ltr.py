@@ -2,6 +2,7 @@
 import random
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
 from backend.kg.build import build_from_files
@@ -63,6 +64,33 @@ class FeatureAndPipelineTest(unittest.TestCase):
         keys = [c["key"] for c in res.trace["candidates"]]
         self.assertEqual(keys[0], "app/orders.py::place_order")
         self.assertEqual(set(GROUPS), {"lexical", "graph", "cochange", "node"})
+
+
+class ProductionTest(unittest.TestCase):
+    def test_production_config_is_the_evaluated_system(self):
+        from backend.core.config import Settings
+        from backend.retrieval.presets import PRODUCTION_MODEL, TUNED_LEXICAL, production_config
+
+        evaluated = Path(__file__).resolve().parents[2] / "eval" / "results" / "m9-ltr" / "model_F_nocc.json"
+        self.assertEqual(PRODUCTION_MODEL.read_text(encoding="utf-8"), evaluated.read_text(encoding="utf-8"))
+        cfg = production_config()
+        self.assertEqual(cfg.channels, ("lexical", "structural", "ppr"))
+        self.assertEqual(cfg.rerank_pin, ("callee_on_changed_line",))
+        self.assertFalse(cfg.overlay)
+        self.assertEqual(cfg.bm25f_weights, TUNED_LEXICAL["bm25f_weights"])
+        self.assertEqual(Settings.model_fields["RETRIEVAL_ENGINE"].default, "v2")  # the M11 cutover
+
+    def test_pinned_callee_comes_first(self):
+        g = build_from_files("r", [{"path": p, "content": c} for p, c in REPO.items()], confidence={})
+        retr = RepoRetriever(g)
+        d = git_diff("app/orders.py", "@@ -4,1 +4,1 @@", ["-    total = checksum(payload)", "+    total = checksum(payload) + 1"])
+        demote = LinearRanker(("lex_score",), [-5.0], 0.0, [0.0], [1.0])  # a model that would rank checksum last
+        base = RetrievalConfig(channels=("lexical", "structural", "ppr"), reranker=demote)
+        unpinned = [c["key"] for c in retr.build_context(d, REPO.get, config=base).trace["candidates"]]
+        pinned = [c["key"] for c in retr.build_context(d, REPO.get, config=replace(
+            base, rerank_pin=("callee_on_changed_line",))).trace["candidates"]]
+        self.assertEqual(pinned[0], "app/store.py::checksum")
+        self.assertNotEqual(unpinned[0], "app/store.py::checksum")
 
 
 if __name__ == "__main__":
