@@ -667,7 +667,7 @@ Ordering follows **measured loss magnitudes** first, then dependencies. Each mil
 | **M7** ✅ | Incremental indexing v2: tarball acquisition, compare-driven updates, outbox, locks; update-equivalence property tests on T2 history | v1 loses 35% of edges per hub push | **Done:** [results/M7.md](results/M7.md). 240/240 code-changing real commit pairs equivalent, zero orphans; diff-apply 40× faster (ORM synchronisation bug); v2 wired behind `RETRIEVAL_ENGINE` |
 | **M8** | Dense channel (per your decision): backends, passage/query types, embedding-model comparison → **B**, **C** | Unmeasured; v1 misconfigured | Dense kept only if C > A on T2 (p < 0.01) or it adds ≥5% unique relevant candidates at acceptable cost |
 | **M9** | LTR reranker (features §5.4) → **D**, **F**; cross-encoder only as an ablation if a code-capable model is available locally | Fusion quality matters once channels exist | F vs E+A vs C on T2; feature weights reported |
-| **M10** | T3 end-to-end bug-injection (optional, LLM cost) | Proves review quality, not just retrieval | Detection-rate deltas with CIs; FP rate on controls |
+| **M10** ◐ | T3 end-to-end bug-injection (optional, LLM cost) | Proves review quality, not just retrieval | **Partly done:** [results/M10.md](results/M10.md). T3 v1.0: 152 injected cross-file bugs; context sufficiency S2 (v1) .145 vs A .961 vs graph systems 1.000. LLM detection harness ready, **not run** (paid) |
 | **M11** | Cutover (§8), v1 removal, JS/TS via tree-sitter as a follow-on | — | Cutover criteria met |
 
 Phase 4 (research and optimization) runs the ablation grid of §6.5 continuously from M3 on. Phase 5 consolidates `docs/retrieval/` into the project's technical presentation.

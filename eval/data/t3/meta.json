@@ -1,0 +1,36 @@
+{
+ "counts": {
+  "attrs": {
+   "add_param": 10,
+   "drop_arg": 10
+  },
+  "click": {
+   "add_param": 10,
+   "arg_swap": 10,
+   "drop_arg": 10
+  },
+  "flask": {
+   "add_param": 10,
+   "arg_swap": 8,
+   "drop_arg": 10
+  },
+  "httpx": {
+   "add_param": 10,
+   "arg_swap": 1,
+   "drop_arg": 10
+  },
+  "requests": {
+   "add_param": 10,
+   "arg_swap": 10,
+   "drop_arg": 10
+  },
+  "starlette": {
+   "add_param": 7,
+   "arg_swap": 6,
+   "drop_arg": 10
+  }
+ },
+ "per_type_per_repo": 10,
+ "salt": "t3-v1",
+ "t3_version": "1.0"
+}

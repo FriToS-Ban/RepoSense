@@ -1,0 +1,38 @@
+{
+ "share_of_context_from_mutated_file": 0.875,
+ "sufficiency": {
+  "add_param": {
+   "ci95": [
+    0.1754,
+    0.4035
+   ],
+   "n": 57,
+   "rate": 0.2807
+  },
+  "all": {
+   "ci95": [
+    0.0855,
+    0.2039
+   ],
+   "n": 152,
+   "rate": 0.1447
+  },
+  "arg_swap": {
+   "ci95": [
+    0.0,
+    0.1429
+   ],
+   "n": 35,
+   "rate": 0.0571
+  },
+  "drop_arg": {
+   "ci95": [
+    0.0167,
+    0.1333
+   ],
+   "n": 60,
+   "rate": 0.0667
+  }
+ },
+ "system": "S2_fixed_pipeline+bm25_stage1"
+}
