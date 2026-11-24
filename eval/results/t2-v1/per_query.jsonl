@@ -1,0 +1,300 @@
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [1.0, 1.0, 0.5, 0.3333], "sym_all": [0.0, 1.0, 0.0, 0.0333], "sym_tests": [0.0, 1.0, 0.0, 0.0333]}}, "qid": "t2-attrs-000"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-001"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-002"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-003"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-004"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-005"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-006"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-007"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-008"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-009"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-010"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-011"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-012"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [1.0, 1.0, 0.3869, 0.2], "sym_all": [0.0, 1.0, 0.0, 0.027], "sym_tests": [0.0, 1.0, 0.0, 0.027]}}, "qid": "t2-attrs-013"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-014"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-015"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-016"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [1.0, 1.0, 0.5013, 0.25], "sym_all": [0.1176, 0.2941, 0.1299, 0.1111], "sym_code": [0.4, 0.6, 0.2001, 0.1111], "sym_tests": [0.0, 0.1667, 0.0, 0.0667]}}, "qid": "t2-attrs-017"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-018"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-019"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-020"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-021"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-022"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-023"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-024"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-025"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-026"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-027"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-028"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-029"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-030"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-031"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-032"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-033"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-034"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.4, 0.4, 0.3601, 0.5], "sym_all": [0.0, 0.1667, 0.0, 0.0385], "sym_code": [0.0, 1.0, 0.0, 0.0385], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-035"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-036"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-037"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-038"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-039"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-040"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-041"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-042"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-043"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [1.0, 1.0, 0.3562, 0.1667], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-044"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-045"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-046"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-047"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-048"}
+{"category": "commit", "corpus": "attrs", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-attrs-049"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-000"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-001"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.3333, 0.3333, 0.1672, 0.1667], "sym_all": [0.0, 0.25, 0.0, 0.0833], "sym_code": [0.0, 1.0, 0.0, 0.0833], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-002"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-003"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-004"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-005"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-006"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-007"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-008"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-009"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-010"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-011"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-012"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-013"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-014"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-015"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-016"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-017"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-018"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-019"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-020"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-021"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-022"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-023"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-024"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-025"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-026"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-027"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-028"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-029"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-030"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-031"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-032"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [1.0, 1.0, 0.3333, 0.1429], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-033"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-034"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-035"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-036"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-037"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-038"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-039"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-040"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-041"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-042"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-043"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-044"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-045"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-046"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-047"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-048"}
+{"category": "commit", "corpus": "click", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-click-049"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-000"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-001"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-002"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-003"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-004"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-005"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-006"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-007"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-008"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-009"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-010"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-011"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-012"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-013"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-014"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-015"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-016"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-017"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-018"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-019"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.25, 0.25, 0.151, 0.2], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-020"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-021"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-022"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-023"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-024"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-025"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-026"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.5, 0.5, 0.3066, 0.3333], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-027"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.5, 0.5, 0.3191, 0.25], "sym_all": [0.1667, 0.1667, 0.0955, 0.125], "sym_code": [0.1667, 0.1667, 0.0955, 0.125]}}, "qid": "t2-flask-028"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-029"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-030"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-031"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-032"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.3333, 0.3333, 0.2021, 0.25], "sym_all": [0.2, 0.2, 0.098, 0.1], "sym_code": [0.2, 0.2, 0.098, 0.1]}}, "qid": "t2-flask-033"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-034"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-035"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-036"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-037"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-038"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-039"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-040"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-041"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-042"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-043"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-044"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-045"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.5, 0.5, 0.2184, 0.1667], "sym_all": [0.0, 0.5, 0.0, 0.0526], "sym_code": [0.0, 1.0, 0.0, 0.0526], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-046"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-047"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-048"}
+{"category": "commit", "corpus": "flask", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-flask-049"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-000"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-001"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [1.0, 1.0, 0.3562, 0.1667], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-002"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-003"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-004"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-005"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-006"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-007"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-008"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-009"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-010"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-011"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-012"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-013"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-014"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-015"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-016"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-017"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-018"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-019"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-020"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-021"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-022"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-023"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-024"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-025"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-026"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-027"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-028"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-029"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-030"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-031"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-032"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-033"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-034"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-035"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-036"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-037"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-038"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.6667, 0.6667, 0.4632, 0.5], "sym_all": [0.0, 0.6667, 0.0, 0.0455], "sym_tests": [0.0, 0.6667, 0.0, 0.0455]}}, "qid": "t2-httpx-039"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-040"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-041"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-042"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-043"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-044"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-045"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-046"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-047"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-048"}
+{"category": "commit", "corpus": "httpx", "m": {"S2": {"file": [1.0, 1.0, 0.3562, 0.1667], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-httpx-049"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-000"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-001"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-002"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-003"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-004"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.3869, 0.2], "sym_all": [0.0, 1.0, 0.0, 0.005], "sym_code": [0.0, 1.0, 0.0, 0.005]}}, "qid": "t2-requests-005"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-006"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-007"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-008"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-009"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-010"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.4307, 0.25], "sym_all": [0.0, 1.0, 0.0, 0.0067], "sym_tests": [0.0, 1.0, 0.0, 0.0067]}}, "qid": "t2-requests-011"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-012"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.5, 0.5, 0.3869, 0.5], "sym_all": [0.25, 0.75, 0.2463, 0.5], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.3333, 1.0, 0.2961, 0.5]}}, "qid": "t2-requests-013"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.5, 0.5, 0.3066, 0.3333], "sym_all": [0.0, 0.5, 0.0, 0.0054], "sym_code": [0.0, 0.5, 0.0, 0.0054]}}, "qid": "t2-requests-014"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-015"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-016"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-017"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-018"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-019"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-020"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-021"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-022"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-023"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-024"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.5, 0.3333], "sym_all": [0.0, 1.0, 0.0, 0.0047], "sym_code": [0.0, 1.0, 0.0, 0.0047]}}, "qid": "t2-requests-025"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-026"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-027"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-028"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-029"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-030"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.5, 0.5, 0.2641, 0.25], "sym_all": [0.0, 0.25, 0.0, 0.0055], "sym_code": [0.0, 0.25, 0.0, 0.0055]}}, "qid": "t2-requests-031"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-032"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-033"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-034"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.4307, 0.25], "sym_all": [0.0, 1.0, 0.0, 0.0056], "sym_code": [0.0, 1.0, 0.0, 0.0056]}}, "qid": "t2-requests-035"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-036"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.3869, 0.2], "sym_all": [0.0, 1.0, 0.0, 0.0052], "sym_tests": [0.0, 1.0, 0.0, 0.0052]}}, "qid": "t2-requests-037"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.4307, 0.25], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-038"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.25, 0.25, 0.1952, 0.3333], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-039"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 1.0, 0.0, 0.037], "sym_tests": [0.0, 1.0, 0.0, 0.037]}}, "qid": "t2-requests-040"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-041"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [1.0, 1.0, 0.3869, 0.2], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-042"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-043"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-044"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-045"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-046"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-047"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-048"}
+{"category": "commit", "corpus": "requests", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-requests-049"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-000"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-001"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-002"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-003"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-004"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.4307, 0.25], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-005"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-006"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-007"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-008"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-009"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-010"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-011"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-012"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-013"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-014"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.5, 0.5, 0.3869, 0.5], "sym_all": [0.0, 0.1667, 0.0, 0.0909], "sym_tests": [0.0, 0.1667, 0.0, 0.0909]}}, "qid": "t2-starlette-015"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.4307, 0.25], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-016"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.5, 0.3333], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-017"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.5, 0.3333], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-018"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-019"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-020"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-021"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-022"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.5, 0.5, 0.2184, 0.1667], "sym_all": [0.0, 0.75, 0.0, 0.0526], "sym_code": [0.0, 0.75, 0.0, 0.0526]}}, "qid": "t2-starlette-023"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.5, 0.3333], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-024"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-025"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-026"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-027"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-028"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.6, 0.6, 0.3981, 0.25], "sym_all": [0.0, 0.2, 0.0, 0.0556], "sym_code": [0.0, 0.3333, 0.0, 0.0556], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-029"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-030"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.25, 0.25, 0.1952, 0.3333], "sym_all": [0.0, 0.1429, 0.0, 0.0769], "sym_code": [0.0, 0.3333, 0.0, 0.0769], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-031"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-032"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-033"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-034"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-035"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-036"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-037"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-038"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-039"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-040"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.5, 0.3333], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-041"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [1.0, 1.0, 0.6309, 0.5], "sym_all": [0.0, 0.4286, 0.0, 0.0909], "sym_tests": [0.0, 0.4286, 0.0, 0.0909]}}, "qid": "t2-starlette-042"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-043"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-044"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-045"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-046"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-047"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_code": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-048"}
+{"category": "commit", "corpus": "starlette", "m": {"S2": {"file": [0.0, 0.0, 0.0, 0.0], "sym_all": [0.0, 0.0, 0.0, 0.0], "sym_tests": [0.0, 0.0, 0.0, 0.0]}}, "qid": "t2-starlette-049"}

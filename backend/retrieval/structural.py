@@ -32,15 +32,18 @@ DEP = (EdgeType.CALLS, EdgeType.REFERENCES)
 
 
 def expand(snap: GraphSnapshot, seeds, limit: int = 80, rel_weight: dict | None = None,
-           use_plan: bool = True) -> list[tuple[int, float, str]]:
+           use_plan: bool = True, overlay_out: dict | None = None) -> list[tuple[int, float, str]]:
+    """``overlay_out``: seed key -> [(base index, edge type, confidence, head-side lines)] — the seed's
+    outgoing dependencies resolved on the HEAD version of its file (new calls, new symbols)."""
     weights = {**REL_WEIGHT, **(rel_weight or {})}
     seed_idx = {sd.index for sd in seeds if sd.index is not None}
     best: dict[int, tuple[float, str]] = {}
 
     for sd in seeds:
         i = sd.index
-        if i is None:
-            continue  # symbols added by the change need an overlay graph (not in the base snapshot)
+        ov = (overlay_out or {}).get(sd.key)
+        if i is None and ov is None:
+            continue  # a symbol added by the change, and no overlay graph available
         plan = set(PLAN.get(sd.change, []))
         if "callee_on_changed_line" in plan:
             plan.add("callee")
@@ -53,10 +56,17 @@ def expand(snap: GraphSnapshot, seeds, limit: int = 80, rel_weight: dict | None 
             if sc > best.get(j, (0.0, ""))[0]:
                 best[j] = (sc, rel)
 
-        for t in DEP:
-            for j, conf, _w in snap.neighbors(i, t, "out"):
-                lines = snap.evidence.get((i, j, t), [])
+        if ov is not None:
+            for j, _t, conf, lines in ov:
                 offer(j, "callee_on_changed_line" if sd.lines.intersection(lines) else "callee", conf)
+        else:
+            for t in DEP:
+                for j, conf, _w in snap.neighbors(i, t, "out"):
+                    lines = snap.evidence.get((i, j, t), [])
+                    offer(j, "callee_on_changed_line" if sd.lines.intersection(lines) else "callee", conf)
+        if i is None:
+            continue
+        for t in DEP:
             for j, conf, _w in snap.neighbors(i, t, "in"):
                 offer(j, "caller", conf)
         for j, conf, _w in snap.neighbors(i, EdgeType.OVERRIDES, "out"):

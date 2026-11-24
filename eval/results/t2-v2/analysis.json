@@ -1,0 +1,148 @@
+{
+ "by_group": {
+  "all": {
+   "fused_EA_rank_gt_40": 0.173,
+   "generated_any_channel": 0.706,
+   "generated_cochange": 0.293,
+   "generated_cochange_only": 0.009,
+   "generated_lexical": 0.657,
+   "generated_lexical_deep_k1000": 0.973,
+   "generated_structural": 0.235,
+   "generated_structural_only": 0.04,
+   "graph_distance": {
+    "1": 0.264,
+    "2": 0.277,
+    "3": 0.184,
+    "4": 0.163,
+    "unreachable": 0.111
+   },
+   "hop1_relations": {
+    "callee": 31,
+    "caller": 256,
+    "override": 2,
+    "tests": 7
+   },
+   "hop2_patterns_top": {
+    "callee>callee": 4,
+    "callee>caller": 127,
+    "callee>child": 19,
+    "caller>callee": 30,
+    "caller>caller": 27,
+    "caller>parent": 22,
+    "parent>caller": 72,
+    "tests>callee": 4
+   },
+   "in_base_snapshot": 1.0,
+   "in_ctx_A": 0.496,
+   "in_ctx_A_given_dist1": 0.598,
+   "in_ctx_A_given_unreachable": 0.365,
+   "in_ctx_E": 0.184,
+   "in_ctx_EA": 0.485,
+   "in_ctx_E_given_dist1": 0.659,
+   "lexical_rank_gt_40": 0.114,
+   "n": 1122,
+   "relation_missing_le2": 0.459,
+   "within_2_of_anchor_file": 0.652
+  },
+  "code": {
+   "fused_EA_rank_gt_40": 0.207,
+   "generated_any_channel": 0.804,
+   "generated_cochange": 0.37,
+   "generated_cochange_only": 0.016,
+   "generated_lexical": 0.769,
+   "generated_lexical_deep_k1000": 0.992,
+   "generated_structural": 0.212,
+   "generated_structural_only": 0.019,
+   "graph_distance": {
+    "1": 0.26,
+    "2": 0.394,
+    "3": 0.158,
+    "4": 0.091,
+    "unreachable": 0.097
+   },
+   "hop1_relations": {
+    "callee": 31,
+    "caller": 66
+   },
+   "hop2_patterns_top": {
+    "callee>callee": 4,
+    "callee>caller": 76,
+    "callee>child": 19,
+    "caller>callee": 29,
+    "caller>caller": 7,
+    "child>callee": 2,
+    "parent>caller": 3,
+    "tests>callee": 4
+   },
+   "in_base_snapshot": 1.0,
+   "in_ctx_A": 0.547,
+   "in_ctx_A_given_dist1": 0.711,
+   "in_ctx_A_given_unreachable": 0.434,
+   "in_ctx_E": 0.174,
+   "in_ctx_EA": 0.491,
+   "in_ctx_E_given_dist1": 0.557,
+   "lexical_rank_gt_40": 0.118,
+   "n": 373,
+   "relation_missing_le2": 0.346,
+   "within_2_of_anchor_file": 0.737
+  },
+  "tests": {
+   "fused_EA_rank_gt_40": 0.152,
+   "generated_any_channel": 0.657,
+   "generated_cochange": 0.255,
+   "generated_cochange_only": 0.005,
+   "generated_lexical": 0.601,
+   "generated_lexical_deep_k1000": 0.964,
+   "generated_structural": 0.247,
+   "generated_structural_only": 0.051,
+   "graph_distance": {
+    "1": 0.266,
+    "2": 0.219,
+    "3": 0.198,
+    "4": 0.199,
+    "unreachable": 0.119
+   },
+   "hop1_relations": {
+    "caller": 190,
+    "override": 2,
+    "tests": 7
+   },
+   "hop2_patterns_top": {
+    "callee>caller": 51,
+    "caller>callee": 1,
+    "caller>caller": 20,
+    "caller>parent": 21,
+    "caller>tests": 1,
+    "parent>caller": 69,
+    "subclass>caller": 1
+   },
+   "in_base_snapshot": 1.0,
+   "in_ctx_A": 0.47,
+   "in_ctx_A_given_dist1": 0.543,
+   "in_ctx_A_given_unreachable": 0.342,
+   "in_ctx_E": 0.188,
+   "in_ctx_EA": 0.482,
+   "in_ctx_E_given_dist1": 0.709,
+   "lexical_rank_gt_40": 0.111,
+   "n": 749,
+   "relation_missing_le2": 0.515,
+   "within_2_of_anchor_file": 0.61
+  }
+ },
+ "judged": 1122,
+ "queries": 300,
+ "queries_summary": {
+  "mean_EA_top10_intruders": 4.85,
+  "mean_EA_top10_intruders_relevant": 0.23,
+  "mean_EA_top10_intruders_structural_only": 1.91,
+  "mean_E_packed": 10.97,
+  "mean_lex_candidates": 76.83,
+  "mean_lost_from_A_top10_in_EA": 0.42,
+  "mean_seeds": 3.32,
+  "mean_struct_candidates": 19.21,
+  "share_E_packed_in_anchor_file": 0.282,
+  "share_E_packed_in_test_files": 0.313,
+  "share_queries_losing_relevant_top10": 0.24,
+  "share_queries_with_added_seed": 0.183
+ }
+}

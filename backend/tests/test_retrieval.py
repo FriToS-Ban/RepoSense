@@ -164,6 +164,54 @@ class StructuralTest(unittest.TestCase):
         keys = [it.key for it in retr.build_context(d, files.get).items]
         self.assertEqual(keys[0], "app/orders.py::audit")
         self.assertIn("app/orders.py::cancel_order", keys)  # same-file callee: eligible for the structural channel
+        xfile = RetrievalConfig(channels=("structural",), structural_same_file=False)
+        keys = [it.key for it in retr.build_context(d, files.get, config=xfile).items]
+        self.assertNotIn("app/orders.py::cancel_order", keys)  # ablation: other files only
+        self.assertEqual(keys[0], "app/orders.py::audit")  # the seed itself is still packed
+
+
+class OverlayAndCoChangeTest(unittest.TestCase):
+    def test_overlay_sees_calls_added_by_the_change(self):
+        from backend.kg.extract_python import extract
+
+        files = dict(REPO)
+        files["app/store.py"] += "def audit_log(event):\n    return event\n"
+        facts = [extract(p, c) for p, c in files.items()]
+        from backend.kg.build import build_graph
+
+        retr = RepoRetriever(build_graph("r", facts, confidence={}), RetrievalConfig(channels=("structural",)), facts=facts)
+        head = files["app/orders.py"].replace("from app.store import Store, checksum",
+                                              "from app.store import Store, audit_log, checksum")
+        head = head.replace("    total = checksum(payload)\n", "    total = checksum(payload)\n    audit_log(total)\n")
+        d = (git_diff("app/orders.py", "@@ -1,1 +1,1 @@", ["-from app.store import Store, checksum",
+                                                         "+from app.store import Store, audit_log, checksum"])
+             + "@@ -4,1 +4,2 @@\n     total = checksum(payload)\n+    audit_log(total)\n")
+        provider = lambda p: head if p == "app/orders.py" else files.get(p)  # noqa: E731
+        with_overlay = [it.key for it in retr.build_context(d, provider).items]
+        self.assertIn("app/store.py::audit_log", with_overlay)  # a call that exists only at HEAD
+        without = [it.key for it in retr.build_context(d, provider, config=RetrievalConfig(channels=("structural",), overlay=False)).items]
+        self.assertNotIn("app/store.py::audit_log", without)
+
+    def test_cochange_index(self):
+        from backend.retrieval.cochange import CoChangeIndex
+
+        cc = CoChangeIndex(max_files=3, min_support=2)
+        for files in (["a.py", "b.py"], ["a.py", "b.py", "c.py"], ["a.py", "c.py"], ["a.py", "b.py", "c.py", "d.py"]):
+            cc.add(files)  # the 4-file commit is ignored (> max_files)
+        self.assertEqual(cc.related("a.py"), [("b.py", round(2 / 3, 4)), ("c.py", round(2 / 3, 4))])
+        self.assertEqual(cc.related("d.py"), [])
+
+    def test_cochange_channel_offers_coupled_files(self):
+        from backend.retrieval.cochange import CoChangeIndex
+
+        g = build_from_files("r", [{"path": p, "content": c} for p, c in REPO.items()], confidence={})
+        retr = RepoRetriever(g, RetrievalConfig(channels=("cochange",)))
+        cc = CoChangeIndex()
+        for _ in range(3):
+            cc.add(["app/orders.py", "app/api.py"])
+        d = git_diff("app/orders.py", "@@ -8,1 +8,1 @@", ["-    return order_id", "+    return str(order_id)"])
+        keys = [it.key for it in retr.build_context(d, REPO.get, cochange=cc.related).items]
+        self.assertIn("app/api.py::handle", keys)
 
 
 class PipelineTest(unittest.TestCase):

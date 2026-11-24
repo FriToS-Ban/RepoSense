@@ -12,6 +12,10 @@ From the repository root, with the backend virtualenv (Python 3.12):
 python -m eval.run                       # T1 benchmark, v1 baselines S0–S4, scaling experiment (~90 s)
 python -m eval.run_v2                    # T1 benchmark, v2 systems (A = BM25F + v2 packing, ...)
 python -m eval.compare eval/results/t1-v2:A eval/results/t1-v1-baselines:S2_fixed_pipeline+bm25_stage1
+python -m eval.run_t2                    # T2 history benchmark, v2 systems (clones 6 pinned repos, ~80 MB; ~5 min)
+python -m eval.run_t2_v1                 # T2, v1 baseline S2 (indexes every parent snapshot with v1; ~30 min)
+python -m eval.t2_analysis               # T2 diagnostics: graph distance of judged symbols, per-channel ranks, RRF displacement
+python -m eval.compare eval/results/t2-v2:EA eval/results/t2-v2:A --view sym_all
 python -m eval.gate t1 FRESH/metrics.json COMMITTED/metrics.json   # regression gate (used by CI)
 python -m eval.kg_eval stats             # knowledge graph v2: cost, invariants, structure, agreement (M1)
 python -m eval.kg_eval score             # gold labels -> per-tier precision/recall, writes backend/kg/calibration.json
@@ -29,6 +33,8 @@ The tests use only the standard library (`unittest`); `pytest` can also collect 
 | `corpora.py`, `manifest/corpora.json` | Pinned corpora (RepoSense at a git commit via `git archive`; libraries by exact installed version) with content fingerprints. Loading fails on drift unless `--allow-corpus-drift` |
 | `reference/resolver.py` | **Frozen** ground-truth resolver (`REFERENCE_VERSION`). Never edited together with the system under test |
 | `benchmarks/t1.py`, `data/t1/` | T1 structural benchmark: generator, frozen queries + judgments (`queries.jsonl`), `meta.json` |
+| `benchmarks/t2.py`, `data/t2/`, `manifest/t2_repos.json` | T2 history benchmark: miner, frozen queries + judgments, TREC qrels, [dataset card](data/t2/README.md), pinned repositories |
+| `run_v2.py`, `run_t2.py`, `run_t2_v1.py`, `t2_analysis.py` | v2 systems on T1; v2 systems and S2 on T2; T2 diagnostics |
 | `lexical.py` | Baseline tokenizer + Okapi BM25 (deterministic tie-breaking) |
 | `metrics.py`, `stats.py` | P/R/Hit/MRR/nDCG@K, R@all; bootstrap CI, paired randomization test, Holm |
 | `systems/v1.py`, `systems/v1_kg.py` | Replay of the audited v1 stack from git at `V1_COMMIT`, systems S0–S4, v1 KG edge-quality statistics |
@@ -46,6 +52,10 @@ The tests use only the standard library (`unittest`); `pytest` can also collect 
 Views: `sym_xfile` (primary), `sym_all`, `2hop_only`, `graded_1+2hop`, `file_xfile`.
 
 **T1 rewards structural retrieval by construction.** Use it for regression gates and to locate pipeline loss, not to claim that graph retrieval beats text retrieval (design §6.2).
+
+## T2 in one paragraph
+
+300 real commits (the 50 most recent qualifying ones in each of httpx, starlette, flask, click, requests, attrs, pinned). Query = the diff of the commit's largest modified non-test file + its message; base = the parent commit; relevant = the symbols the same commit changed in its other files (1,122; 749 of them tests). Views: `sym_all` (primary), `sym_code`, `sym_tests`, `file`. Co-change history is restricted to commits older than the query. **T2 under-rewards context that is read but not changed** (callees, contracts) and never judges the anchor file's own symbols; read the [dataset card](data/t2/README.md) before quoting it.
 
 ## Systems currently implemented
 
