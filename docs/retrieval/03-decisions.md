@@ -312,6 +312,13 @@ Its quality on this task is unmeasured.
 
 **Validation.** M8: compare nv-embedqa (with correct input types) against at least one code-specialized model on T2, measuring unique-relevant contribution, fusion gain, latency, and cost.
 
+**Outcome (M8, [results/M8.md](results/M8.md)).**
+- The channel is implemented: a pluggable backend, a content-hash embedding cache, the `dense` channel and a T2 harness.
+- It is **not measured**: there is no embedding key outside the committed `.env.save`, and design §7 rules out a local model stack.
+- **Amended keep rule.** A feature-hashing stand-in with no semantics already adds 6.4% "unique relevant candidates" on T2, above the original 5% bar, while lowering A+X recall by .040. A dense model is therefore kept only if
+  1. its fusion with A beats A on T2 R@budget at p < 0.01, **and**
+  2. its unique relevant candidates exceed the hashing control's, with a bootstrap CI that excludes zero.
+
 ---
 
 ## ADR-11: Reranking via a feature-based linear model; cross-encoders only as an ablation

@@ -27,7 +27,7 @@ from backend.retrieval.structural import expand, rrf
 class RetrievalConfig:
     budget: int = 12000
     seed_cap_frac: float = 0.4
-    channels: tuple = ("lexical",)  # any of: lexical, structural, ppr, cochange
+    channels: tuple = ("lexical",)  # any of: lexical, structural, ppr, cochange, dense
     lexical_k: int = 50  # candidates per seed from BM25F
     structural_limit: int = 80
     use_plan: bool = True  # structural: weight relations by the seed's change-type plan
@@ -53,6 +53,7 @@ class RetrievalConfig:
     prf_docs: int = 0  # pseudo-relevance feedback: expand from the top-k hits (0 = off)
     prf_terms: int = 10
     prf_weight: float = 0.3
+    dense_k: int = 50  # dense: candidates per query (needs RepoRetriever.attach_dense)
 
 
 @dataclass
@@ -82,9 +83,30 @@ class RepoRetriever:
         self._overlay_cache: dict = {}
         self._trans: Transitions | None = None
         self.residual = graph.residual
+        self.dense = None  # a backend.retrieval.dense.DenseIndex, attached with attach_dense (M8)
         docs = [(i, _doc_fields(s)) for i, s in enumerate(self.snap.symbols) if s.kind != Kind.MODULE]
         self.lexical = BM25F(docs, self.config.bm25f_weights)
         self.build_seconds = time.perf_counter() - t0
+
+    def attach_dense(self, backend, cache=None) -> None:
+        """Embed this snapshot's symbols (cached by content hash) and enable the 'dense' channel."""
+        from backend.retrieval.dense import DenseIndex
+
+        self.dense = DenseIndex(self.snap, backend, cache)
+
+    def _dense_candidates(self, seeds, exclude: set[int], pr_text: str, cfg) -> list[tuple[int, float, str]]:
+        """One query per seed (its changed and context lines), one for the PR text; merged round-robin."""
+        queries = ["\n".join(t for t, _w in sd.query_lines)[:2000] for sd in seeds if sd.query_lines]
+        if pr_text.strip():
+            queries.append(pr_text[:2000])
+        per_q = [self.dense.search(q, cfg.dense_k, exclude) for q in queries]
+        merged, seen = [], set()
+        for r in range(max((len(x) for x in per_q), default=0)):
+            for lst in per_q:
+                if r < len(lst) and lst[r][0] not in seen:
+                    seen.add(lst[r][0])
+                    merged.append((lst[r][0], lst[r][1], "dense"))
+        return merged
 
     # ------------------------------------------------------------------ channels
     def _seed_query(self, sd, pr_text: str, cfg) -> dict[str, float]:
@@ -214,6 +236,8 @@ class RepoRetriever:
                 per_channel[ch] = [c for c in per_channel[ch] if self.snap.symbols[c[0]].path not in change.changed_paths]
         if "cochange" in cfg.channels and cochange is not None:
             per_channel["cochange"] = self._cochange_candidates(change, exclude, pr_text, cochange, cfg)
+        if "dense" in cfg.channels and self.dense is not None:
+            per_channel["dense"] = self._dense_candidates(change.seeds, exclude, pr_text, cfg)
         if len(per_channel) == 1:
             fused = next(iter(per_channel.values()))
         else:

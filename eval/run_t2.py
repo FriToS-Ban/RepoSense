@@ -178,17 +178,21 @@ def ranked_keys(items, snap) -> list[str]:
     return ranked
 
 
-def evaluate(names: list[str], out_dir: Path, repos=None) -> dict:
+def evaluate(names: list[str], out_dir: Path, repos=None, extra_systems: dict | None = None, prepare=None) -> dict:
+    """``extra_systems``: name -> RetrievalConfig beyond systems(); ``prepare(ctx)`` runs once per
+    query before the systems (e.g. to attach a dense index to ``ctx.retr``)."""
     from backend.kg.model import Kind
 
     queries, meta = t2.load()
-    configs = {**systems(), **sweep_systems()}
+    configs = {**systems(), **sweep_systems(), **(extra_systems or {})}
     per = defaultdict(list)
     diag = defaultdict(list)
     failure = defaultdict(Counter)
     rows = {}
     t_repo, current = time.perf_counter(), None
     for ctx in iter_queries(queries, repos):
+        if prepare is not None:
+            prepare(ctx)
         q, retr = ctx.q, ctx.retr
         snap = retr.snap
         if q.repo != current:
