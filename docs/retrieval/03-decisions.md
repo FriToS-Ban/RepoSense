@@ -175,6 +175,13 @@ Status of all records: **Proposed** (direction approved 2026-11-24). A record mo
 
 **Validation.** `deps-2hop` and `contract` categories (T1), and T2 overall. PPR vs BFS vs 1-hop-only; α sweep; scaling curve of latency vs repo size.
 
+**Outcome (M5, [results/M5.md](results/M5.md)).**
+- Both methods deliver second-hop context.
+- **The benchmarks disagree on which is better.** Typed BFS wins on T1, whose second hop is callee chains. PPR wins on T2's real co-changes: +.040 R@budget, p_holm 4e-4. Pure PPR raises graph-only recall from .222 to .336.
+- α = 0.1 was chosen on T1-dev; T2's curve is flat for α ≤ 0.5.
+- PPR stays the multi-hop method. Fused by flat RRF it *lowers* E+A's recall, so its score enters the M9 reranker as a feature instead.
+- The `contract` category is deferred: override relations connect 2 of 1,122 judged T2 symbols.
+
 ---
 
 ## ADR-07: Context construction as budgeted, relation-aware selection

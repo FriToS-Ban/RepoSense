@@ -10,9 +10,15 @@ All functions are deterministic given ``seed``.
 """
 from __future__ import annotations
 
+import hashlib
 import random
 import statistics
 from typing import Sequence
+
+
+def split_of(qid: str, salt: str = "split-v1") -> str:
+    """Deterministic dev/test assignment of a query (50/50 by hash), for tuning on 'dev' only."""
+    return "dev" if int(hashlib.sha1(f"{salt}|{qid}".encode()).hexdigest(), 16) % 2 == 0 else "test"
 
 
 def bootstrap_ci(values: Sequence[float], n_resamples: int = 2000, alpha: float = 0.05, seed: int = 0):

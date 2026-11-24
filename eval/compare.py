@@ -1,6 +1,6 @@
 """Compare two systems on the same queries with paired statistics.
 
-    python -m eval.compare RESULTS_A:SYSTEM_A RESULTS_B:SYSTEM_B [--view sym_xfile]
+    python -m eval.compare RESULTS_A:SYSTEM_A RESULTS_B:SYSTEM_B [--view sym_xfile] [--split dev|test] [--corpus NAME]
 
 RESULTS_* is a directory written by ``eval.run`` (it contains per_query.jsonl).  Both
 sides may point at the same directory with different systems.  For every
@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 
 from eval.run import PER_QUERY_METRICS
-from eval.stats import bootstrap_ci, holm, paired_randomization_test
+from eval.stats import bootstrap_ci, holm, paired_randomization_test, split_of
 
 
 def _load(spec: str):
@@ -30,8 +30,11 @@ def _load(spec: str):
     return rows, system
 
 
-def compare(a_spec: str, b_spec: str, view: str = "sym_xfile", metrics=PER_QUERY_METRICS) -> list[dict]:
+def compare(a_spec: str, b_spec: str, view: str = "sym_xfile", metrics=PER_QUERY_METRICS, split: str = "",
+            corpus: str = "") -> list[dict]:
     (ra, sa), (rb, sb) = _load(a_spec), _load(b_spec)
+    keep = [q for q in ra if (not split or split_of(q) == split) and (not corpus or ra[q]["corpus"] == corpus)]
+    ra = {q: ra[q] for q in keep}
     report = []
     for category in sorted({r["category"] for r in ra.values()}):
         qids = [q for q in sorted(ra) if q in rb and ra[q]["category"] == category
@@ -57,8 +60,10 @@ def main(argv=None) -> int:
     ap.add_argument("a")
     ap.add_argument("b")
     ap.add_argument("--view", default="sym_xfile")
+    ap.add_argument("--split", default="", choices=("", "dev", "test"), help="restrict to one half (eval.stats.split_of)")
+    ap.add_argument("--corpus", default="", help="restrict to one corpus / repository")
     args = ap.parse_args(argv)
-    rows = compare(args.a, args.b, args.view)
+    rows = compare(args.a, args.b, args.view, split=args.split, corpus=args.corpus)
     print(f"A = {args.a}\nB = {args.b}\nview = {args.view}\n")
     print(f"{'category':9s} {'metric':8s} {'n':>4s} {'A':>7s} {'B':>7s} {'A-B':>8s} {'95% CI':>18s} {'p':>8s} {'p_holm':>8s}")
     for r in rows:

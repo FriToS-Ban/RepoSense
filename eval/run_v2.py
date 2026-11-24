@@ -40,7 +40,26 @@ def systems():
         "A": lambda: RetrievalConfig(),  # BM25F lexical channel + v2 packing (M2)
         "E": lambda: RetrievalConfig(channels=("structural",)),  # typed 1-hop graph expansion (M3)
         "EA": lambda: RetrievalConfig(channels=("structural", "lexical")),  # RRF fusion of E and A (M3)
+        # M5: multi-hop.  *_ppr / *_bfs append PPR / typed-BFS candidates after E's 1-hop list;
+        # P is a pure PPR channel (all hops ranked by PPR mass).
+        "E_ppr": lambda: RetrievalConfig(channels=("structural",), multihop="ppr"),
+        "E_bfs": lambda: RetrievalConfig(channels=("structural",), multihop="bfs"),
+        "P": lambda: RetrievalConfig(channels=("ppr",)),
+        "EA_ppr": lambda: RetrievalConfig(channels=("structural", "lexical"), multihop="ppr"),
+        "EA_bfs": lambda: RetrievalConfig(channels=("structural", "lexical"), multihop="bfs"),
+        "PA": lambda: RetrievalConfig(channels=("ppr", "lexical")),
     }
+
+
+def sweep_systems():
+    """M5 restart-probability sweep (tuned on the T1 dev half, eval.stats.split_of)."""
+    from backend.retrieval.pipeline import RetrievalConfig
+
+    out = {}
+    for a in (0.1, 0.2, 0.3, 0.5, 0.7):
+        out[f"P_a{a}"] = lambda a=a: RetrievalConfig(channels=("ppr",), ppr_alpha=a)
+        out[f"E_ppr_a{a}"] = lambda a=a: RetrievalConfig(channels=("structural",), multihop="ppr", ppr_alpha=a)
+    return out
 
 
 def _bare(qualname: str) -> str:
@@ -55,7 +74,7 @@ def evaluate(names: list[str], out_dir: Path) -> dict:
     specs = corpora.manifest()
     files = {s.name: corpora.load_verified(s) for s in specs}
     queries, _ = t1.load()
-    factories = systems()
+    factories = {**systems(), **sweep_systems()}
     per_sys = defaultdict(list)
     diag = defaultdict(list)
     failure = defaultdict(Counter)
@@ -171,7 +190,7 @@ def main(argv=None) -> int:
     ap.add_argument("--systems", default="all")
     ap.add_argument("--out", default=str(EVAL_DIR / "results" / "t1-v2"))
     args = ap.parse_args(argv)
-    names = list(systems()) if args.systems == "all" else args.systems.split(",")
+    names = {"all": list(systems()), "sweep": list(sweep_systems())}.get(args.systems) or args.systems.split(",")
     res = evaluate(names, Path(args.out))
     cols = ("R@10", "R@20", "MRR", "nDCG@10", "R@all", "R@all_appropriate", "n")
     for cat in ("deps", "impact"):

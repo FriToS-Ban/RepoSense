@@ -46,7 +46,25 @@ def systems():
         "E_noplan": RetrievalConfig(channels=("structural",), use_plan=False),
         "E_xfile": RetrievalConfig(channels=("structural",), structural_same_file=False),
         "EA_noplan": RetrievalConfig(channels=("structural", "lexical"), use_plan=False),
+        # M5: multi-hop (alpha chosen on the T1 dev half; see docs/retrieval/results/M5.md)
+        "E_ppr": RetrievalConfig(channels=("structural",), multihop="ppr"),
+        "E_bfs": RetrievalConfig(channels=("structural",), multihop="bfs"),
+        "P": RetrievalConfig(channels=("ppr",)),
+        "EA_ppr": RetrievalConfig(channels=("structural", "lexical"), multihop="ppr"),
+        "EA_bfs": RetrievalConfig(channels=("structural", "lexical"), multihop="bfs"),
+        "PA": RetrievalConfig(channels=("ppr", "lexical")),
     }
+
+
+def sweep_systems():
+    """M5 restart-probability sweep, reported on T2 for transparency (alpha is chosen on T1-dev)."""
+    from backend.retrieval.pipeline import RetrievalConfig
+
+    out = {}
+    for a in (0.1, 0.2, 0.3, 0.5, 0.7):
+        out[f"P_a{a}"] = RetrievalConfig(channels=("ppr",), ppr_alpha=a)
+        out[f"E_ppr_a{a}"] = RetrievalConfig(channels=("structural",), multihop="ppr", ppr_alpha=a)
+    return out
 
 
 class Snapshotter:
@@ -161,7 +179,7 @@ def evaluate(names: list[str], out_dir: Path, repos=None) -> dict:
     from backend.kg.model import Kind
 
     queries, meta = t2.load()
-    configs = systems()
+    configs = {**systems(), **sweep_systems()}
     per = defaultdict(list)
     diag = defaultdict(list)
     failure = defaultdict(Counter)
@@ -246,7 +264,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default=str(EVAL_DIR / "results" / "t2-v2"))
     ap.add_argument("--repos", default="", help="comma-separated subset (default: all)")
     args = ap.parse_args(argv)
-    names = list(systems()) if args.systems == "all" else args.systems.split(",")
+    names = {"all": list(systems()), "sweep": list(sweep_systems())}.get(args.systems) or args.systems.split(",")
     res = evaluate(names, Path(args.out), [r for r in args.repos.split(",") if r] or None)
     cols = ("P@5", "R@10", "R@20", "MRR", "nDCG@10", "R@all", "n")
     for view in ("sym_all", "sym_code", "sym_tests", "file"):

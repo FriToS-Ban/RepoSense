@@ -18,6 +18,7 @@ from backend.kg.snapshot import GraphSnapshot
 from backend.retrieval.diff import parse_unified_diff
 from backend.retrieval.lexical import BM25F, query_from_lines
 from backend.retrieval.packing import Item, pack
+from backend.retrieval.ppr import Transitions, multihop_candidates
 from backend.retrieval.seeds import PLAN, link
 from backend.retrieval.structural import expand, rrf
 
@@ -26,12 +27,16 @@ from backend.retrieval.structural import expand, rrf
 class RetrievalConfig:
     budget: int = 12000
     seed_cap_frac: float = 0.4
-    channels: tuple = ("lexical",)  # any of: lexical, structural, cochange
+    channels: tuple = ("lexical",)  # any of: lexical, structural, ppr, cochange
     lexical_k: int = 50  # candidates per seed from BM25F
     structural_limit: int = 80
     use_plan: bool = True  # structural: weight relations by the seed's change-type plan
     overlay: bool = True  # structural: re-resolve structurally changed files at HEAD (needs base facts)
     structural_same_file: bool = True  # structural: offer symbols of the changed files (unchanged callees etc.)
+    multihop: str = "none"  # structural: append multi-hop candidates after the 1-hop list: none | ppr | bfs
+    multihop_limit: int = 40
+    ppr_alpha: float = 0.1  # PPR restart probability (also used by the "ppr" channel); chosen on T1-dev (M5)
+    ppr_eps: float = 1e-4  # local-push tolerance
     cochange_files: int = 5  # co-change: coupled files per changed file
     cochange_min_conf: float = 0.1
     cochange_limit: int = 30
@@ -68,6 +73,7 @@ class RepoRetriever:
         self.snap = GraphSnapshot(graph)
         self.facts = {f.path: f for f in facts} if facts else None
         self._overlay_cache: dict = {}
+        self._trans: Transitions | None = None
         docs = [(i, _doc_fields(s)) for i, s in enumerate(self.snap.symbols) if s.kind != Kind.MODULE]
         self.lexical = BM25F(docs, self.config.bm25f_weights)
         self.build_seconds = time.perf_counter() - t0
@@ -153,12 +159,24 @@ class RepoRetriever:
         per_channel = {}
         if "lexical" in cfg.channels:
             per_channel["lexical"] = self._lexical_candidates(change.seeds, exclude, pr_text, cfg)
+        graph_channels = [c for c in ("structural", "ppr") if c in cfg.channels]
+        overlay = self._overlay_out(change, head_content) if graph_channels and cfg.overlay else None
+        if graph_channels and self._trans is None:
+            self._trans = Transitions(self.snap)
         if "structural" in cfg.channels:
-            overlay = self._overlay_out(change, head_content) if cfg.overlay else None
             st = expand(self.snap, change.seeds, cfg.structural_limit, use_plan=cfg.use_plan, overlay_out=overlay)
-            if not cfg.structural_same_file:
-                st = [c for c in st if self.snap.symbols[c[0]].path not in change.changed_paths]
+            if cfg.multihop != "none":
+                seen = {c[0] for c in st}
+                tail = multihop_candidates(self.snap, change.seeds, cfg.multihop, len(st) + cfg.multihop_limit,
+                                           cfg.ppr_alpha, cfg.ppr_eps, overlay, trans=self._trans)
+                st += [c for c in tail if c[0] not in seen][: cfg.multihop_limit]
             per_channel["structural"] = st
+        if "ppr" in cfg.channels:
+            per_channel["ppr"] = multihop_candidates(self.snap, change.seeds, "ppr", cfg.structural_limit, cfg.ppr_alpha,
+                                                     cfg.ppr_eps, overlay, trans=self._trans)
+        if not cfg.structural_same_file:
+            for ch in graph_channels:
+                per_channel[ch] = [c for c in per_channel[ch] if self.snap.symbols[c[0]].path not in change.changed_paths]
         if "cochange" in cfg.channels and cochange is not None:
             per_channel["cochange"] = self._cochange_candidates(change, exclude, pr_text, cochange, cfg)
         if len(per_channel) == 1:
