@@ -67,10 +67,16 @@ class BM25F:
         self.avg = {f: (totals[f] / n) or 1.0 for f in FIELDS}
         self.idf = {t: math.log(1 + (n - m + 0.5) / (m + 0.5)) for t, m in df.items()}
 
-    def search(self, query: dict[str, float], k: int, exclude: set[int] | None = None) -> list[tuple[int, float]]:
+    def search(self, query: dict[str, float], k: int, exclude: set[int] | None = None, weights: dict | None = None,
+               k1: float | None = None, b: float | None = None) -> list[tuple[int, float]]:
+        """Top-k (doc id, score).  ``weights`` / ``k1`` / ``b`` override the index defaults for this query
+        (the index stores raw per-field term frequencies, so no re-indexing is needed)."""
         exclude = exclude or set()
         sc: dict[int, float] = defaultdict(float)
-        k1, b, w, avg = self.k1, self.b, self.w, self.avg
+        k1 = self.k1 if k1 is None else k1
+        b = self.b if b is None else b
+        w = self.w if weights is None else {**DEFAULT_WEIGHTS, **weights}
+        avg = self.avg
         for t in sorted(query):
             idf = self.idf.get(t)
             if idf is None:

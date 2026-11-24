@@ -56,5 +56,15 @@ class T2HelpersTest(unittest.TestCase):
             self.assertNotIn(q.anchor + "::", " ".join(j.key for j in q.judgments))  # anchor symbols are never judged
 
 
+class T2TrainSplitTest(unittest.TestCase):
+    def test_train_is_strictly_older_than_test(self):
+        test, _ = t2.load()
+        train, meta = t2.load("train")
+        self.assertEqual(meta["split"], "train")
+        self.assertFalse({q.sha for q in test} & {q.sha for q in train})
+        for repo in {q.repo for q in test}:
+            self.assertLess(max(q.time for q in train if q.repo == repo), min(q.time for q in test if q.repo == repo) + 1)
+
+
 if __name__ == "__main__":
     unittest.main()

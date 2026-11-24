@@ -1,0 +1,44 @@
+{
+ "queries_per_repo": 100,
+ "repos": {
+  "attrs": {
+   "judged_symbols": 345,
+   "pin": "319c53cc178afe980362c1bd59d8109019e344bd",
+   "queries": 100,
+   "span_days": 1701
+  },
+  "click": {
+   "judged_symbols": 237,
+   "pin": "08b803cf32ceb2ae6a772c62d5da42757a897d44",
+   "queries": 100,
+   "span_days": 1795
+  },
+  "flask": {
+   "judged_symbols": 359,
+   "pin": "49943b5a94413a530761350f04e896f76e8d620e",
+   "queries": 100,
+   "span_days": 1055
+  },
+  "httpx": {
+   "judged_symbols": 442,
+   "pin": "7cff5f79bc78649bbcd3fd9aa7a74c86e0f63016",
+   "queries": 100,
+   "span_days": 829
+  },
+  "requests": {
+   "judged_symbols": 235,
+   "pin": "3c7baaa05ab4aa49cc819ce3a819d260de19c157",
+   "queries": 100,
+   "span_days": 1386
+  },
+  "starlette": {
+   "judged_symbols": 282,
+   "pin": "63d868e1b89063fa1059dafe239e41f924c33805",
+   "queries": 100,
+   "span_days": 1275
+  }
+ },
+ "skipped_most_recent": 50,
+ "split": "train",
+ "t2_version": "1.0"
+}

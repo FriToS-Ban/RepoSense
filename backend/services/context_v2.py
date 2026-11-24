@@ -20,11 +20,12 @@ _cache_lock = threading.Lock()
 
 
 def production_config():
-    """The configuration v2 serves.  System A (BM25F + relation-aware packing) is the best measured
-    system on T2 so far (docs/retrieval/results/M4.md–M6.md); M9/M11 revisit the choice."""
+    """The configuration v2 serves: System A_tuned (BM25F with the M6 settings + relation-aware
+    packing), the best measured system on T2 so far (docs/retrieval/results/M4.md-M6.md)."""
     from backend.retrieval.pipeline import RetrievalConfig
+    from backend.retrieval.presets import TUNED_LEXICAL
 
-    return RetrievalConfig(channels=("lexical",))
+    return RetrievalConfig(channels=("lexical",), **TUNED_LEXICAL)
 
 
 def _retriever(db: Session, repo_id: str, sha: str, need_facts: bool):

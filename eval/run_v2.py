@@ -35,6 +35,7 @@ EVAL_DIR = Path(__file__).resolve().parent
 def systems():
     """name -> RetrievalConfig factory.  Add M3+ systems here."""
     from backend.retrieval.pipeline import RetrievalConfig
+    from backend.retrieval.presets import TUNED_LEXICAL
 
     return {
         "A": lambda: RetrievalConfig(),  # BM25F lexical channel + v2 packing (M2)
@@ -48,6 +49,7 @@ def systems():
         "EA_ppr": lambda: RetrievalConfig(channels=("structural", "lexical"), multihop="ppr"),
         "EA_bfs": lambda: RetrievalConfig(channels=("structural", "lexical"), multihop="bfs"),
         "PA": lambda: RetrievalConfig(channels=("ppr", "lexical")),
+        "A_tuned": lambda: RetrievalConfig(channels=("lexical",), **TUNED_LEXICAL),  # M6, selected on T2-train
     }
 
 

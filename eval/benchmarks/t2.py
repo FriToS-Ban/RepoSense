@@ -30,6 +30,7 @@ REPO_CACHE = EVAL_DIR / ".cache" / "t2" / "repos"
 DATA_DIR = EVAL_DIR / "data" / "t2"
 T2_VERSION = "1.0"
 QUERIES_PER_REPO = 50
+TRAIN_PER_REPO = 100  # T2-train: the next-older qualifying commits (tuning / learning-to-rank, M6/M9)
 MIN_FILES, MAX_FILES, MAX_LINES = 2, 8, 600
 NON_CODE_TOP = {"docs", "doc", "examples", "example", "scripts", "benchmarks", "bench", ".github"}
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build", "site-packages"}
@@ -161,10 +162,13 @@ def _symbols_touched(repo: Path, parent: str, sha: str, path: str) -> set[str]:
     return out
 
 
-def mine(spec: dict, per_repo: int = QUERIES_PER_REPO) -> list[Query]:
+def mine(spec: dict, per_repo: int = QUERIES_PER_REPO, skip: int = 0, prefix: str = "t2") -> list[Query]:
+    """The ``per_repo`` most recent qualifying commits after skipping the ``skip`` most recent ones
+    (skip = QUERIES_PER_REPO gives T2-train, every commit of which is older than all of T2-test)."""
     repo = ensure_clone(spec)
     commits = log_commits(repo, spec["pin"])
     queries: list[Query] = []
+    skipped = 0
     for c in reversed(commits):  # newest first: temporal test split
         if len(queries) >= per_repo:
             break
@@ -192,34 +196,44 @@ def mine(spec: dict, per_repo: int = QUERIES_PER_REPO) -> list[Query]:
                 js.append(Judgment(f"{p}::{q}", bool(TEST_RE.search(p))))
         if not js:
             continue
+        if skipped < skip:
+            skipped += 1
+            continue
         message = git(repo, "log", "-1", "--format=%B", c["sha"]).strip()[:1500]
-        queries.append(Query(f"t2-{spec['name']}-{len(queries):03d}", spec["name"], c["sha"], c["parent"], c["time"],
+        queries.append(Query(f"{prefix}-{spec['name']}-{len(queries):03d}", spec["name"], c["sha"], c["parent"], c["time"],
                              anchor, message, sorted(p for _, p, _ in files), js))
     queries.sort(key=lambda q: q.time)
     return queries
 
 
-def save(queries: list[Query], meta: dict) -> None:
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    with open(DATA_DIR / "queries.jsonl", "w", encoding="utf-8", newline="\n") as fh:
+def _dir(split: str) -> Path:
+    return DATA_DIR if split == "test" else DATA_DIR / split
+
+
+def save(queries: list[Query], meta: dict, split: str = "test") -> None:
+    d = _dir(split)
+    d.mkdir(parents=True, exist_ok=True)
+    with open(d / "queries.jsonl", "w", encoding="utf-8", newline="\n") as fh:
         for q in queries:
             fh.write(json.dumps(asdict(q), sort_keys=True) + "\n")
-    (DATA_DIR / "meta.json").write_text(json.dumps({"t2_version": T2_VERSION, **meta}, indent=1, sort_keys=True) + "\n",
-                                        encoding="utf-8")
-    write_qrels(queries)
+    meta = {"t2_version": T2_VERSION, **meta, **({"split": split} if split != "test" else {})}
+    (d / "meta.json").write_text(json.dumps(meta, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    write_qrels(queries, split)
 
 
-def write_qrels(queries: list[Query]) -> None:
+def write_qrels(queries: list[Query], split: str = "test") -> None:
     """TREC qrels (``qid 0 doc grade``) for the sym_all and file views, for cross-checking with trec_eval."""
     for view in ("sym_all", "file"):
         lines = [f"{q.qid} 0 {doc} {g}" for q in queries for doc, g in sorted(q.grades(view).items())]
-        (DATA_DIR / f"qrels.{view}.txt").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        (_dir(split) / f"qrels.{view}.txt").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
-def load() -> tuple[list[Query], dict]:
-    meta = json.loads((DATA_DIR / "meta.json").read_text(encoding="utf-8"))
+def load(split: str = "test") -> tuple[list[Query], dict]:
+    """split: 'test' (T2 v1.0, the 50 most recent per repo) or 'train' (the next TRAIN_PER_REPO older ones)."""
+    d = _dir(split)
+    meta = json.loads((d / "meta.json").read_text(encoding="utf-8"))
     qs = []
-    with open(DATA_DIR / "queries.jsonl", encoding="utf-8") as fh:
+    with open(d / "queries.jsonl", encoding="utf-8") as fh:
         for line in fh:
             d = json.loads(line)
             d["judgments"] = [Judgment(**j) for j in d["judgments"]]
@@ -231,13 +245,15 @@ if __name__ == "__main__":
     import sys
 
     sys.path.insert(0, str(EVAL_DIR.parent))
+    split = "train" if "--train" in sys.argv else "test"
+    n, skip, prefix = (TRAIN_PER_REPO, QUERIES_PER_REPO, "t2train") if split == "train" else (QUERIES_PER_REPO, 0, "t2")
     all_q, counts = [], {}
     for spec in manifest():
-        qs = mine(spec)
+        qs = mine(spec, n, skip, prefix)
         counts[spec["name"]] = {"pin": spec["pin"], "queries": len(qs),
                                 "judged_symbols": sum(len(q.judgments) for q in qs),
                                 "span_days": round((qs[-1].time - qs[0].time) / 86400) if qs else 0}
         all_q += qs
         print(spec["name"], counts[spec["name"]], flush=True)
-    save(all_q, {"repos": counts, "queries_per_repo": QUERIES_PER_REPO})
+    save(all_q, {"repos": counts, "queries_per_repo": n, **({"skipped_most_recent": skip} if skip else {})}, split)
     print("total", len(all_q))

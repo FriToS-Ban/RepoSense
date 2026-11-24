@@ -241,6 +241,10 @@ Status of all records: **Proposed** (direction approved 2026-11-24). A record mo
 
 **Validation.** Property test: `update(index(A), A→B) == index(B)` on ≥ 200 real consecutive commit pairs from T2 repos. Zero orphan vectors. Push latency measured vs repo size.
 
+**Outcome (M7, [results/M7.md](results/M7.md)).** 240/240 code-changing first-parent commit pairs are equivalent field by field, with zero orphaned edges and exact outbox rows. The median update takes 0.24–0.62 s including SQLite writes. Global re-resolution on every update is affordable at these sizes (the in-memory build is 0.06–0.16 s).
+
+Measuring the update exposed a quadratic ORM synchronisation cost in the diff-apply: 94.7 s for one commit. Core-level executemany statements bring it to 2.3 s.
+
 ---
 
 ## ADR-09: In-house BM25F over symbol fields, built in memory per snapshot
@@ -269,6 +273,12 @@ Status of all records: **Proposed** (direction approved 2026-11-24). A record mo
 **Expected benefit.** Spike D: BM25 over symbols with exclusions + v2 packing gives deps .638 / impact .870 vs v1 S2 .049 / .201. BM25F field weighting is expected to add on top.
 
 **Validation.** BM25 vs BM25F vs field-ablated variants on T1-dev → T2. Residual weighting on/off. PRF (RM3) on/off.
+
+**Outcome (M6, [results/M6.md](results/M6.md)).** Tuning moved to T2-train, because T1 disagrees with history twice.
+- **Fields.** The body field carries the channel (−.161 without it); the docstring field slightly hurts; the name field was over-weighted.
+- **Query.** The PR text adds .061; the residual boost adds a little; PRF does not help.
+- **Selected configuration.** T2-test R@budget +.025 (p .03), nDCG@10 +.026 (p_holm .017); T1 deps −.045; T3 unchanged. It is adopted for production v2 (`presets.TUNED_LEXICAL`).
+- **Query-time field weights** make one index per snapshot serve every configuration.
 
 ---
 

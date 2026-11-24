@@ -34,6 +34,7 @@ MAX_FILE_BYTES = 1_000_000
 
 def systems():
     from backend.retrieval.pipeline import RetrievalConfig
+    from backend.retrieval.presets import TUNED_LEXICAL
 
     return {
         "A": RetrievalConfig(channels=("lexical",)),
@@ -53,6 +54,8 @@ def systems():
         "EA_ppr": RetrievalConfig(channels=("structural", "lexical"), multihop="ppr"),
         "EA_bfs": RetrievalConfig(channels=("structural", "lexical"), multihop="bfs"),
         "PA": RetrievalConfig(channels=("ppr", "lexical")),
+        # M6: lexical settings selected on T2-train (backend/retrieval/presets.py)
+        "A_tuned": RetrievalConfig(channels=("lexical",), **TUNED_LEXICAL),
     }
 
 
@@ -244,12 +247,15 @@ def evaluate(names: list[str], out_dir: Path, repos=None) -> dict:
         "metrics": {f"{c}|{s}|{v}": {**mean_metrics(r), "queries": len(r)} for (c, s, v), r in per.items()},
         "diagnostics": {f"{c}|{s}": mean_metrics(r) for (c, s), r in diag.items()},
         "failure_breakdown": {f"{c}|{s}": dict(sorted(v.items())) for (c, s), v in failure.items()},
-        "ci95_R@all_sym_all": {}, "ci95_R@all_sym_code": {},
+        "ci95_R@all_sym_all": {}, "ci95_R@all_sym_code": {}, "latency_ms": {},
     }
     for (c, s, v), r in per.items():
         if ":" not in c and v in ("sym_all", "sym_code"):
             mean, lo, hi = bootstrap_ci([x["R@all"] for x in r])
             result[f"ci95_R@all_{v}"][f"{c}|{s}"] = [round(mean, 3), round(lo, 3), round(hi, 3)]
+        if ":" not in c and v == "sym_all":  # wall-clock, ignored by the gate; overlay build charged to the first system
+            ls = sorted(x["lat_ms"] for x in r)
+            result["latency_ms"][f"{c}|{s}"] = {"p50": round(ls[len(ls) // 2], 2), "p95": round(ls[int(len(ls) * 0.95) - 1], 2)}
     out_dir.mkdir(parents=True, exist_ok=True)
     _write_json(out_dir / "metrics.json", result)
     with open(out_dir / "per_query.jsonl", "w", encoding="utf-8", newline="\n") as fh:

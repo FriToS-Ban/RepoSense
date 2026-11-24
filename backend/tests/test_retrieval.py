@@ -98,6 +98,27 @@ class BM25FTest(unittest.TestCase):
         self.assertEqual([d for d, _ in bm.search({"token": 1.0}, 3, exclude={0})], [1, 2, 3])
         self.assertEqual(tokenize("HTTPResponse"), ["httpresponse", "http", "response"])
 
+    def test_query_time_parameters_equal_reindexing(self):
+        docs = [(0, {"name": "parse_config", "doc": "read settings", "body": "x"}),
+                (1, {"name": "other", "doc": "parse config settings", "body": "parse config"}),
+                (2, {"name": "settings", "sig": "def settings(path)", "body": "config"})]
+        q = {"parse": 1.0, "config": 1.0, "settings": 0.5}
+        w = {"name": 1.0, "qual": 1.5, "sig": 3.0, "doc": 2.0, "body": 0.5}
+        self.assertEqual(BM25F(docs).search(q, 3, weights=w, k1=2.0, b=0.3), BM25F(docs, w, k1=2.0, b=0.3).search(q, 3))
+
+    def test_query_weighting_options(self):
+        g = build_from_files("r", [{"path": p, "content": c} for p, c in REPO.items()], confidence={})
+        retr = RepoRetriever(g)
+        snap = retr.snap
+        files = parse_unified_diff(git_diff("app/orders.py", "@@ -4,2 +4,2 @@",
+                                            ["-    total = checksum(payload)", "+    total = checksum(payload) + 1",
+                                             "     return store.save(total)"]))
+        sd = next(s for s in link(snap, files, REPO.get).seeds if s.qualname == "place_order")
+        base = retr._seed_query(sd, "fix totals", RetrievalConfig())
+        self.assertEqual((base["checksum"], base["fix"], base["store"]), (1.0, 1.0, 0.5))  # changed, PR text, context
+        self.assertEqual(retr._seed_query(sd, "fix totals", RetrievalConfig(pr_text_weight=0.0)).get("fix", 0.0), 0.0)
+        self.assertNotIn("store", retr._seed_query(sd, "", RetrievalConfig(context_weight=0.0)))
+
 
 class PackingTest(unittest.TestCase):
     @classmethod

@@ -16,7 +16,7 @@ from typing import Callable
 from backend.kg.model import Graph, Kind
 from backend.kg.snapshot import GraphSnapshot
 from backend.retrieval.diff import parse_unified_diff
-from backend.retrieval.lexical import BM25F, query_from_lines
+from backend.retrieval.lexical import BM25F, query_from_lines, tokenize
 from backend.retrieval.packing import Item, pack
 from backend.retrieval.ppr import Transitions, multihop_candidates
 from backend.retrieval.seeds import PLAN, link
@@ -44,8 +44,15 @@ class RetrievalConfig:
     channel_weights: dict | None = None  # RRF weights per channel
     max_candidates: int = 40  # after merging seeds / fusing channels
     min_rel_score: float = 0.15  # lexical: drop candidates scoring below this fraction of the best
-    bm25f_weights: dict | None = None
+    bm25f_weights: dict | None = None  # BM25F field weights (query time; defaults in lexical.DEFAULT_WEIGHTS)
+    bm25_k1: float | None = None  # None = index default (1.2)
+    bm25_b: float | None = None  # None = index default (0.75)
     pr_text_weight: float = 1.0
+    context_weight: float = 0.5  # unchanged lines of a hunk inside a seed (changed lines weigh 1.0)
+    residual_weight: float | None = None  # boost query terms of the seed's unresolved reference chains (None = off)
+    prf_docs: int = 0  # pseudo-relevance feedback: expand from the top-k hits (0 = off)
+    prf_terms: int = 10
+    prf_weight: float = 0.3
 
 
 @dataclass
@@ -74,18 +81,46 @@ class RepoRetriever:
         self.facts = {f.path: f for f in facts} if facts else None
         self._overlay_cache: dict = {}
         self._trans: Transitions | None = None
+        self.residual = graph.residual
         docs = [(i, _doc_fields(s)) for i, s in enumerate(self.snap.symbols) if s.kind != Kind.MODULE]
         self.lexical = BM25F(docs, self.config.bm25f_weights)
         self.build_seconds = time.perf_counter() - t0
 
     # ------------------------------------------------------------------ channels
+    def _seed_query(self, sd, pr_text: str, cfg) -> dict[str, float]:
+        """Lexical query of one seed: changed lines (1.0), context lines (context_weight), PR text
+        (pr_text_weight); optionally boosted terms of the seed's unresolved reference chains."""
+        lines = [(t, w if w >= 1.0 else cfg.context_weight) for t, w in sd.query_lines]
+        q = query_from_lines([x for x in lines if x[1] > 0], pr_text, cfg.pr_text_weight)
+        if cfg.residual_weight is not None and sd.index is not None:
+            for chain in self.residual.get(self.snap.ids[sd.index], []):
+                for t in tokenize(chain):
+                    if t in q:
+                        q[t] = max(q[t], cfg.residual_weight)
+        return q
+
+    def _search(self, q: dict[str, float], k: int, exclude: set[int], cfg) -> list[tuple[int, float]]:
+        hits = self.lexical.search(q, k, exclude, cfg.bm25f_weights, cfg.bm25_k1, cfg.bm25_b)
+        if cfg.prf_docs and hits:  # pseudo-relevance feedback: frequent name/signature terms of the top hits
+            df: dict[str, int] = {}
+            for i, _s in hits[: cfg.prf_docs]:
+                s = self.snap.symbols[i]
+                for t in set(tokenize(f"{s.name} {s.signature}")):
+                    df[t] = df.get(t, 0) + 1
+            extra = [t for t, _n in sorted(df.items(), key=lambda kv: (-kv[1], kv[0]))
+                     if t not in q and t in self.lexical.idf][: cfg.prf_terms]
+            if extra:
+                hits = self.lexical.search({**q, **{t: cfg.prf_weight for t in extra}}, k, exclude, cfg.bm25f_weights,
+                                           cfg.bm25_k1, cfg.bm25_b)
+        return hits
+
     def _lexical_candidates(self, seeds, exclude: set[int], pr_text: str, cfg) -> list[tuple[int, float, str]]:
         per_seed = []
         for sd in seeds:
-            q = query_from_lines(sd.query_lines, pr_text, cfg.pr_text_weight)
-            per_seed.append(self.lexical.search(q, cfg.lexical_k, exclude) if q else [])
+            q = self._seed_query(sd, pr_text, cfg)
+            per_seed.append(self._search(q, cfg.lexical_k, exclude, cfg) if q else [])
         if not seeds and pr_text:
-            per_seed.append(self.lexical.search(query_from_lines([], pr_text), cfg.lexical_k, exclude))
+            per_seed.append(self._search(query_from_lines([], pr_text), cfg.lexical_k, exclude, cfg))
         # round-robin across seeds so that one large hunk cannot crowd out the others
         merged, seen = [], set()
         for r in range(max((len(x) for x in per_seed), default=0)):
@@ -110,9 +145,9 @@ class RepoRetriever:
             return []
         q: dict[str, float] = {}
         for sd in change.seeds:
-            for t, w in query_from_lines(sd.query_lines, pr_text, cfg.pr_text_weight).items():
+            for t, w in self._seed_query(sd, pr_text, cfg).items():
                 q[t] = max(q.get(t, 0.0), w)
-        lex = dict(self.lexical.search(q, 5000, exclude)) if q else {}
+        lex = dict(self.lexical.search(q, 5000, exclude, cfg.bm25f_weights, cfg.bm25_k1, cfg.bm25_b)) if q else {}
         per_file = []
         for path, conf in sorted(files.items(), key=lambda kv: (-kv[1], kv[0])):
             idx = [i for i in self.snap.symbols_in(path) if i not in exclude and self.snap.symbols[i].kind != Kind.MODULE]
