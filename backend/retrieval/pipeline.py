@@ -54,6 +54,7 @@ class RetrievalConfig:
     prf_terms: int = 10
     prf_weight: float = 0.3
     dense_k: int = 50  # dense: candidates per query (needs RepoRetriever.attach_dense)
+    reranker: object | None = None  # a backend.retrieval.ltr.LinearRanker: replaces RRF over `channels` (M9)
 
 
 @dataclass
@@ -212,7 +213,20 @@ class RepoRetriever:
                     out.setdefault(wanted[e.src], []).append((j, e.type, e.confidence, list(e.lines)))
         return out
 
+    def _reranked(self, change, pr_text: str, cfg, head_content, cochange) -> tuple[list, dict]:
+        """Learned fusion (M9): the union of the configured channels' candidates, scored by cfg.reranker."""
+        from backend.retrieval.ltr import candidate_features
+
+        overlay = self._overlay_out(change, head_content) if cfg.overlay else None
+        idx = getattr(cochange, "__self__", None)  # a bound CoChangeIndex.related exposes support counts
+        support = (lambda a, b: idx.pair.get(a, {}).get(b, 0)) if idx is not None and hasattr(idx, "pair") else None
+        rows = candidate_features(self, change, pr_text, cfg, overlay, cochange, support, generators=cfg.channels)
+        scored = sorted(((i, cfg.reranker.score(f), lab) for i, f, lab in rows), key=lambda x: (-x[1], x[0]))
+        return scored[: cfg.max_candidates], {"reranked_pool": len(rows)}
+
     def _candidates(self, change, exclude: set[int], pr_text: str, cfg, head_content, cochange) -> tuple[list, dict]:
+        if cfg.reranker is not None:
+            return self._reranked(change, pr_text, cfg, head_content, cochange)
         per_channel = {}
         if "lexical" in cfg.channels:
             per_channel["lexical"] = self._lexical_candidates(change.seeds, exclude, pr_text, cfg)

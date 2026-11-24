@@ -342,6 +342,12 @@ Its quality on this task is unmeasured.
 
 **Validation.** D vs C, F vs E+A on T2 (paired tests); cross-encoder ablation on the same pool if feasible; latency per review.
 
+**Outcome (M9, [results/M9.md](results/M9.md)).** Logistic regression with IRLS over 26 features, trained on T2-train, L2 by leave-one-repo-out CV.
+- **Main result.** On T2-test, F beats E+A by .057 R@budget (p .003) and A by .070 (p_holm .001).
+- **Ablations.** Graph features add .036 at a fixed pool. Graph-as-generator adds no significant gain; learning without new evidence adds nothing; co-change adds nothing.
+- **Caveat.** The model learns T2's label biases: tests up, read-only callees down. A deployed configuration needs a rule for callees on changed lines (M11).
+- **Not run.** The cross-encoder ablation: no code-capable model is available locally.
+
 ---
 
 ## ADR-12: Three-tier evaluation with circularity and leakage controls

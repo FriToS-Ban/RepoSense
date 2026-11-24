@@ -1,0 +1,267 @@
+{
+ "l2_grid": [
+  0.1,
+  1.0,
+  10.0,
+  100.0
+ ],
+ "neg_per_pos": 20,
+ "pool_recall": {
+  "F": 0.8358,
+  "F_lexonly": 0.7542,
+  "F_lexpool": 0.7542,
+  "F_nocc": 0.8316,
+  "F_nograph": 0.8358
+ },
+ "queries": 600,
+ "repos": [
+  "attrs",
+  "click",
+  "flask",
+  "httpx",
+  "requests",
+  "starlette"
+ ],
+ "variants": {
+  "F": {
+   "cv": {
+    "0.1": {
+     "R@40": 0.7384,
+     "nDCG@10": 0.4251
+    },
+    "1.0": {
+     "R@40": 0.74,
+     "nDCG@10": 0.425
+    },
+    "10.0": {
+     "R@40": 0.7415,
+     "nDCG@10": 0.4254
+    },
+    "100.0": {
+     "R@40": 0.7408,
+     "nDCG@10": 0.4276
+    }
+   },
+   "generators": [
+    "lexical",
+    "structural",
+    "ppr",
+    "cochange"
+   ],
+   "l2": 10.0,
+   "weights": {
+    "cc_conf": 0.1945,
+    "cc_support_log": 0.0036,
+    "fanin_log": -0.4701,
+    "is_class": 0.1013,
+    "is_method": -0.0566,
+    "is_private": -0.0069,
+    "is_test": 0.4988,
+    "lex_gen": 0.4322,
+    "lex_rrank": 0.1782,
+    "lex_score": 0.6866,
+    "name_on_changed_line": 0.1841,
+    "ppr_log": 0.1608,
+    "ppr_rrank": 0.1757,
+    "rel_callee": -0.214,
+    "rel_callee_on_changed_line": -0.1724,
+    "rel_caller": -0.0295,
+    "rel_overridden": 0.0081,
+    "rel_override": 0.0775,
+    "rel_parent": 0.0,
+    "rel_tested": 0.0,
+    "rel_tests": -0.038,
+    "same_dir": 0.5275,
+    "same_top": -0.1231,
+    "size_log": 0.0202,
+    "struct_score": 0.3751,
+    "two_hop": 0.1946
+   }
+  },
+  "F_lexonly": {
+   "cv": {
+    "0.1": {
+     "R@40": 0.6893,
+     "nDCG@10": 0.3933
+    },
+    "1.0": {
+     "R@40": 0.6894,
+     "nDCG@10": 0.3932
+    },
+    "10.0": {
+     "R@40": 0.6925,
+     "nDCG@10": 0.3933
+    },
+    "100.0": {
+     "R@40": 0.6969,
+     "nDCG@10": 0.3941
+    }
+   },
+   "generators": [
+    "lexical"
+   ],
+   "l2": 100.0,
+   "weights": {
+    "fanin_log": -0.228,
+    "is_class": 0.0005,
+    "is_method": 0.0142,
+    "is_private": -0.0234,
+    "is_test": 0.3406,
+    "lex_gen": 0.0,
+    "lex_rrank": 0.2496,
+    "lex_score": 0.5932,
+    "name_on_changed_line": 0.1932,
+    "same_dir": 0.3981,
+    "same_top": -0.2468,
+    "size_log": -0.0378
+   }
+  },
+  "F_lexpool": {
+   "cv": {
+    "0.1": {
+     "R@40": 0.7026,
+     "nDCG@10": 0.422
+    },
+    "1.0": {
+     "R@40": 0.7025,
+     "nDCG@10": 0.4225
+    },
+    "10.0": {
+     "R@40": 0.7037,
+     "nDCG@10": 0.4243
+    },
+    "100.0": {
+     "R@40": 0.7083,
+     "nDCG@10": 0.4265
+    }
+   },
+   "generators": [
+    "lexical"
+   ],
+   "l2": 100.0,
+   "weights": {
+    "cc_conf": 0.2176,
+    "cc_support_log": 0.0088,
+    "fanin_log": -0.3041,
+    "is_class": 0.0345,
+    "is_method": -0.0588,
+    "is_private": -0.0429,
+    "is_test": 0.238,
+    "lex_gen": 0.0,
+    "lex_rrank": 0.2422,
+    "lex_score": 0.4949,
+    "name_on_changed_line": 0.1832,
+    "ppr_log": 0.148,
+    "ppr_rrank": 0.1207,
+    "rel_callee": -0.114,
+    "rel_callee_on_changed_line": -0.1145,
+    "rel_caller": 0.0783,
+    "rel_overridden": -0.0101,
+    "rel_override": 0.0334,
+    "rel_parent": 0.0,
+    "rel_tested": 0.0,
+    "rel_tests": 0.0279,
+    "same_dir": 0.3148,
+    "same_top": -0.1863,
+    "size_log": -0.0668,
+    "struct_score": 0.2256,
+    "two_hop": 0.1768
+   }
+  },
+  "F_nocc": {
+   "cv": {
+    "0.1": {
+     "R@40": 0.7382,
+     "nDCG@10": 0.4157
+    },
+    "1.0": {
+     "R@40": 0.7381,
+     "nDCG@10": 0.4158
+    },
+    "10.0": {
+     "R@40": 0.7398,
+     "nDCG@10": 0.4169
+    },
+    "100.0": {
+     "R@40": 0.7388,
+     "nDCG@10": 0.4228
+    }
+   },
+   "generators": [
+    "lexical",
+    "structural",
+    "ppr"
+   ],
+   "l2": 10.0,
+   "weights": {
+    "fanin_log": -0.4745,
+    "is_class": 0.1291,
+    "is_method": 0.0158,
+    "is_private": -0.0117,
+    "is_test": 0.566,
+    "lex_gen": 0.4083,
+    "lex_rrank": 0.184,
+    "lex_score": 0.6967,
+    "name_on_changed_line": 0.1792,
+    "ppr_log": 0.1826,
+    "ppr_rrank": 0.1975,
+    "rel_callee": -0.2555,
+    "rel_callee_on_changed_line": -0.1816,
+    "rel_caller": -0.041,
+    "rel_overridden": -0.0089,
+    "rel_override": 0.0228,
+    "rel_parent": 0.0,
+    "rel_tested": 0.0,
+    "rel_tests": -0.0282,
+    "same_dir": 0.6187,
+    "same_top": -0.1414,
+    "size_log": 0.0488,
+    "struct_score": 0.3938,
+    "two_hop": 0.2109
+   }
+  },
+  "F_nograph": {
+   "cv": {
+    "0.1": {
+     "R@40": 0.7093,
+     "nDCG@10": 0.3994
+    },
+    "1.0": {
+     "R@40": 0.7093,
+     "nDCG@10": 0.3994
+    },
+    "10.0": {
+     "R@40": 0.7116,
+     "nDCG@10": 0.3994
+    },
+    "100.0": {
+     "R@40": 0.71,
+     "nDCG@10": 0.4023
+    }
+   },
+   "generators": [
+    "lexical",
+    "structural",
+    "ppr",
+    "cochange"
+   ],
+   "l2": 10.0,
+   "weights": {
+    "cc_conf": 0.2726,
+    "cc_support_log": 0.0113,
+    "fanin_log": -0.3758,
+    "is_class": 0.0669,
+    "is_method": -0.0683,
+    "is_private": -0.0051,
+    "is_test": 0.6458,
+    "lex_gen": 0.3122,
+    "lex_rrank": 0.199,
+    "lex_score": 0.7453,
+    "name_on_changed_line": 0.1914,
+    "same_dir": 0.5333,
+    "same_top": -0.0983,
+    "size_log": 0.032
+   }
+  }
+ }
+}

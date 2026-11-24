@@ -53,6 +53,21 @@ def systems():
     }
 
 
+def ltr_systems():
+    """M9 learned fusion (models trained on T2-train), evaluated on T1 as a regression check."""
+    from backend.retrieval.ltr import LinearRanker
+    from backend.retrieval.pipeline import RetrievalConfig
+    from backend.retrieval.presets import TUNED_LEXICAL
+
+    out = {}
+    for name in ("F", "F_nocc", "F_lexonly"):
+        p = EVAL_DIR / "results" / "m9-ltr" / f"model_{name}.json"
+        if p.exists():
+            m = LinearRanker.load(p)
+            out[name] = lambda m=m: RetrievalConfig(channels=tuple(m.meta["generators"]), reranker=m, **TUNED_LEXICAL)
+    return out
+
+
 def sweep_systems():
     """M5 restart-probability sweep (tuned on the T1 dev half, eval.stats.split_of)."""
     from backend.retrieval.pipeline import RetrievalConfig
@@ -76,7 +91,7 @@ def evaluate(names: list[str], out_dir: Path) -> dict:
     specs = corpora.manifest()
     files = {s.name: corpora.load_verified(s) for s in specs}
     queries, _ = t1.load()
-    factories = {**systems(), **sweep_systems()}
+    factories = {**systems(), **sweep_systems(), **ltr_systems()}
     per_sys = defaultdict(list)
     diag = defaultdict(list)
     failure = defaultdict(Counter)
@@ -192,7 +207,8 @@ def main(argv=None) -> int:
     ap.add_argument("--systems", default="all")
     ap.add_argument("--out", default=str(EVAL_DIR / "results" / "t1-v2"))
     args = ap.parse_args(argv)
-    names = {"all": list(systems()), "sweep": list(sweep_systems())}.get(args.systems) or args.systems.split(",")
+    names = {"all": list(systems()), "sweep": list(sweep_systems()), "ltr": list(ltr_systems())}.get(args.systems) \
+        or args.systems.split(",")
     res = evaluate(names, Path(args.out))
     cols = ("R@10", "R@20", "MRR", "nDCG@10", "R@all", "R@all_appropriate", "n")
     for cat in ("deps", "impact"):

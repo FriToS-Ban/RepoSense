@@ -59,6 +59,21 @@ def systems():
     }
 
 
+def ltr_systems():
+    """M9: learned fusion with the models trained on T2-train (eval/train_ltr.py), if present."""
+    from backend.retrieval.ltr import LinearRanker
+    from backend.retrieval.pipeline import RetrievalConfig
+    from backend.retrieval.presets import TUNED_LEXICAL
+
+    out = {}
+    for name in ("F", "F_nograph", "F_nocc", "F_lexpool", "F_lexonly"):
+        p = EVAL_DIR / "results" / "m9-ltr" / f"model_{name}.json"
+        if p.exists():
+            m = LinearRanker.load(p)
+            out[name] = RetrievalConfig(channels=tuple(m.meta["generators"]), reranker=m, **TUNED_LEXICAL)
+    return out
+
+
 def sweep_systems():
     """M5 restart-probability sweep, reported on T2 for transparency (alpha is chosen on T1-dev)."""
     from backend.retrieval.pipeline import RetrievalConfig
@@ -184,7 +199,7 @@ def evaluate(names: list[str], out_dir: Path, repos=None, extra_systems: dict | 
     from backend.kg.model import Kind
 
     queries, meta = t2.load()
-    configs = {**systems(), **sweep_systems(), **(extra_systems or {})}
+    configs = {**systems(), **sweep_systems(), **ltr_systems(), **(extra_systems or {})}
     per = defaultdict(list)
     diag = defaultdict(list)
     failure = defaultdict(Counter)
@@ -274,7 +289,8 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default=str(EVAL_DIR / "results" / "t2-v2"))
     ap.add_argument("--repos", default="", help="comma-separated subset (default: all)")
     args = ap.parse_args(argv)
-    names = {"all": list(systems()), "sweep": list(sweep_systems())}.get(args.systems) or args.systems.split(",")
+    names = {"all": list(systems()), "sweep": list(sweep_systems()), "ltr": list(ltr_systems())}.get(args.systems) \
+        or args.systems.split(",")
     res = evaluate(names, Path(args.out), [r for r in args.repos.split(",") if r] or None)
     cols = ("P@5", "R@10", "R@20", "MRR", "nDCG@10", "R@all", "n")
     for view in ("sym_all", "sym_code", "sym_tests", "file"):
